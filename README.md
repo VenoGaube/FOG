@@ -1,0 +1,2 @@
+# FOG
+Decentralized journal
