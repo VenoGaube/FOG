@@ -1,5 +1,10 @@
 {
   "dependencies": {
+    "ganache": "^7.0.3",
+    "openzeppelin-solidity": "^4.5.0",
     "truffle": "^5.5.7"
+  },
+  "scripts": {
+    "ganache": "ganache --wallet.seed myCustomSeed"
   }
 }
