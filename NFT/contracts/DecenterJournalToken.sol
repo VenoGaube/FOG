@@ -3,21 +3,25 @@ pragma solidity ^0.8.0;
 
 import "openzeppelin-solidity/contracts/access/Ownable.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
+import "openzeppelin-solidity/contracts/utils/Counters.sol";
 
 contract DecenterJournalToken is Ownable, ERC721 {
-    
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIdCounter;
+
     struct Metadata {
+        uint256 articleId;
         string title;
-        uint8 discount;
+        string author;
+        string ipfs;
+        uint256 articleData;
     }
 
     mapping(uint256 => Metadata) decenterJournalTokenId;
     string private _currentBaseURI;
 
-    constructor() ERC721("Journal", "DCJ") {
+    constructor() ERC721("Published article Token", "DCJ") {
         setBaseURI("http://localhost/token/");
-
-        mint("Testni journal", 15);
     }
 
     function setBaseURI(string memory baseURI) public onlyOwner {
@@ -28,34 +32,21 @@ contract DecenterJournalToken is Ownable, ERC721 {
         return _currentBaseURI;
     }
 
-    function mint(string memory title, uint8 discount) internal {
-        uint256 tokenId = id(discount);
-        decenterJournalTokenId[tokenId] = Metadata(title, discount);
-        _safeMint(msg.sender, tokenId);
-    }
-
-    function claim(string calldata title, uint8 discount) external payable {
+    function mintAuthor(address authorAddress, string memory title, string memory author, string memory ipfs, uint256 articleData) external payable returns (uint256 tokenId){
         require(msg.value == 0.01 ether, "claiming a token costs 0.01 ether");
 
-        // discount = pseudoRNG(title) % 100000;
-
-        mint(title, discount);
-        payable(owner()).transfer(0.01 ether);
+        _tokenIdCounter.increment();
+        uint256 currentTokenId = _tokenIdCounter.current();
+        decenterJournalTokenId[currentTokenId] = Metadata(currentTokenId, title, author, ipfs, articleData);
+        _safeMint(authorAddress, currentTokenId);
+        return currentTokenId;
     }
 
-    function ownerOf(uint8 discount) public view returns(address){
-        return ownerOf(id(discount));
-    }
-
-    function id(uint8 discount) pure internal returns(uint256) {
-        return (uint256(discount)-1) * 372;
-    }
-
-    function get(uint256 tokenId) external view returns(string memory title, uint8 discount) {
+    function get(uint256 tokenId) external view returns(string memory title, uint256 articleData) {
         require(_exists(tokenId), "token not minted");
         Metadata memory token = decenterJournalTokenId[tokenId];
         title = token.title;
-        discount = token.discount;
+        articleData = token.articleData;
     }
 
     function titleOf(uint256 tokenId) external view returns(string memory) {
@@ -69,6 +60,4 @@ contract DecenterJournalToken is Ownable, ERC721 {
         require(ownerOf(tokenId) == msg.sender, "only the owner of this token can change its title");
         decenterJournalTokenId[tokenId].title = title;
     }
-
-
 }
