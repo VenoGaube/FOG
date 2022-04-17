@@ -32,3 +32,17 @@ Build it with Docker:
 Run it with Docker:
 
 > docker run -p 8080:8080 paper-lifecycle
+
+
+## Deployment
+
+Microservice is available at: https://paper-lifecycle-rnxu55ua6a-uc.a.run.app
+
+Microservice run on Cloud Run on Google Cloud platform. In order to deploy a new version,
+run:
+
+> deploy.bat
+
+And redeploy on Google Cloud Platform.
+
+Continuous deployment will be set up if really needed, because we have a shared repository and are problems with credentials. Moreover, there will probably be not a lot of deployments.

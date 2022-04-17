@@ -9,6 +9,6 @@ public class TestFacade {
 
     @GET
     public Response getTest() {
-        return Response.ok().entity("Test").build();
+        return Response.ok().entity("Test two!").build();
     }
 }
