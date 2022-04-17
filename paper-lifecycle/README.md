@@ -1,18 +1,23 @@
 # Paper lifecycle
 
+## Goals
+
+The main objective of the project is to provide backend services for different processes in the Decentralized Journal project.
+
+List of functionalities:
+* provide REST endpoints for Frontend
+* provide REST endpoints for paper manipulation (e.g. during review process)
+* provide services that will communicate with the databases and IPFS
+
 ## Building the application
 
 Launch the Maven:
 
 > ./mvnw package
 
-
 ## Run 
 
-When you're done iterating in developer mode, you can run the application as a
-conventional jar file.
-
-First compile it:
+Compile it:
 
 > ./mvnw package
 
