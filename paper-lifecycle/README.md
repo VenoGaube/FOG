@@ -9,6 +9,11 @@ List of functionalities:
 * provide REST endpoints for paper manipulation (e.g. during review process)
 * provide services that will communicate with the databases and IPFS
 
+Data storage:
+* not yet accepted articles - Google Cloud Storage
+* released articles - IPFS
+* metadata and other data - Google Firestore (NoSQL document database)
+
 ## Building the application
 
 Launch the Maven:
