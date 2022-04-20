@@ -6,11 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import si.fri.fog.pojo.Metadata;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Slf4j
+@ApplicationScoped
 public class FirestoreService {
 
     private static final String PROJECT_ID = "serene-craft-346112";
@@ -34,6 +36,15 @@ public class FirestoreService {
             log.info("Added metadata {} at time {}", metadata, result.get().getUpdateTime());
         } catch (ExecutionException | InterruptedException e) {
             log.error("Error while saving new metadata to Firestore");
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Metadata getMetadata(String article){
+        String documentId = getDocumentIdFromArticle(article);
+        try {
+            return firestore.collection(METADATA_COLLECTION).document(documentId).get().get().toObject(Metadata.class);
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
     }
