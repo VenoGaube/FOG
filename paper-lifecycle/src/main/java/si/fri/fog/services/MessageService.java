@@ -19,6 +19,12 @@ public class MessageService {
 
     public void notifyEditor(String article){
         User editor = userService.getRandomEditor();
-        mailService.sendEmail(editor.getEmail(), "New article to be reviewed", "Article to be reviewed: " + article + "\n Please assign reviewers!");
+        mailService.sendEmail(editor.getEmail(), "New article was submitted", "Article to be reviewed: " + article + "\n Please assign reviewers!");
     }
+
+    public void notifyReviewer(String article, User reviewer){
+        mailService.sendEmail(reviewer.getEmail(), "New article to be reviewed", "Please review the following article: " + article);
+    }
+
+
 }

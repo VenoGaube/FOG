@@ -2,6 +2,7 @@ package si.fri.fog.services;
 
 import si.fri.fog.pojo.Metadata;
 import si.fri.fog.pojo.Stage;
+import si.fri.fog.pojo.User;
 import si.fri.fog.pojo.dtos.MetadataDTO;
 import si.fri.fog.services.gcp.FirestoreService;
 
@@ -10,6 +11,8 @@ import javax.inject.Inject;
 import java.sql.Date;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class MetadataService {
@@ -25,6 +28,11 @@ public class MetadataService {
 
     public Metadata getMetadata(String article){
         return firestoreService.getMetadata(article);
+    }
+
+    public List<Metadata> getMetadata(User user){
+        List<String> articles = firestoreService.getArticlesFromUser(user);
+        return articles.stream().map(article -> firestoreService.getMetadata(article)).collect(Collectors.toList());
     }
 
     public void updateMetadata(MetadataDTO metadataDTO){

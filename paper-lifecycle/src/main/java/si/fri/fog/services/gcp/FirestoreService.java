@@ -4,12 +4,15 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import lombok.extern.slf4j.Slf4j;
 import si.fri.fog.pojo.Metadata;
+import si.fri.fog.pojo.User;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 @Slf4j
 @ApplicationScoped
@@ -59,6 +62,17 @@ public class FirestoreService {
         data.put("stage", metadata.getStage());
 
         firestore.collection(METADATA_COLLECTION).document(documentId).update(data);
+    }
+
+    public List<String> getArticlesFromUser(User user){
+        var metadatas = firestore.collection(METADATA_COLLECTION);
+        Query query = metadatas.whereEqualTo("user", user.getEmail());
+
+        try {
+            return query.get().get().getDocuments().stream().map(e -> (String)e.get("article")).collect(Collectors.toList());
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private String getDocumentIdFromArticle(String article) {
