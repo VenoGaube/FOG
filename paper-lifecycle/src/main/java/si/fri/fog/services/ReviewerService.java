@@ -7,9 +7,9 @@ import java.util.Collections;
 import java.util.List;
 
 @ApplicationScoped
-public class EditorService {
+public class ReviewerService {
 
-    public void addReviewers(String article, List<String> reviewers){
-
+    public List<User> getReviewers(String article) {
+        return Collections.emptyList();
     }
 }

@@ -1,6 +1,6 @@
-package si.fri.fog.services.ipfs;
+package si.fri.fog.services.storage.ipfs;
 
-import si.fri.fog.services.StorageService;
+import si.fri.fog.services.storage.StorageService;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.io.File;

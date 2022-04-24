@@ -1,10 +1,9 @@
 package si.fri.fog.rest;
 
 import lombok.extern.slf4j.Slf4j;
-import org.eclipse.microprofile.rest.client.annotation.ClientHeaderParam;
 import si.fri.fog.pojo.Role;
 import si.fri.fog.pojo.User;
-import si.fri.fog.services.AuthenticationService;
+import si.fri.fog.services.authorization.AuthenticationService;
 import si.fri.fog.services.MetadataService;
 
 import javax.inject.Inject;

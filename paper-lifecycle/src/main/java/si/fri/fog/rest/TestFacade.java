@@ -1,6 +1,6 @@
 package si.fri.fog.rest;
 
-import si.fri.fog.services.MailService;
+import si.fri.fog.services.messaging.MailService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

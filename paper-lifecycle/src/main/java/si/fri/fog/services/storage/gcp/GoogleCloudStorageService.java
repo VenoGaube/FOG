@@ -1,11 +1,11 @@
-package si.fri.fog.services.gcp;
+package si.fri.fog.services.storage.gcp;
 
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import lombok.extern.slf4j.Slf4j;
-import si.fri.fog.services.StorageService;
+import si.fri.fog.services.storage.StorageService;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;

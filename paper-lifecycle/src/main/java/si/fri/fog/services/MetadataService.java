@@ -4,13 +4,12 @@ import si.fri.fog.pojo.Metadata;
 import si.fri.fog.pojo.Stage;
 import si.fri.fog.pojo.User;
 import si.fri.fog.pojo.dtos.MetadataDTO;
-import si.fri.fog.services.gcp.FirestoreService;
+import si.fri.fog.services.storage.gcp.FirestoreService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.sql.Date;
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 

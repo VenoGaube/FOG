@@ -1,8 +1,8 @@
 package si.fri.fog.services;
 
-import lombok.NoArgsConstructor;
-import si.fri.fog.services.gcp.GoogleCloudStorageService;
-import si.fri.fog.services.ipfs.IPFSStorageService;
+import si.fri.fog.services.storage.gcp.GoogleCloudStorageService;
+import si.fri.fog.services.storage.ipfs.IPFSStorageService;
+import si.fri.fog.services.storage.StorageService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

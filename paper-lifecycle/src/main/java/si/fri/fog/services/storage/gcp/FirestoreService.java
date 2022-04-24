@@ -1,4 +1,4 @@
-package si.fri.fog.services.gcp;
+package si.fri.fog.services.storage.gcp;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;

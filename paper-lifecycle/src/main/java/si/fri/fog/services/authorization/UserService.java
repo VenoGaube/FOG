@@ -1,4 +1,4 @@
-package si.fri.fog.services;
+package si.fri.fog.services.authorization;
 
 import si.fri.fog.pojo.Role;
 import si.fri.fog.pojo.User;

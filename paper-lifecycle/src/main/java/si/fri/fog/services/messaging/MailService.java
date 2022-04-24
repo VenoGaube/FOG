@@ -1,4 +1,4 @@
-package si.fri.fog.services;
+package si.fri.fog.services.messaging;
 
 import com.sendgrid.Method;
 import com.sendgrid.Request;

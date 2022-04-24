@@ -1,11 +1,13 @@
-package si.fri.fog.services;
+package si.fri.fog.services.authorization;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import si.fri.fog.pojo.Role;
 import si.fri.fog.pojo.User;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+@ApplicationScoped
 public class AuthenticationService {
 
     @Inject

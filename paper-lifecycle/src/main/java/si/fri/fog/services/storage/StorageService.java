@@ -1,4 +1,4 @@
-package si.fri.fog.services;
+package si.fri.fog.services.storage;
 
 import java.io.File;
 

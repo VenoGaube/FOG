@@ -1,6 +1,7 @@
-package si.fri.fog.services;
+package si.fri.fog.services.messaging;
 
 import si.fri.fog.pojo.User;
+import si.fri.fog.services.authorization.UserService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

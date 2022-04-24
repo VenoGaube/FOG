@@ -12,12 +12,12 @@ import java.util.List;
 @Path("/admin")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class AdminFacade {
+public class EditorFacade {
 
     private final EditorService editorService;
 
     @Inject
-    public AdminFacade(EditorService editorService){
+    public EditorFacade(EditorService editorService){
         this.editorService = editorService;
     }
 
@@ -28,10 +28,4 @@ public class AdminFacade {
         return Response.noContent().build();
     }
 
-    @GET
-    @Path("/reviewers/{article}")
-    public Response getReviewers(@PathParam("article") String article) {
-        List<User> reviewers = editorService.getReviewers(article);
-        return Response.ok().entity(reviewers).build();
-    }
 }
