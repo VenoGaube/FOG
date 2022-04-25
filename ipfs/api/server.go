@@ -20,6 +20,13 @@ func NewServer(config config.Config) (*Server, error) {
 		config: config,
 	}
 
+	// Setup routing for server.
+	v1 := router.Group("v1")
+	{
+		v1.GET("/ipfs/:cid", server.GetFileByCID)
+		v1.POST("/ipfs", server.UploadFile)
+	}
+
 	// Setup health check routes.
 	health := router.Group("health")
 	{
