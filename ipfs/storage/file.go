@@ -1,4 +1,4 @@
-package ipfs
+package storage
 
 func GetFileByCID() {
 

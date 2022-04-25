@@ -24,5 +24,4 @@ func main() {
 	if err := server.Start(config.ServerAddress); err != nil {
 		log.Fatal("Failed to start a server: ", err)
 	}
-
 }
