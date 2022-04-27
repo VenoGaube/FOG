@@ -30,6 +30,13 @@
 // const mnemonic = process.env.MNEMONIC
 // const clientURL = process.env.ETH_CLIENT_URL
 
+require('dotenv').config()
+
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+
+const mnemonic = process.env.MNEMONIC
+const clientURL = process.env.ETH_CLIENT_URL
+
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -48,6 +55,15 @@ module.exports = {
       network_id: "*",
       gas: 20000000000,
     },
+    rinkeby: {
+      provider: () => new HDWalletProvider(mnemonic, clientURL),
+      network_id: 4,       // Rinkeby's id
+      gas: 6721975,
+      confirmations: 2,    // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true  ,   // Skip dry run before migrations? (default: false for public nets )
+      networkCheckTimeout: 10000000,
+    }
   },
 
   // Set default mocha options here, use special reporters etc.

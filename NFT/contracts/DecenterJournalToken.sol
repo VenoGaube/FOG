@@ -93,4 +93,16 @@ contract DecenterJournalToken is Ownable, ERC721 {
 
         return string(abi.encodePacked(base, tokenId.toString()));
     }
+
+    function claimItem(string memory _tokenURI) public returns (uint256) {
+        _tokenIdCounter.increment();
+        uint256 newItemId = _tokenIdCounter.current();
+        _safeMint(msg.sender, newItemId);
+        _setTokenURI(newItemId, _tokenURI);
+        return newItemId;
+    }
+
+    function totalSupply() public view returns (uint256) {
+        return _tokenIdCounter.current();
+    }
 }
