@@ -1,23 +1,38 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.7;
 
-import "openzeppelin-solidity/contracts/access/Ownable.sol";
-import "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
+import "../node_modules/openzeppelin-solidity/contracts/access/Ownable.sol";
+import "../node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
+import "../node_modules/openzeppelin-solidity/contracts/utils/Counters.sol";
+import "../node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
+import "../node_modules/openzeppelin-solidity/contracts/utils/Strings.sol";
+
 
 contract DecenterJournalToken is Ownable, ERC721 {
-    
+    using Address for address payable;
+    using Counters for Counters.Counter;
+    using Strings for uint256;
+    Counters.Counter private _tokenIdCounter;
+
+    // Optional mapping for token URIs
+    mapping(uint256 => string) private _tokenURIs;
+
     struct Metadata {
+        uint256 articleId;
+        address owner;
+
         string title;
-        uint8 discount;
+        string author;
+        string ipfs;
+        uint256 articleData;
+        string articleImage;
     }
 
     mapping(uint256 => Metadata) decenterJournalTokenId;
     string private _currentBaseURI;
 
-    constructor() ERC721("Journal", "DCJ") {
+    constructor() ERC721("Published article Token", "DCJ") {
         setBaseURI("http://localhost/token/");
-
-        mint("Testni journal", 15);
     }
 
     function setBaseURI(string memory baseURI) public onlyOwner {
@@ -28,34 +43,26 @@ contract DecenterJournalToken is Ownable, ERC721 {
         return _currentBaseURI;
     }
 
-    function mint(string memory title, uint8 discount) internal {
-        uint256 tokenId = id(discount);
-        decenterJournalTokenId[tokenId] = Metadata(title, discount);
-        _safeMint(msg.sender, tokenId);
+    function mintAuthor(string memory title, string memory author, string memory ipfs, uint256 articleData, string memory articleImage, string memory _tokenURI) external payable returns (uint256 tokenId){
+        require(msg.value == 0.0001 ether, "claiming a token costs 0.01 ether");
+        _tokenIdCounter.increment();
+        uint256 currentTokenId = _tokenIdCounter.current();
+        decenterJournalTokenId[currentTokenId] = Metadata(currentTokenId, msg.sender, title, author, ipfs, articleData, articleImage);
+        _safeMint(msg.sender, currentTokenId);
+        _setTokenURI(currentTokenId, _tokenURI);
+        return currentTokenId;
     }
 
-    function claim(string calldata title, uint8 discount) external payable {
-        require(msg.value == 0.01 ether, "claiming a token costs 0.01 ether");
-
-        // discount = pseudoRNG(title) % 100000;
-
-        mint(title, discount);
-        payable(owner()).transfer(0.01 ether);
+    function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual{
+        require(_exists(tokenId), "ERC721Metadata: URI set of nonexistent token");
+        _tokenURIs[tokenId] = _tokenURI;
     }
 
-    function ownerOf(uint8 discount) public view returns(address){
-        return ownerOf(id(discount));
-    }
-
-    function id(uint8 discount) pure internal returns(uint256) {
-        return (uint256(discount)-1) * 372;
-    }
-
-    function get(uint256 tokenId) external view returns(string memory title, uint8 discount) {
+    function get(uint256 tokenId) external view returns(string memory title, uint256 articleData) {
         require(_exists(tokenId), "token not minted");
         Metadata memory token = decenterJournalTokenId[tokenId];
         title = token.title;
-        discount = token.discount;
+        articleData = token.articleData;
     }
 
     function titleOf(uint256 tokenId) external view returns(string memory) {
@@ -70,5 +77,20 @@ contract DecenterJournalToken is Ownable, ERC721 {
         decenterJournalTokenId[tokenId].title = title;
     }
 
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory){
+        require(_exists(tokenId), "ERC721 Metadata: URI query for nonexistent token.");
 
+        string memory _tokenURI = _tokenURIs[tokenId];
+        string memory base = _baseURI();
+
+        if(bytes(_tokenURI).length == 0){
+            return _tokenURI;
+        }
+
+        if(bytes(_tokenURI).length > 0){
+            return string(abi.encodePacked(base, _tokenURI));
+        }
+
+        return string(abi.encodePacked(base, tokenId.toString()));
+    }
 }
