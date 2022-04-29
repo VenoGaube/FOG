@@ -38,27 +38,37 @@ Tasks above the horizontal line are finished or in progress.
 Tasks below the line are to be done in the future.  
 Current wireframe progress is available on [**figma**](https://www.figma.com/file/QpOCLisvpVy4pUhfmpE5yX/FOG?node-id=0%3A1).
 1. **Wireframe creation** 
-    - Register   
-    <img src="register.png" width="600" height="400" /> 
-    - Log-in  
-    <img src="log-in.png" width="600" height="400" />
-    - Article review (reviewer)  
-    <img src="articlereview.png" width="600" height="400" />
+    - Register 
+    <img src="register.jpg" width="600" height="400"/>
+   
+    - Log-in     
+    <img src="log-in.jpg" width="600" height="400"/>
+    
+    - Article review (reviewer)     
+    <img src="articlereview.jpg" width="600" height="400" />
+    
     - Article voting (reviewer) - WIP
+   
     - Article submission (author)  
-    <img src="articlesubmission.png" width="600" height="400" />
+    <img src="articlesubmission.jpg" width="600" height="400" />
+    
     - Articles overview (author)  
-    <img src="articlesoverviewauthor.png" width="600" height="400" />
+    <img src="articlesoverviewauthor.jpg" width="600" height="400" />
+    
     - Articles overview (editor)  
-    <img src="articlesovervieweditor.png" width="600" height="400" />
+    <img src="articlesovervieweditor.jpg" width="600" height="400" />
+    
     - Assign reviewers (editor) - WIP
     - Articles overview (reader)   
-    <img src="articlesoverviewreader.png" width="600" height="400" />
+    <img src="articlesoverviewreader.jpg" width="600" height="400" />
+    
     - Articles overview (reviewer)  
-    <img src="articlesoverviewreviewer.png" width="600" height="400" />
+    <img src="articlesoverviewreviewer.jpg" width="600" height="400" />
+    
     - User profile - WIP
+    
     - My NFT's  
-    <img src="mynfts.png" width="600" height="400" />
+    <img src="mynfts.jpg" width="600" height="400" />
     ---
 
 2. Static frontend design - TODO
