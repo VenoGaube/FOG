@@ -17,3 +17,16 @@ DKG enables you to
 * Easily build custom verifiable data pipelines
 
 * Integrate with existing SSI & blockchain tooling
+
+## Selected technologies
+
+* Integration with OriginTrail DKG will we written in JavaScript, using dks.js, an SDK from OriginTrail
+
+* For development we will run our node locally, when finished we can use the testnes (for v6 mainnet is not yet available)
+
+## Implementation
+
+In our DKG we will store the same data as in the IPFS. We will store all articles and related information, and all users (reviewers, editors, authors ...) and their information
+
+In our implementation we need to cover all querying and data manipulation actions for all the entities mentioned above
+
