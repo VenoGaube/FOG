@@ -2,6 +2,9 @@
 
 Ethereum L2 network is a set of technologies, aiming to improve scalability of Ethereum network, improve transaction throughput and lower power consumption. In the scope of this project, we are going to set up a ETH L2 network and connect it to the mainnet.
 
+## Student asigned to the project
+Mihael Trajbarič
+
 ## Main objectives
 - deploy Layer 2 network
 - configure 2 ETH nodes for the L2 network
