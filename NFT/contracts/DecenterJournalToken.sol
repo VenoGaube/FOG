@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-import "../node_modules/openzeppelin-solidity/contracts/access/Ownable.sol";
-import "../node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
-import "../node_modules/openzeppelin-solidity/contracts/utils/Counters.sol";
-import "../node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
-import "../node_modules/openzeppelin-solidity/contracts/utils/Strings.sol";
-
+import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
+import "openzeppelin-solidity/contracts/utils/Base64.sol";
+import "openzeppelin-solidity/contracts/access/Ownable.sol";
+import "openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
+import "openzeppelin-solidity/contracts/utils/Counters.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
+import "openzeppelin-solidity/contracts/utils/Strings.sol";
 
 contract DecenterJournalToken is Ownable, ERC721 {
     using Address for address payable;
@@ -23,17 +24,14 @@ contract DecenterJournalToken is Ownable, ERC721 {
 
         string title;
         string author;
-        string ipfs;
         uint256 articleData;
-        string articleImage;
+        string ipfsImageHash;
     }
 
     mapping(uint256 => Metadata) decenterJournalTokenId;
     string private _currentBaseURI;
 
-    constructor() ERC721("Published article Token", "DCJ") {
-        setBaseURI("http://localhost/token/");
-    }
+    constructor() ERC721("Published article Token", "DCJ") { }
 
     function setBaseURI(string memory baseURI) public onlyOwner {
         _currentBaseURI = baseURI;
@@ -41,16 +39,6 @@ contract DecenterJournalToken is Ownable, ERC721 {
 
     function _baseURI() internal view virtual override returns (string memory) {
         return _currentBaseURI;
-    }
-
-    function mintAuthor(string memory title, string memory author, string memory ipfs, uint256 articleData, string memory articleImage, string memory _tokenURI) external payable returns (uint256 tokenId){
-        require(msg.value == 0.0001 ether, "claiming a token costs 0.01 ether");
-        _tokenIdCounter.increment();
-        uint256 currentTokenId = _tokenIdCounter.current();
-        decenterJournalTokenId[currentTokenId] = Metadata(currentTokenId, msg.sender, title, author, ipfs, articleData, articleImage);
-        _safeMint(msg.sender, currentTokenId);
-        _setTokenURI(currentTokenId, _tokenURI);
-        return currentTokenId;
     }
 
     function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual{
@@ -65,44 +53,51 @@ contract DecenterJournalToken is Ownable, ERC721 {
         articleData = token.articleData;
     }
 
-    function titleOf(uint256 tokenId) external view returns(string memory) {
-        require(_exists(tokenId), "token not minted");
-        Metadata memory token = decenterJournalTokenId[tokenId];
-        return token.title;
-    }
-
-    function changeTitleOf(uint256 tokenId, string memory title) public {
-        require(_exists(tokenId), "token not minted");
-        require(ownerOf(tokenId) == msg.sender, "only the owner of this token can change its title");
-        decenterJournalTokenId[tokenId].title = title;
-    }
-
-    function tokenURI(uint256 tokenId) public view virtual override returns (string memory){
-        require(_exists(tokenId), "ERC721 Metadata: URI query for nonexistent token.");
-
-        string memory _tokenURI = _tokenURIs[tokenId];
-        string memory base = _baseURI();
-
-        if(bytes(_tokenURI).length == 0){
-            return _tokenURI;
-        }
-
-        if(bytes(_tokenURI).length > 0){
-            return string(abi.encodePacked(base, _tokenURI));
-        }
-
-        return string(abi.encodePacked(base, tokenId.toString()));
-    }
-
-    function claimItem(string memory _tokenURI) public returns (uint256) {
+    function mintAuthor(string memory title, string memory author, uint256 articleData, string memory ipfsImageHash) external payable returns (uint256 tokenId){
+        // require(msg.value == 0.0001 ether, "claiming a token costs 0.01 ether");
         _tokenIdCounter.increment();
-        uint256 newItemId = _tokenIdCounter.current();
-        _safeMint(msg.sender, newItemId);
-        _setTokenURI(newItemId, _tokenURI);
-        return newItemId;
+        uint256 currentTokenId = _tokenIdCounter.current();
+        string memory _ipfsImageHash = getTokenURI(ipfsImageHash);
+        decenterJournalTokenId[currentTokenId] = Metadata(currentTokenId, msg.sender, title, author, articleData, _ipfsImageHash);
+        _safeMint(msg.sender, currentTokenId);
+        _setTokenURI(currentTokenId, tokenURI(currentTokenId));
+        return currentTokenId;
+    }
+
+    function getTokenURI(string memory _ipfsHashOfPhoto) internal pure returns (string memory) {
+        return string(abi.encodePacked(baseTokenURI(), _ipfsHashOfPhoto));
+    }
+
+    function baseTokenURI() public pure returns (string memory) {
+        return "https://ipfs.io/ipfs/";
     }
 
     function totalSupply() public view returns (uint256) {
         return _tokenIdCounter.current();
     }
+
+    function tokenURI(uint256 _tokenId) public view override returns (string memory) {
+        require(_exists(_tokenId), "Token does not exists.");
+        Metadata memory tokenAttributes = decenterJournalTokenId[_tokenId];
+
+        string memory title = tokenAttributes.title;
+        address owner = tokenAttributes.owner;
+        string memory author = tokenAttributes.author;
+
+        string memory json = Base64.encode(
+            bytes(
+                string(
+                    abi.encodePacked(
+                        '{"name": "',
+                            tokenAttributes.title,
+                            '", "description": "This is a token for the decentralized journal", "image": "', tokenAttributes.ipfsImageHash,
+                        '"}'
+                    )
+                )
+            )
+        );
+
+        return string(abi.encodePacked('data:application/json;base64,', json));
+    }
+
 }
