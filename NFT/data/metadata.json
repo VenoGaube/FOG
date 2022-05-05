@@ -1,7 +1,5 @@
 {
-    "title": "Testni title",
-    "author": "Veno Gaube",
-    "ipfs": "idk to je ipfs",
-    "articleData": 333,
-    "articleImage": "https://ipfs.io/ipfs/QmZFuSEvWAnt5gVKALSpcsuCjypDwKcRiRx78Xx8WdgCN3"
+    "name": "Testni Article NFT",
+    "description": "To je opis hehe.",
+    "image": "https://ipfs.io/ipfs/QmZFuSEvWAnt5gVKALSpcsuCjypDwKcRiRx78Xx8WdgCN3"
 }
