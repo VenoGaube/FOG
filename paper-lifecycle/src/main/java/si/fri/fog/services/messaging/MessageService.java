@@ -27,5 +27,8 @@ public class MessageService {
         mailService.sendEmail(reviewer.getEmail(), "New article to be reviewed", "Please review the following article: " + article);
     }
 
+    public void notifyAuthor(String article, User author){
+        mailService.sendEmail(author.getEmail(), "Your article was reviewed", "Check your article");
+    }
 
 }

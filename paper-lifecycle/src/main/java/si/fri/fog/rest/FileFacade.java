@@ -26,7 +26,7 @@ public class FileFacade {
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     @Path("/{name}")
     public Response getFile(@PathParam("name") String name){
-        File file = fileService.getUneleasedArticle(name);
+        File file = fileService.getUnreleasedArticle(name);
         if (file != null) {
             java.nio.file.Path path = file.toPath();
             StreamingOutput output = o -> {

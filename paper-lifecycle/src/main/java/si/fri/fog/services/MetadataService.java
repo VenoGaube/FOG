@@ -1,6 +1,7 @@
 package si.fri.fog.services;
 
 import si.fri.fog.pojo.Metadata;
+import si.fri.fog.pojo.Review;
 import si.fri.fog.pojo.Stage;
 import si.fri.fog.pojo.User;
 import si.fri.fog.pojo.dtos.MetadataDTO;
@@ -46,6 +47,12 @@ public class MetadataService {
             metadata.setStage(Stage.getStageFromName(metadataDTO.getStage()));
         }
         firestoreService.updateMetadata(metadataDTO.getArticle(), metadata);
+    }
+
+    public void addReview(String article, Review review){
+        Metadata metadata = getMetadata(article);
+        metadata.addReview(review);
+        firestoreService.updateMetadata(article, metadata);
     }
 
     private Metadata contructMetadata(MetadataDTO metadataDTO){

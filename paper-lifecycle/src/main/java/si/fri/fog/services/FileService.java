@@ -20,7 +20,7 @@ public class FileService {
         this.ipfsStorageService = ipfsStorageService;
     }
 
-    public File getUneleasedArticle(String name){
+    public File getUnreleasedArticle(String name){
        return this.googleCloudStorageService.getFile(name);
     }
 

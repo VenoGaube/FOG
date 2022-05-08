@@ -2,7 +2,9 @@ package si.fri.fog.pojo;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @ToString
@@ -16,5 +18,9 @@ public class Metadata {
     String article;
     Double rating;
     Stage stage;
+    List<Review> reviews = new ArrayList<>();
 
+    public void addReview(Review review){
+        reviews.add(review);
+    }
 }

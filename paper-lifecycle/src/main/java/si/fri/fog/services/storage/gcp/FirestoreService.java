@@ -60,6 +60,7 @@ public class FirestoreService {
         data.put("article", article);
         data.put("rating", metadata.getRating());
         data.put("stage", metadata.getStage());
+        data.put("reviews", metadata.getReviews());
 
         firestore.collection(METADATA_COLLECTION).document(documentId).update(data);
     }
