@@ -1,10 +1,17 @@
 {
   "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.7",
+    "config": "^3.3.7",
+    "dotenv": "^16.0.0",
     "ganache": "^7.0.3",
     "openzeppelin-solidity": "^4.5.0",
     "truffle": "^5.5.7"
   },
   "scripts": {
     "ganache": "ganache --wallet.seed myCustomSeed"
+  },
+  "devDependencies": {
+    "solidity-coverage": "^0.7.20",
+    "typechain": "^8.0.0"
   }
 }
