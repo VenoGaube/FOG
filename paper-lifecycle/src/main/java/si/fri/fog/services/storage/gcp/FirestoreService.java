@@ -61,6 +61,7 @@ public class FirestoreService {
         data.put("rating", metadata.getRating());
         data.put("stage", metadata.getStage());
         data.put("reviews", metadata.getReviews());
+        data.put("finalDecision", metadata.getFinalDecision());
 
         firestore.collection(METADATA_COLLECTION).document(documentId).update(data);
     }

@@ -18,9 +18,15 @@ public class Metadata {
     String article;
     Double rating;
     Stage stage;
+    FinalDecision finalDecision;
     List<Review> reviews = new ArrayList<>();
 
     public void addReview(Review review){
         reviews.add(review);
+    }
+
+    public enum FinalDecision {
+        ACCEPTED,
+        REJECTED;
     }
 }

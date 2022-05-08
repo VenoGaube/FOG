@@ -46,6 +46,9 @@ public class MetadataService {
         if (metadataDTO.getStage() != null){
             metadata.setStage(Stage.getStageFromName(metadataDTO.getStage()));
         }
+        if (metadataDTO.getFinalDecision() != null){
+            metadata.setFinalDecision(metadataDTO.getFinalDecision());
+        }
         firestoreService.updateMetadata(metadataDTO.getArticle(), metadata);
     }
 

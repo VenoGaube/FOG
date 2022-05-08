@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import si.fri.fog.pojo.Metadata;
 
 @Data
 @NoArgsConstructor
@@ -15,5 +16,6 @@ public class MetadataDTO {
     String article;
     Double rating;
     String stage;
+    Metadata.FinalDecision finalDecision;
 
 }
