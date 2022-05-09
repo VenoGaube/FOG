@@ -13,6 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 public class Metadata {
 
+    /**
+     * We will save only email in user since identity management is handled elsewhere
+     */
     String user;
     Date submittedDate;
     String article;

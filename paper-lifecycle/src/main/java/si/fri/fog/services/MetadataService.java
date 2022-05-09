@@ -5,6 +5,7 @@ import si.fri.fog.pojo.Review;
 import si.fri.fog.pojo.Stage;
 import si.fri.fog.pojo.User;
 import si.fri.fog.pojo.dtos.MetadataDTO;
+import si.fri.fog.services.authorization.UserService;
 import si.fri.fog.services.storage.gcp.FirestoreService;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -18,7 +19,10 @@ import java.util.stream.Collectors;
 public class MetadataService {
 
     @Inject
-    private FirestoreService firestoreService;
+    FirestoreService firestoreService;
+
+    @Inject
+    UserService userService;
 
     public boolean saveMetadata(MetadataDTO metadataDTO){
         Metadata metadata = contructMetadata(metadataDTO);
@@ -33,6 +37,11 @@ public class MetadataService {
     public List<Metadata> getMetadata(User user){
         List<String> articles = firestoreService.getArticlesFromUser(user);
         return articles.stream().map(article -> firestoreService.getMetadata(article)).collect(Collectors.toList());
+    }
+
+    public User getUser(String article){
+        String email = firestoreService.getMetadata(article).getUser();
+        return userService.getUser(email);
     }
 
     public void updateMetadata(MetadataDTO metadataDTO){
