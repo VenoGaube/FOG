@@ -29,7 +29,7 @@ contract DecenterJournalToken is Ownable, ERC721 {
     string public baseTokenURI ;
 
     constructor() ERC721("Published article Token", "DCJ") {
-        baseTokenURI = "https://ipfs.io/ipfs/";
+        baseTokenURI = "https://gateway.pinata.cloud/ipfs/";
     }
 
     function setBaseTokenURI(string memory baseURI) public onlyOwner {
@@ -42,19 +42,13 @@ contract DecenterJournalToken is Ownable, ERC721 {
 
     function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual {
         require(_exists(tokenId), "ERC721Metadata: URI set of nonexistent token");
-        _tokenURIs[tokenId] = _tokenURI;
-    }
-
-    function setTokenURI(uint256 tokenId, string memory _tokenURI) public {
-        require(
-            _isApprovedOrOwner(_msgSender(), tokenId),
-            "ERC721: transfer caller is not owner nor approved"
-        );
-        _setTokenURI(tokenId, _tokenURI);
+        string memory baseURI = _baseURI();
+        string memory finalTokenURI = bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, _tokenURI)) : "";
+        _tokenURIs[tokenId] = finalTokenURI;
     }
 
     function getTokenURI(uint256 tokenId) public view returns (string memory) {
-        return tokenURI(tokenId);
+        return _tokenURIs[tokenId];
     }
 
     function getAuthorNFTData(uint256 tokenId) external view returns(string memory, string memory, uint256, string memory) {
@@ -67,7 +61,7 @@ contract DecenterJournalToken is Ownable, ERC721 {
         );
     }
 
-    function authorMint(string memory title, string memory author, uint256 articleData, string memory ipfsImageHash)
+    function authorMint(string memory title, string memory author, uint256 articleData, string memory ipfsImageHash, string memory finalTokenUri)
         external payable returns (uint256 tokenId){
         // require(msg.value == 0.0001 ether, "claiming a token costs 0.01 ether");
         uint256 currentTokenId = authorNFTs.length;
@@ -83,6 +77,7 @@ contract DecenterJournalToken is Ownable, ERC721 {
         );
 
         _safeMint(msg.sender, currentTokenId);
+        _setTokenURI(currentTokenId, finalTokenUri);
         return currentTokenId;
     }
 
