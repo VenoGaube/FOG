@@ -2,7 +2,7 @@ package api
 
 import (
 	"ipfs/config"
-	"ipfs/storage"
+	"ipfs/model"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,10 +10,10 @@ import (
 type Server struct {
 	config config.Config
 	router *gin.Engine
-	store  *storage.Store
+	store  *model.Store
 }
 
-func NewServer(config config.Config, store *storage.Store) (*Server, error) {
+func NewServer(config config.Config, store *model.Store) (*Server, error) {
 
 	gin.SetMode(config.GinMode)
 	router := gin.Default()

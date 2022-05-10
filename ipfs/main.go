@@ -3,7 +3,7 @@ package main
 import (
 	"ipfs/api"
 	"ipfs/config"
-	"ipfs/storage"
+	"ipfs/model"
 	"log"
 )
 
@@ -16,7 +16,7 @@ func main() {
 	}
 
 	// Connect to IPFS node.
-	store, err := storage.Connect(config.IpfsAddress)
+	store, err := model.Connect(config.IpfsAddress)
 	if err != nil {
 		log.Fatal("Failed to connect to IPFS node: ", err)
 	}
