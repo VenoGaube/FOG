@@ -5,6 +5,7 @@ import (
 )
 
 type Config struct {
+	IpfsAddress   string `mapstructure:"IPFS_ADDRESS"`
 	ServerAddress string `mapstructure:"SERVER_ADDRESS"`
 	GinMode       string `mapstructure:"GIN_MODE"`
 }
