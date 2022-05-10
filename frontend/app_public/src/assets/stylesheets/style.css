@@ -1,0 +1,97 @@
+@import url("//fonts.googleapis.com/css?family=Lobster|Cabin:400,700");
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Lobster", cursive;
+}
+
+body {
+  font-family: "Cabin", Arial, sans-serif;
+}
+
+nav {
+  padding-left:0px !important;
+}
+
+nav > a {
+  color:rgb(170, 170, 170) !important;
+}
+
+nav > a:hover {
+  color:white !important;
+}
+
+nav > a > .fas {
+  padding-right:10px;
+}
+
+h1 > small {
+  padding-left:20px;
+  color:#808080;
+}
+
+.card {
+  padding:10px;
+}
+
+.card-block:not(:first-child)  {
+  margin-top:20px;
+}
+
+.card-block h4 > a {
+  margin-right:10px;
+}
+
+h4 a {
+  color:#f89406;
+}
+
+h4 a:hover {
+  color:white;
+  text-decoration:none;
+}
+
+.badge-default { 
+  background-color: #ad1d28; 
+  border-color: #911821;
+}
+
+.badge-warning {
+  color:white;
+  text-shadow: 1px 1px black;
+}
+
+.banner {
+  margin-bottom:20px;
+}
+
+.naslov {
+  margin-bottom: 0.5rem;
+}
+
+.lastnosti .badge { 
+  margin-right:4px;
+  margin-bottom:4px;
+}
+
+.komentar {
+  margin-right: 0px; 
+  margin-left: 0px;
+  margin-bottom: 0.5em;
+}
+
+.komentar > div {
+  padding:0.5em;
+}
+
+.komentar > div:first-child {
+  margin-top:1em;
+  background-color: #5c6570;
+}
+
+.komentar-avtor {
+  margin-left:0.5em;
+}
+
+.komentar-datum {
+  margin-left:1em;
+}
