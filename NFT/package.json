@@ -4,7 +4,7 @@
     "config": "^3.3.7",
     "dotenv": "^16.0.0",
     "ganache": "^7.0.3",
-    "openzeppelin-solidity": "^4.5.0",
+    "openzeppelin-solidity": "^4.6.0",
     "truffle": "^5.5.7"
   },
   "scripts": {
