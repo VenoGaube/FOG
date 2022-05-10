@@ -11,11 +11,11 @@ contract PaperReview {
         string reviewIpfsHash;
     }
 
-    struct Abstract {
+    struct Article {
         string ipfsHash;
         ArticleStatus status;
         mapping(address => Vote) votes;
-        uint8 votesNumber;
+        uint8 numberOfVotes;
     }
 
     mapping(bytes32 => Article) submittedArticles;
@@ -27,4 +27,11 @@ contract PaperReview {
     event ArticleRejected(bytes32 articleId, string articleIpfsHash);
 
     // functions
+/*     function PaperReview() {
+        
+    } */
+
+    function submitArticleForReview(string articleIpfsHash) {
+        
+    }
 }
