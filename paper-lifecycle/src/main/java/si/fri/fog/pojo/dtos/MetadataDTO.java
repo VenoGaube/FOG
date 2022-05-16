@@ -12,10 +12,23 @@ import si.fri.fog.pojo.Metadata;
 @AllArgsConstructor
 public class MetadataDTO {
 
+    String id;
     String user;
-    String article;
-    Double rating;
+    String title;
+    String submission;
+    String revision;
     String stage;
     Metadata.FinalDecision finalDecision;
 
+    public static MetadataDTO toMetadataDTO(Metadata metadata) {
+        return MetadataDTO.builder()
+                .id(metadata.getId())
+                .title(metadata.getTitle())
+                .user(metadata.getUser())
+                .submission(metadata.getSubmission())
+                .revision(metadata.getRevision())
+                .stage(metadata.getStage().name())
+                .finalDecision(metadata.getFinalDecision())
+                .build();
+    }
 }

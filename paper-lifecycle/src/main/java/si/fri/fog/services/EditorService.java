@@ -33,7 +33,7 @@ public class EditorService {
             finalDecision = Metadata.FinalDecision.REJECTED;
         }
         MetadataDTO metadataDTO = MetadataDTO.builder()
-                .article(article)
+                .submission(article)
                 .finalDecision(finalDecision)
                 .build();
         metadataService.updateMetadata(metadataDTO);

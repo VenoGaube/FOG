@@ -16,12 +16,14 @@ public class Metadata {
     /**
      * We will save only email in user since identity management is handled elsewhere
      */
+    String id;
     String user;
     Date submittedDate;
-    String article;
-    Double rating;
+    String submission;
+    String title;
     Stage stage;
     FinalDecision finalDecision;
+    String revision;
     List<Review> reviews = new ArrayList<>();
 
     public void addReview(Review review){

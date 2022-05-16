@@ -20,19 +20,20 @@ public class MetadataFacade {
     }
 
     @POST
+    @Path("/new")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response saveMetadata(MetadataDTO metadataDTO){
-        boolean saved = metadataService.saveMetadata(metadataDTO);
-        if (saved) {
-            return Response.ok().build();
+    public Response newArticle(MetadataDTO metadataDTO){
+        String id = metadataService.saveMetadata(metadataDTO);
+        if (id != null) {
+            return Response.ok().entity(id).build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
     @GET
-    @Path("/{article}")
-    public Response getMetadata(@PathParam("article") String article){
-        Metadata metadata = metadataService.getMetadata(article);
+    @Path("/{id}")
+    public Response getMetadata(@PathParam("id") String id){
+        Metadata metadata = metadataService.getMetadata(id);
         if (metadata != null) {
             return Response.ok().entity(metadata).build();
         }
@@ -40,9 +41,9 @@ public class MetadataFacade {
     }
 
     @PUT
-    @Path("/{article}")
-    public Response updateStage(@PathParam("article") String article, MetadataDTO metadataDTO){
-        metadataService.updateMetadata(metadataDTO.toBuilder().article(article).build());
+    @Path("/{id}")
+    public Response updateStage(@PathParam("id") String id, MetadataDTO metadataDTO){
+        metadataService.updateMetadata(metadataDTO.toBuilder().id(id).build());
         return Response.ok().build();
     }
 }
