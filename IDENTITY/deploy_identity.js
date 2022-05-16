@@ -2,9 +2,20 @@ const { expect } = require("chai");
 const { ethers } = require("hardhat");
 const { cyrb53 } = require("./hash_function");
 
+var default_user_data = {
+    reader: [], //list of comments, saved articles...
+    reviewer: [], // list of reviewed articles
+    editor: [], //reputation
+    author: [], // list of authored articles
+};
+// add to list like: default_user_data.reader.push("<ipfs address>");
+// convert to string before default_user_data = JSON.stringify(default_user_data);
+//.parse for reverse
+
 
 (async () => {
     try {
+        console.log(default_user_data)
         var test_verifier = "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4"; // your own address for testing purposes
         var create_output = await create(test_verifier);
         console.log("create_output:");
@@ -14,7 +25,9 @@ const { cyrb53 } = require("./hash_function");
         console.log("read output:");
         console.log(read_output);
 
-        var update_success = await update_authority_values(create_output[1], test_verifier, 1);
+        default_user_data.reader.push("<ipfs address>");
+
+        var update_success = await update_authority_values(create_output[1], test_verifier, 1, default_user_data);
         console.log("update_success " + update_success);
         console.log(await read(create_output[1]));
 
@@ -42,13 +55,16 @@ async function detectLocal(){
     return new_account
 }
 
-async function create(verifier) {
-    try {
-        var new_account = await detectLocal();
-    } catch (e) {
-        console.log(e);
-        var new_account = await web3.eth.accounts.create();
+async function create(verifier, local = false) {
+    if (local) {
+        try {
+            var new_account = await detectLocal();
+        } catch (e) {
+            console.log(e);
+            var new_account = await web3.eth.accounts.create();
+        }
     }
+    else var new_account = await web3.eth.accounts.create();
     
     console.log("Your address: " + new_account.address);
     console.log("Your private key: "+ new_account.privateKey);
@@ -72,17 +88,20 @@ async function read(contract) {
     var hash = await user.getHash();
     var type = await user.getType();
     var authority = await user.getAuthority();
-    return {"owner": owner, "hash": hash, "type": type, "authority": authority}
+    var user_data = await user.getUserData();
+    user_data = JSON.parse(user_data);
+    return {"owner": owner, "hash": hash, "type": type, "authority": authority, "user_data": user_data}
 }
 
-async function update_authority_values(contract, authority_address, type) {
+async function update_authority_values(contract, authority_address, type, user_data) {
     try {
         var user = await ethers.getContractAt("JournalDID", String(contract));
         await user.setAuthority(String(authority_address));
         if (type == 1) await user.setAuthorType();
         else if (type == 2) await user.setReviewerType();
         else if (type == 3) await user.setEditorType();
-        else console.log("invalid type parameter value")
+        else console.log("invalid type parameter value");
+        await user.setUserData(JSON.stringify(user_data));
         return true;
     } catch (e) {
         console.log(e.message)
