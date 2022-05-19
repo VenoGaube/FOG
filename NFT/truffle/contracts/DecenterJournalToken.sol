@@ -14,19 +14,6 @@ contract DecenterJournalToken is ERC721URIStorage {
   using Counters for Counters.Counter;
   Counters.Counter private tokenCounter;
 
-  string[] private emojis = [
-  unicode"😁",
-  unicode"😂",
-  unicode"😍",
-  unicode"😭",
-  unicode"😴",
-  unicode"😎",
-  unicode"🤑",
-  unicode"🥳",
-  unicode"😱",
-  unicode"🙄"
-  ];
-
   struct AuthorNFT {
     uint256 authorId;
     address owner;
@@ -34,6 +21,7 @@ contract DecenterJournalToken is ERC721URIStorage {
     string title;
     string author;
     string articleData;
+    string articleImage;
   }
 
   struct ReviewerNFT {
@@ -49,15 +37,20 @@ contract DecenterJournalToken is ERC721URIStorage {
   AuthorNFT[] public authorNFTs;
   ReviewerNFT[] public reviewerNFTs;
 
+  string private imageURI = "https://ipfs.io/ipfs/QmPAMgqYKUU1myDm3EDHtPykapao4C2dFP2AtHA2wEoHJp?filename=";
+  string private imageMetadataURI = "https://ipfs.io/ipfs/QmRqHRgMjnqobfF3NR3nKPpSx2j5puwjJJc7fSSXke8ysL?filename=";
+
   constructor() ERC721("Decenter Journal Token", "DJT") {
   }
 
-  function getAuthorNFTData(uint256 tokenId) external view returns(string memory, string memory, string memory) {
+
+  function getAuthorNFTData(uint256 tokenId) external view returns(string memory, string memory, string memory, string memory) {
     require(_exists(tokenId), "token not minted");
     return(
     authorNFTs[tokenId].title,
     authorNFTs[tokenId].author,
-    authorNFTs[tokenId].articleData
+    authorNFTs[tokenId].articleData,
+    authorNFTs[tokenId].articleImage
     );
   }
 
@@ -72,27 +65,27 @@ contract DecenterJournalToken is ERC721URIStorage {
     return items;
   }
 
-  function authorMint(string memory title, string memory author, string memory ipfsArticleLink, uint256 emojiIndex) external payable returns (uint256 tokenId){
+  function authorMint(string memory title, string memory author, string memory ipfsArticleLink) external payable returns (uint256 tokenId){
     // require(msg.value == 0.0001 ether, "claiming a token costs 0.01 ether");
     uint256 currentTokenId = tokenCounter.current();
     uint256 numOfUserTokens = ERC721.balanceOf(msg.sender);
+
+    string memory image = string(abi.encodePacked(imageURI, Strings.toString(currentTokenId % 30), ".png"));
+    string memory imageMetadata = string(abi.encodePacked(imageMetadataURI, Strings.toString(currentTokenId % 30)));
+    string memory tokenUri = createTokenUri(title, imageMetadata);
+
     authorNFTs.push(
       AuthorNFT(
         currentTokenId,
         msg.sender,
         title,
         author,
-        ipfsArticleLink
+        ipfsArticleLink,
+        image
       )
     );
-
     _ownedTokens[msg.sender][numOfUserTokens] = currentTokenId;
 
-    string memory color = pickRandomColor(15, 200, 150);
-    string memory emoji = emojis[emojiIndex];
-    string memory svg = createOnChainSvg(emoji, color);
-    string memory tokenUri = createTokenUri(emoji, svg);
-
     _safeMint(msg.sender, currentTokenId);
     _setTokenURI(currentTokenId, tokenUri);
 
@@ -100,38 +93,6 @@ contract DecenterJournalToken is ERC721URIStorage {
 
     return currentTokenId;
   }
-
-
-  function reviewerMint(string memory ipfsArticleLink, string memory reviewer, uint256 rating,uint256 emojiIndex) external payable returns (uint256 tokenId){
-    // require(msg.value == 0.0001 ether, "claiming a token costs 0.01 ether");
-    uint256 currentTokenId = tokenCounter.current();
-    reviewerNFTs.push(
-      ReviewerNFT(
-        currentTokenId,
-        msg.sender,
-        ipfsArticleLink,
-        reviewer,
-        rating
-      )
-    );
-
-    string memory color = pickRandomColor(200, 125, 50);
-    string memory emoji = emojis[emojiIndex];
-    string memory svg = createOnChainSvg(emoji, color);
-    string memory tokenUri = createTokenUri(emoji, svg);
-
-    _safeMint(msg.sender, currentTokenId);
-    _setTokenURI(currentTokenId, tokenUri);
-
-    tokenCounter.increment();
-
-    return currentTokenId;
-  }
-
-  function getNumberOfReviwerNFTS() public view returns (uint256) {
-    return reviewerNFTs.length;
-  }
-
 
   function getNumberOfAuthorNFTS() public view returns (uint256) {
     return authorNFTs.length;
@@ -164,15 +125,15 @@ contract DecenterJournalToken is ERC721URIStorage {
     svg = string(abi.encodePacked(baseSvg, color, afterColorSvg, emoji, "</text></svg>"));
   }
 
-  function createTokenUri(string memory title, string memory svg) internal pure returns(string memory tokenUri) {
+  function createTokenUri(string memory title, string memory imageMetadata) internal pure returns(string memory tokenUri) {
     string memory json = Base64.encode(
       bytes(
         string(
           abi.encodePacked(
             '{"name": "',
             title,
-            '", "description": "Article author NFT", "image": "data:image/svg+xml;base64,',
-            Base64.encode(bytes(svg)),
+            '", "description": "Article author NFT", "image": ',
+            imageMetadata,
             '"}'
           )
         )

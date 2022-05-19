@@ -8,11 +8,19 @@
     <div class="col-4"></div>
     <div class="col-4">
       <div class="form-group">
-        <label for="token_color">Issue Token</label>
+        <label for="token_title">Issue Token</label>
         <input type="text" class="form-control"
-               id="token_color" aria-describedby="writeColorCode"
+               id="token_title" aria-describedby="writeColorCode"
                value="{{title}}"
                placeholder="Enter title as a string" (change)="this.setArticleTitle($event)">
+        <input type="text" class="form-control"
+               id="token_author" aria-describedby="writeColorCode"
+               value="{{author}}"
+               placeholder="Enter the author as a string" (change)="this.setArticleAuthor($event)">
+        <input type="text" class="form-control"
+               id="token_data" aria-describedby="writeColorCode"
+               value="{{articleData}}"
+               placeholder="Enter the article as a string" (change)="this.setArticleData($event)">
       </div>
     </div>
     <div class="col-4"></div>
@@ -27,7 +35,11 @@
   <div class="row" *ngIf="authorNFTs != null">
     <div *ngFor="let authorNFT of authorNFTs" class="col-3 my-2">
       <div class="token" [ngStyle]="{backgroundColor: 333333}"></div>
+      <img src="{{authorNFT.articleImage}}" width="100" height="100" style=" margin-left: auto;margin-right: auto;display: block;" alt="nft">
       <div>{{authorNFT.title}}</div>
+      <div>{{authorNFT.author}}</div>
     </div>
   </div>
 </div>
+
+

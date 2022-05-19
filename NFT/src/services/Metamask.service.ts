@@ -30,7 +30,7 @@ export class Metamask implements WalletService {
 
       if (typeof selectedAccount !== 'undefined') {
         console.log(selectedAccount);
-        const colorsContract = this.initColors(web3, netId, selectedAccount);
+        const colorsContract = this.initAuthorNFTs(web3, netId, selectedAccount);
         return Promise.resolve(colorsContract);
       } else {
         errMsg = 'Please login with MetaMask and connect the account to this site.';
@@ -44,8 +44,8 @@ export class Metamask implements WalletService {
     }
   }
 
-  private initColors(web3: any, netId: number, selectedAccount: string): AuthorNFTContract {
-    const rawColorsContract = new web3.eth.Contract(DJTJson.abi, DJTJson.networks[netId].address);
-    return this.authorNFTFactoryService.create(rawColorsContract, selectedAccount);
+  private initAuthorNFTs(web3: any, netId: number, selectedAccount: string): AuthorNFTContract {
+    const contract  = new web3.eth.Contract(DJTJson.abi, DJTJson.networks[netId].address);
+    return this.authorNFTFactoryService.create(contract , selectedAccount);
   }
 }
