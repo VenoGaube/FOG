@@ -37,8 +37,8 @@ contract DecenterJournalToken is ERC721URIStorage {
   AuthorNFT[] public authorNFTs;
   ReviewerNFT[] public reviewerNFTs;
 
-  string private imageURI = "https://ipfs.io/ipfs/QmPAMgqYKUU1myDm3EDHtPykapao4C2dFP2AtHA2wEoHJp?filename=";
-  string private imageMetadataURI = "https://ipfs.io/ipfs/QmRqHRgMjnqobfF3NR3nKPpSx2j5puwjJJc7fSSXke8ysL?filename=";
+  string private imageURI = "https://gateway.pinata.cloud/ipfs/QmXUgFJkWnXwazMG5jqA9HKwa6DU1ZWfzTwfbNJCEU3ddd/";
+  string private imageMetadataURI = "https://gateway.pinata.cloud/ipfs/QmTiy2J5ArzRDeJdjraDVLVogqHaZyGHVYnvWA1Y4jdXGa/";
 
   constructor() ERC721("Decenter Journal Token", "DJT") {
   }
@@ -66,13 +66,12 @@ contract DecenterJournalToken is ERC721URIStorage {
   }
 
   function authorMint(string memory title, string memory author, string memory ipfsArticleLink) external payable returns (uint256 tokenId){
-    // require(msg.value == 0.0001 ether, "claiming a token costs 0.01 ether");
     uint256 currentTokenId = tokenCounter.current();
     uint256 numOfUserTokens = ERC721.balanceOf(msg.sender);
 
-    string memory image = string(abi.encodePacked(imageURI, Strings.toString(currentTokenId % 30), ".png"));
-    string memory imageMetadata = string(abi.encodePacked(imageMetadataURI, Strings.toString(currentTokenId % 30)));
-    string memory tokenUri = createTokenUri(title, imageMetadata);
+    string memory image = string(abi.encodePacked(imageURI, Strings.toString(currentTokenId % 100), ".png"));
+    string memory imageMetadata = string(abi.encodePacked(imageMetadataURI, Strings.toString(currentTokenId % 100), ".json"));
+    string memory tokenUri = createTokenUri(imageMetadata);
 
     authorNFTs.push(
       AuthorNFT(
@@ -98,47 +97,8 @@ contract DecenterJournalToken is ERC721URIStorage {
     return authorNFTs.length;
   }
 
-  function pickRandomColor(uint256 firstRandomNumber, uint256 secondRandomNumber, uint256 thirdRandomNumber) internal pure returns (string memory)
-  {
-    uint256 r = firstRandomNumber % 256;
-    uint256 g = secondRandomNumber % 256;
-    uint256 b = thirdRandomNumber % 256;
-
-    return
-    string(
-      abi.encodePacked(
-        "rgb(",
-        Strings.toString(r),
-        ", ",
-        Strings.toString(g),
-        ", ",
-        Strings.toString(b),
-        ");"
-      )
-    );
-  }
-
-  function createOnChainSvg(string memory emoji, string memory color) internal pure returns(string memory svg) {
-    string memory baseSvg = "<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 350 350'><style>.base { font-size: 100px; }</style><rect width='100%' height='100%' style='fill:";
-    string memory afterColorSvg = "' /><text x='50%' y='50%' class='base' dominant-baseline='middle' text-anchor='middle'>";
-
-    svg = string(abi.encodePacked(baseSvg, color, afterColorSvg, emoji, "</text></svg>"));
-  }
-
-  function createTokenUri(string memory title, string memory imageMetadata) internal pure returns(string memory tokenUri) {
-    string memory json = Base64.encode(
-      bytes(
-        string(
-          abi.encodePacked(
-            '{"name": "',
-            title,
-            '", "description": "Article author NFT", "image": ',
-            imageMetadata,
-            '"}'
-          )
-        )
-      )
-    );
+  function createTokenUri(string memory imageMetadata) internal pure returns(string memory tokenUri) {
+    string memory json = Base64.encode(bytes(string(abi.encodePacked(imageMetadata))));
 
     tokenUri = string(
       abi.encodePacked("data:application/json;base64,", json)
