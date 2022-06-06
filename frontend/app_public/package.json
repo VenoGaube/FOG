@@ -28,14 +28,23 @@
     "@angular-devkit/build-angular": "~13.3.5",
     "@angular/cli": "~13.3.5",
     "@angular/compiler-cli": "~13.3.0",
+    "@metamask/providers": "^8.1.1",
     "@types/jasmine": "~3.10.0",
-    "@types/node": "^12.11.1",
+    "@types/node": "^12.20.51",
+    "@types/web3": "^1.2.2",
+    "assert": "^2.0.0",
+    "crypto-browserify": "^3.12.0",
+    "https-browserify": "^1.0.0",
     "jasmine-core": "~4.0.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.6.2"
+    "os-browserify": "^0.3.0",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "typescript": "~4.6.2",
+    "web3": "^1.7.3"
   }
 }
