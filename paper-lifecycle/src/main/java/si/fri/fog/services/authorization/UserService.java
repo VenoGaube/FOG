@@ -25,4 +25,8 @@ public class UserService {
         List<User> editors = getEditors();
         return editors.get(new Random().nextInt(editors.size()));
     }
+
+    public User getUser(String email){
+        return getUsers().stream().filter(u -> u.getEmail().equals(email)).findFirst().get();
+    }
 }

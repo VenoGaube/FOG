@@ -28,4 +28,10 @@ public class EditorFacade {
         return Response.noContent().build();
     }
 
+    @POST
+    @Path("/decision/{article}")
+    public Response saveDecision(@PathParam("article") String article, String decision){
+        editorService.saveFinalDecision(article, decision);
+        return Response.ok().build();
+    }
 }

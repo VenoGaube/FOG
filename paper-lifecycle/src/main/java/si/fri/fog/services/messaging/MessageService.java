@@ -1,5 +1,6 @@
 package si.fri.fog.services.messaging;
 
+import si.fri.fog.pojo.Metadata;
 import si.fri.fog.pojo.User;
 import si.fri.fog.services.authorization.UserService;
 
@@ -27,5 +28,8 @@ public class MessageService {
         mailService.sendEmail(reviewer.getEmail(), "New article to be reviewed", "Please review the following article: " + article);
     }
 
+    public void notifyAuthor(String article, User author, Metadata.FinalDecision decision){
+        mailService.sendEmail(author.getEmail(), "Status of your article: " + article, "Your article was: " + decision.name());
+    }
 
 }

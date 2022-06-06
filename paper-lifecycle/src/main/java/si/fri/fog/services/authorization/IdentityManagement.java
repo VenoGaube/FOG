@@ -14,4 +14,7 @@ public interface IdentityManagement {
     @Path("/{token}")
     User getUser(@PathParam("token") String token);
 
+    @Path("/editor")
+    User getEditors();
+
 }
