@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { TemplateComponent } from './template/template.component';
-import { RouterModule } from '@angular/router';
 import { ArticlesOverviewComponent } from './articles-overview/articles-overview.component';
+import { AppUsmerjanjeModule } from './app-routing/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,7 @@ import { ArticlesOverviewComponent } from './articles-overview/articles-overview
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([{ path: '', component: TemplateComponent}, {path: 'articles', component: ArticlesOverviewComponent }]),
+    AppUsmerjanjeModule,
   ],
   providers: [],
   bootstrap: [TemplateComponent]

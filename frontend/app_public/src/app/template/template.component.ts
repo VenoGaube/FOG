@@ -33,7 +33,7 @@ export class TemplateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.vrniUporabnika();
+    //this.vrniUporabnika();
     console.log("asdasd")
   }
 
