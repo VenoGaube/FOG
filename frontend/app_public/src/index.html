@@ -5,13 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>FOG</title>
     <base href="/">
+    <script src="https://kit.fontawesome.com/b1b4a222c5.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="/assets/stylesheets/bootstrap.lux.min.css">
     <link rel="stylesheet" href="/assets/stylesheets/bootstrap.min.css">
-  </head>
-  <body class="pt-5">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+</head>
+  <body class="pt-5 mat-typography">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="/"><span class="fas fa-map-marked-alt"></span>FOG</a>
+      <a class="navbar-brand" href="/"> 
+        <span>
+        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+        <path fill="white" d="M23.5 17L18.5 22L15 18.5L16.5 17L18.5 19L22 15.5L23.5 17M6 2C4.89 2 4 2.9 4 4V20C4 21.11 4.89 22 6 22H13.81C13.45 21.38 13.2 20.7 13.08 20H6V4H13V9H18V13.08C18.33 13.03 18.67 13 19 13C19.34 13 19.67 13.03 20 13.08V8L14 2M8 12V14H16V12M8 16V18H13V16Z" />
+        </svg>
+        </span>FOG
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -20,6 +31,12 @@
           <li class="navbar-nav">
             <a class="nav-link" href="/articles">Articles</a>
           </li>
+          <li class="navbar-nav">
+            <a class="nav-link" href="/submit">Submit article</a>
+          </li>
+          <li class="navbar-nav">
+            <a class="nav-link" href="/review">Review article</a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -27,7 +44,7 @@
       <div class="container-fluid mt-4 content">
         <app-template></app-template>
         <footer class="mt-5">
-          <div class="row">
+          <div class="row justify-content-center">
             <div class="col-12">
               <small>&copy; FOG</small>
             </div>

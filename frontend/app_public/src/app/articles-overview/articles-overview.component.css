@@ -2,3 +2,27 @@
 a.nav-link.active{
     background-color: #5bc0de
 }
+
+a {
+    cursor: pointer;
+}
+
+.bg-warning.thumbnail:hover {
+    background-color: orange !important;
+    font-weight: bold;
+}
+
+.bg-success.thumbnail:hover {
+    background-color: green !important;
+    font-weight: bold;
+}
+
+.bg-warning.thumbnail:hover {
+    background-color: orange !important;
+    font-weight: bold;
+}
+
+.bg-danger.thumbnail:hover {
+    background-color: red !important;
+    font-weight: bold;
+}
