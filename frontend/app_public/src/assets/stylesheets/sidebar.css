@@ -36,6 +36,9 @@
 .dropdown-item:hover{
   background: transparent;
 }
+.dropdown-item:focus{
+  background: transparent;
+}
 
 .dropdown-name {
   font-size: 35px;
