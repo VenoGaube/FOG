@@ -3,20 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { TemplateComponent } from './template/template.component';
-import { ArticlesOverviewComponent } from './articles-overview/articles-overview.component';
+import { MyArticlesComponent } from './my-articles/my-articles.component';
 import { AppUsmerjanjeModule } from './app-routing/app-routing.module';
 import { SubmitArticleComponent } from './submit-article/submit-article.component';
 import { ReviewArticleComponent } from './review-article/review-article.component';
 import { HomeComponent } from './home/home.component';
+import { NftsComponent } from './nfts/nfts.component';
+import { ArticlesComponent } from './articles/articles.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TemplateComponent,
-    ArticlesOverviewComponent,
+    MyArticlesComponent,
     SubmitArticleComponent,
     ReviewArticleComponent,
-    HomeComponent
+    HomeComponent,
+    NftsComponent,
+    ArticlesComponent
   ],
   imports: [
     BrowserModule,

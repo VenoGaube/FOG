@@ -30,7 +30,7 @@
       <div class="collapse navbar-collapse" id="navbarMain">
         <ul class="navbar-nav mr-auto">
           <li class="navbar-nav">
-            <a class="nav-link" href="/articles">Articles</a>
+            <a class="nav-link" href="/articles">All articles</a>
           </li>
           <li class="navbar-nav">
             <a class="nav-link" href="/submit">Submit article</a>
@@ -45,7 +45,11 @@
           <li class="nav-item">
             <div class="btn-group dropleft">
 						<span onclick="openNav()">
-              <span class="dot"></span>
+                <svg class="dot" style="width:50px; height:50px;" viewBox="0 0 24 24">
+                  <path fill="white" d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
+              </svg>
+
+              </span>
 						</span>
               <div class="sidenav bg-dark" id="mySidenav">
                 <div id="items" style="margin-left: 20px">
@@ -56,18 +60,16 @@
                   </div>
                   <a class="dropdown-item nav-link" onclick="openBol()">My profile</a>
                   <div id="bolezen-drop" class="bolezen-drop" style="max-height:0px">
-                    <a class="dropdown-item nav-link" style="font-weight: normal" href="/articles">&#8594; My articles</a>
+                    <a class="dropdown-item nav-link" style="font-weight: normal" href="/myarticles">&#8594; My articles</a>
                     <a class="dropdown-item nav-link" style="font-weight: normal" href="/review">&#8594; Reviewer view</a>
                   </div>
-                  <a class="dropdown-item nav-link" href="#">Submit an article</a>
-                  <a class="dropdown-item nav-link" href="#">My NFTs</a>
-                  <a class="dropdown-item nav-link" href="#">Log out</a>
+                  <a class="dropdown-item nav-link" href="/submit">Submit an article</a>
+                  <a class="dropdown-item nav-link" href="/nfts">My NFTs</a>
                 </div>
               </div>
             </div>
           </li>
         </ul>
-
       </div>
     </nav>
     <main>

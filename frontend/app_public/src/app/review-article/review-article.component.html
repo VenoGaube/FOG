@@ -1,11 +1,11 @@
 <nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <div class="nav nav-tabs mt-5" id="nav-tab" role="tablist">
         <a class="nav-item nav-link active" id="nav-articles-under-review-tab" data-toggle="tab"
-            href="#nav-articles-under-review" role="tab" aria-controls="nav-articles-under-review"
-            aria-selected="true" (click)="reset()">Articles under review <span class="badge badge-light">3</span></a>
-        <a class="nav-item nav-link" (click)="reset()" id="nav-reviewed-articles-tab" data-toggle="tab" href="#nav-reviewed-articles"
-            role="tab" aria-controls="nav-reviewed-articles" aria-selected="false">Reviewed articles<span
-                class="badge badge-light">1</span></a>
+            href="#nav-articles-under-review" role="tab" aria-controls="nav-articles-under-review" aria-selected="true"
+            (click)="reset()">Articles under review <span class="badge badge-light">3</span></a>
+        <a class="nav-item nav-link" (click)="reset()" id="nav-reviewed-articles-tab" data-toggle="tab"
+            href="#nav-reviewed-articles" role="tab" aria-controls="nav-reviewed-articles"
+            aria-selected="false">Reviewed articles<span class="badge badge-light">1</span></a>
     </div>
 </nav>
 <div *ngIf="!articleSelected" class="tab-content mt-5" id="nav-tabContent">
@@ -92,7 +92,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 
 <div *ngIf="articleSelected && !selectedAlreadyReviewedArticle" class="container">
@@ -112,27 +112,34 @@
                             <li><i class="fas fa-star fa-2x"></i></li>
                             <li><i class="fas fa-star fa-2x"></i></li>
                         </ul>
-                        
+
                         <h3 class="card-title">John Doe</h3>
                         <h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>
                         <button class="btn btn-primary">Download article</button>
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                
-                <div class="card-body"> <!--col-sm-5 col-md-4 col-lg-5-->
-                  <h3 class="card-text font-weight-bold">Article review:</h3>
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Comments for the author...</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea2">Comments for the editor...</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea2" rows="3"></textarea>
-                  </div>
+
+                <div class="card-body">
+                    <!--col-sm-5 col-md-4 col-lg-5-->
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                        adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                        molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                        harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                        officia!</p>
+                    <hr>
+                    <h3 class="card-text font-weight-bold">Article review:</h3>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Comments for the author...</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea2">Comments for the editor...</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea2" rows="3"></textarea>
+                    </div>
                 </div>
                 <a href="/" class="btn btn-success w-25 mx-auto mb-3">Submit review</a>
-              </div>
+            </div>
         </div>
     </div>
 </div>
@@ -154,27 +161,36 @@
                             <li><i class="fas fa-star fa-2x"></i></li>
                             <li><i class="fas fa-star fa-2x"></i></li>
                         </ul>
-                        
+
                         <h3 class="card-title">John Doe</h3>
                         <h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>
                         <button class="btn btn-primary">Download article</button>
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                
-                <div class="card-body"> <!--col-sm-5 col-md-4 col-lg-5-->
-                  <h3 class="card-text font-weight-bold">Article review:</h3>
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Comments for the author...</label>
-                    <textarea disabled class="form-control" id="exampleFormControlTextarea1" rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam autem doloremque nobis vel sed unde consequuntur dolore, sequi aspernatur! Animi libero doloremque consequatur, earum nihil laborum praesentium. Magni nam recusandae dolores nostrum voluptatum. Reiciendis totam impedit rerum assumenda, officiis cum labore repellendus nulla repudiandae corporis modi id non quidem alias.</textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea2">Comments for the editor...</label>
-                    <textarea disabled class="form-control" id="exampleFormControlTextarea2" rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt tempora, exercitationem consequuntur atque veniam impedit incidunt natus corrupti consequatur alias inventore distinctio veritatis? Porro dolores iure commodi, blanditiis accusantium nesciunt, aliquam nemo repellendus ipsum nulla quia veritatis omnis iste. Dicta placeat consequatur cupiditate eum tempore vero tempora provident esse facere.</textarea>
-                  </div>
+
+                <div class="card-body">
+                    <!--col-sm-5 col-md-4 col-lg-5-->
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                        adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                        molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                        harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                        officia!</p>
+                    <hr>
+                    <h3 class="card-text font-weight-bold">Article review:</h3>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Comments for the author...</label>
+                        <textarea disabled class="form-control" id="exampleFormControlTextarea1"
+                            rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam autem doloremque nobis vel sed unde consequuntur dolore, sequi aspernatur! Animi libero doloremque consequatur, earum nihil laborum praesentium. Magni nam recusandae dolores nostrum voluptatum. Reiciendis totam impedit rerum assumenda, officiis cum labore repellendus nulla repudiandae corporis modi id non quidem alias.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea2">Comments for the editor...</label>
+                        <textarea disabled class="form-control" id="exampleFormControlTextarea2"
+                            rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt tempora, exercitationem consequuntur atque veniam impedit incidunt natus corrupti consequatur alias inventore distinctio veritatis? Porro dolores iure commodi, blanditiis accusantium nesciunt, aliquam nemo repellendus ipsum nulla quia veritatis omnis iste. Dicta placeat consequatur cupiditate eum tempore vero tempora provident esse facere.</textarea>
+                    </div>
                 </div>
                 <!--<a href="/" class="btn btn-success w-25 mx-auto mb-3">Revise review</a>-->
-              </div>
+            </div>
         </div>
     </div>
 </div>

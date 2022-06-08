@@ -2,16 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ArticlesOverviewComponent } from '../articles-overview/articles-overview.component'
+import { MyArticlesComponent } from '../my-articles/my-articles.component'
 import { SubmitArticleComponent } from '../submit-article/submit-article.component';
 import { ReviewArticleComponent } from '../review-article/review-article.component';
 import { HomeComponent } from '../home/home.component';
+import { NftsComponent } from '../nfts/nfts.component';
+import { ArticlesComponent } from '../articles/articles.component';
 
 const poti: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'articles', component: ArticlesOverviewComponent },
+  { path: 'articles', component: ArticlesComponent },
+  { path: 'myarticles', component: MyArticlesComponent },
   { path: 'submit', component: SubmitArticleComponent },
-  { path: 'review', component: ReviewArticleComponent }
+  { path: 'review', component: ReviewArticleComponent },
+  { path: 'nfts', component: NftsComponent }
 ];
 
 @NgModule({
