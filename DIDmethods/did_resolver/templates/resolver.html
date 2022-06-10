@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Decentralized Journal DID Resolver</title>
+    <link href="{{url_for('static', filename='css/resolver.css')}}" rel="stylesheet">
+
+    <script src="{{url_for('static', filename='js/libraries/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/resolver.js')}}"></script>
+</head>
+
+<body>
+<div class="main-wrapper">
+    <h1 class="border-round">Decentralized Journal DID Resolver</h1>
+    <div class="instructions row">
+        <div>Placeholder:</div>
+        <div>TODO instructions</div>
+    </div>
+    <div class="input-output-wrapper border-round">
+        <div class="input-row row">
+            <label>
+                <input type="text" class="input-did" placeholder="Input DID for resolving">
+            </label>
+            <button class="button button-resolve pointer">Resolve</button>
+            <button class="button button-clear pointer">Clear</button>
+        </div>
+        <div class="results">
+            <div class="result-options">
+                <label class="result-label no-select pointer active" for="result" data-text="RESULT">
+                    RESULT
+                    <input type="radio" id="result" value="result" name="result-option" checked>
+                </label>
+                <label class="result-label no-select pointer" for="document" data-text="DID DOCUMENT">
+                    DID DOCUMENT
+                    <input type="radio" id="document" value="document" name="result-option">
+                </label>
+                <label class="result-label no-select pointer" for="resolution-metadata" data-text="RESOLUTION METADATA">
+                    RESOLUTION METADATA
+                    <input type="radio" id="resolution-metadata" value="resolution-metadata" name="result-option">
+                </label>
+                <label class="result-label no-select pointer" for="document-metadata" data-text="DOCUMENT METADATA">
+                    DOCUMENT METADATA
+                    <input type="radio" id="document-metadata" value="document-metadata" name="result-option">
+                </label>
+            </div>
+            <div class="result-wrapper">
+                <div class="result-display"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-from did_resolver.endpoint_functions.methods import get_supported_methods_list
+from .methods import get_supported_methods_list
 
 
 def build_test_example(did_method, did_identifier, did_controller):
