@@ -9,6 +9,7 @@
     --blue-darker: #448FEA;
     --green-normal: #39932D;
     --green-darker: #308427;
+    --red-light: #FF7777;
     --red-normal: #FF0000;
     --red-darker: #D62725;
     --background-grey: #FAFAFA;
@@ -76,9 +77,9 @@ html > * {
 }
 
 
-.input-row {
-    margin-bottom: 25px;
-    padding-bottom: 15px;
+.input-wrapper {
+    margin-bottom: 40px;
+    padding-bottom: 10px;
     border-bottom: 1px solid var(--border-grey);
 }
 
@@ -90,6 +91,11 @@ html > * {
     margin-top: 2px;
     padding-left: 10px;
     outline: none !important;
+}
+
+.input-did.invalid {
+    background-color: var(--red-light);
+    border-color: var(--red-darker);
 }
 
 .button {
@@ -119,7 +125,14 @@ html > * {
     background-color: var(--blue-darker);
 }
 
-input[name="result-option"] {
+.msg-invalid-input {
+    margin-top: 7px;
+    height: 15px;
+    margin-left: 2px;
+    color: var(--red-normal);
+}
+
+input[type=radio][name="result-tabs"] {
     display: none;
 }
 
@@ -144,5 +157,6 @@ input[name="result-option"] {
 }
 
 .result-display {
-    min-height: 300px;
+    margin: 10px;
+    min-height: 280px;  /* 300px - margin top and margin bottom */
 }

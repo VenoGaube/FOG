@@ -17,34 +17,37 @@
         <div>TODO instructions</div>
     </div>
     <div class="input-output-wrapper border-round">
-        <div class="input-row row">
-            <label>
-                <input type="text" class="input-did" placeholder="Input DID for resolving">
-            </label>
-            <button class="button button-resolve pointer">Resolve</button>
-            <button class="button button-clear pointer">Clear</button>
+        <div class="input-wrapper">
+            <div class="row">
+                <label>
+                    <input type="text" class="input-did" placeholder="Input DID for resolving">
+                </label>
+                <button class="button button-resolve pointer">Resolve</button>
+                <button class="button button-clear pointer">Clear</button>
+            </div>
+            <div class="msg-invalid-input"></div>
         </div>
         <div class="results">
-            <div class="result-options">
+            <div class="result-tabs">
                 <label class="result-label no-select pointer active" for="result" data-text="RESULT">
                     RESULT
-                    <input type="radio" id="result" value="result" name="result-option" checked>
+                    <input type="radio" id="result" value="result" name="result-tabs" checked>
                 </label>
                 <label class="result-label no-select pointer" for="document" data-text="DID DOCUMENT">
                     DID DOCUMENT
-                    <input type="radio" id="document" value="document" name="result-option">
+                    <input type="radio" id="document" value="didDocument" name="result-tabs">
                 </label>
                 <label class="result-label no-select pointer" for="resolution-metadata" data-text="RESOLUTION METADATA">
                     RESOLUTION METADATA
-                    <input type="radio" id="resolution-metadata" value="resolution-metadata" name="result-option">
+                    <input type="radio" id="resolution-metadata" value="resolutionMetadata" name="result-tabs">
                 </label>
                 <label class="result-label no-select pointer" for="document-metadata" data-text="DOCUMENT METADATA">
                     DOCUMENT METADATA
-                    <input type="radio" id="document-metadata" value="document-metadata" name="result-option">
+                    <input type="radio" id="document-metadata" value="didDocumentMetadata" name="result-tabs">
                 </label>
             </div>
             <div class="result-wrapper">
-                <div class="result-display"></div>
+                <pre class="result-display"></pre>
             </div>
         </div>
     </div>

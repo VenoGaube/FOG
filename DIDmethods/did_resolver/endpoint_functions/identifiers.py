@@ -1,4 +1,4 @@
-from .methods import get_supported_methods_list
+from .util import check_did_formatting
 
 
 def build_test_example(did_method, did_identifier, did_controller):
@@ -17,14 +17,10 @@ test_examples = {
 
 
 def resolve_identifier(did):
-    split_by_colon = did.split(":")
-    if len(split_by_colon) != 3:
-        return "Invalid input", 400
-    did_indicator, did_method, did_identifier = split_by_colon
-    if did_indicator != "did":
-        return "Input is not a DID", 400
-    if did_method not in get_supported_methods_list():
-        return f"DID method '{did_method}' not supported by this resolver", 400
+    properly_formatted, format_res = check_did_formatting(did)
+    if not properly_formatted:
+        return format_res
+    did_indicator, did_method, did_identifier = format_res
 
     if did_method == "paper":
         return resolve_paper_did(did_identifier)
