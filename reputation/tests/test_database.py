@@ -1,9 +1,11 @@
-import time
 from brownie import accounts
-from scripts.helper import get_mysql_connection, setup_database, \
-    get_contract, get_web3_reputation_contract
-from scripts.listener import start_poll_loop
+import time
+
+import requests
+from scripts.database import get_mysql_connection
 from dotenv import load_dotenv
+from scripts.helper import init, terminate
+from scripts.run_api import main as run_api
 
 def get_reviews_count():
     conn, reviews_table = get_mysql_connection()
@@ -19,18 +21,18 @@ def test_db_connection():
     conn.ping()
 
 def test_data_insertion():
-    load_dotenv()
-    setup_database()
-    _, reputation_contract = get_contract()
-    event_filter = get_web3_reputation_contract(reputation_contract)
-    start_poll_loop(event_filter)
-
-    time.sleep(2)
+    account, cnt, proc = init(start_listener=True)
+    
+    time.sleep(1)
+    target_entity = accounts[3]
+    score = 3
     n = get_reviews_count()
     assert n == 0
     
-    reputation_contract.store(3, accounts[0], 'inini')
-    time.sleep(5)
+    tx = cnt.storeReview(target_entity, score, 'something', { 'from': account })
+    tx.wait(1)
+    time.sleep(2)
 
     n = get_reviews_count()
     assert n == 1
+    terminate(proc)
