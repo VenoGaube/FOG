@@ -56,8 +56,8 @@ contract BoardToken is ERC721URIStorage {
     uint256 currentTokenId = tokenCounter.current();
     uint256 numOfUserTokens = ERC721.balanceOf(msg.sender);
 
-    string memory image = string(abi.encodePacked(imageURI, Strings.toString(currentTokenId % 100), ".png"));
-    string memory imageMetadata = string(abi.encodePacked(imageMetadataURI, Strings.toString(currentTokenId % 100), ".json"));
+    string memory image = string(abi.encodePacked(imageURI, Strings.toString((currentTokenId + 25) % 100), ".png"));
+    string memory imageMetadata = string(abi.encodePacked(imageMetadataURI, Strings.toString((currentTokenId + 25) % 100), ".json"));
     string memory tokenUri = createTokenUri(imageMetadata);
 
     boardNFTs.push(
