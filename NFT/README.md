@@ -1,30 +1,42 @@
-# NFT
+# Journal NFT
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
+A Smart Contract programmed in Solidity, using the ERC-721 protocol, for minting decentralized journal NFTs.
 
-## Development server
+## Install
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```bash
+npm install 
+cd truffle
+npm install # yes, there are two package.jsons, one for the frontend and another for truffle
+```
 
-## Code scaffolding
+## Compile and Migrate Smart Contracts
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+First, make sure you are running a local Ethereum-compatible Blockchain, for example [Ganache](https://www.trufflesuite.com/ganache).
+Verify that the network configured in __truffle-config.js__ matches your params, else modify them. 
+Then, just execute _truffle_ commands:
 
-## Build
+```bash
+cd truffle/
+truffle compile
+truffle migrate
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Launch Frontend Application
 
-## Running unit tests
+Go back to the root of the project, if not already there, and run:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+cd ..
+npm start
+```
 
-## Running end-to-end tests
+Visit http://localhost:4200
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Connect Metamask to one of the Ganache Accounts
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-
-
-npm install crypto-browserify stream-browserify assert stream-http https-browserify os-browserify
+- Make sure you are running Ganache. Then pick the first account and copy its private key.
+- Go to http://localhost:4200
+- On Metamask, add a new Network, with URL http://localhost, 7545 as port and chain ID 1337. Use this network for development.
+- Also in Metamask import an account -> specify the private key you copied from the Ganache first account. __Warning__: do not use this account as a real account.
+- Reload the webapp. 
