@@ -9,7 +9,7 @@ import "../node_modules/openzeppelin-solidity/contracts/utils/Counters.sol";
 import "../node_modules/openzeppelin-solidity/contracts/utils/Strings.sol";
 import "../node_modules/openzeppelin-solidity/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
-contract DecenterJournalToken is ERC721URIStorage {
+contract AuthorToken is ERC721URIStorage {
   using Strings for uint256;
   using Counters for Counters.Counter;
   Counters.Counter private tokenCounter;
@@ -24,25 +24,14 @@ contract DecenterJournalToken is ERC721URIStorage {
     string articleImage;
   }
 
-  struct ReviewerNFT {
-    uint256 reviewerId;
-    address owner;
-
-    string reviewer;
-    string articleData;
-    uint256 rating;
-  }
-
   mapping(address=>mapping(uint=>uint)) private _ownedTokens;
   AuthorNFT[] public authorNFTs;
-  ReviewerNFT[] public reviewerNFTs;
 
   string private imageURI = "https://gateway.pinata.cloud/ipfs/QmXUgFJkWnXwazMG5jqA9HKwa6DU1ZWfzTwfbNJCEU3ddd/";
   string private imageMetadataURI = "https://gateway.pinata.cloud/ipfs/QmTiy2J5ArzRDeJdjraDVLVogqHaZyGHVYnvWA1Y4jdXGa/";
 
-  constructor() ERC721("Decenter Journal Token", "DJT") {
+  constructor() ERC721("Author Token", "AT") {
   }
-
 
   function getAuthorNFTData(uint256 tokenId) external view returns(string memory, string memory, string memory, string memory) {
     require(_exists(tokenId), "token not minted");
