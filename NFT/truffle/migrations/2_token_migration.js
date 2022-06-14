@@ -1,5 +1,5 @@
-const DecenterJournalToken = artifacts.require("DecenterJournalToken");
+const AuthorToken = artifacts.require("AuthorToken");
 
 module.exports = function (deployer) {
-  deployer.deploy(DecenterJournalToken);
+  deployer.deploy(AuthorToken);
 };
