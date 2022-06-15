@@ -1,0 +1,148 @@
+<nav>
+  <div class="nav nav-tabs mt-5" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-all-articles-tab" data-toggle="tab" href="#nav-all-articles"
+       role="tab" aria-controls="nav-all-articles" aria-selected="true">My articles <span
+      class="badge badge-light">3</span></a>
+    <a class="nav-item nav-link" id="nav-approved-articles-tab" data-toggle="tab" href="#nav-approved-articles"
+       role="tab" aria-controls="nav-approved-articles" aria-selected="false">Approved articles<span
+      class="badge badge-light">1</span></a>
+    <a class="nav-item nav-link" id="nav-rejected-articles-tab" data-toggle="tab" href="#nav-rejected-articles"
+       role="tab" aria-controls="nav-rejected-articles" aria-selected="false">Rejected articles<span
+      class="badge badge-light">1</span></a>
+    <a class="nav-item nav-link" id="nav-articles-under-review-tab" data-toggle="tab"
+       href="#nav-articles-under-review" role="tab" aria-controls="nav-articles-under-review"
+       aria-selected="false">Articles under review<span class="badge badge-light">1</span></a>
+  </div>
+</nav>
+<div class="tab-content mt-5" id="nav-tabContent">
+  <div (click)="onclick($event.target)" class="tab-pane fade show active" id="nav-all-articles" role="tabpanel" aria-labelledby="nav-all-articles-tab">
+    <div class="card ml-5 mr-5 mt-3 bg-success thumbnail">
+      <a>
+        <div class="card-header">
+          <div class="float-left">
+            <h4>Article title</h4>
+          </div>
+          <div class="float-right">
+            <p class="text-right">Article approved</p>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </a>
+      <div class="card-body bg-light">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+      <div id="details" style="max-height: 0px; overflow: hidden">
+        <a>JEBIGA UNU</a>
+      </div>
+    </div>
+    <div class="card ml-5 mr-5 mt-3 thumbnail bg-danger">
+      <a>
+        <div class="card-header">
+          <div class="float-left">
+            <h4>Article title</h4>
+          </div>
+          <div class="float-right">
+            Article rejected
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </a>
+      <div class="card-body bg-light">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+          content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card ml-5 mr-5 mt-3 thumbnail bg-warning">
+      <a>
+        <div class="card-header">
+          <div class="float-left">
+            <h4>Article title</h4>
+          </div>
+          <div class="float-right">
+            <p class="text-right">Article under review</p>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </a>
+      <div class="card-body bg-light">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+          content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-approved-articles" role="tabpanel" aria-labelledby="nav-approved-articles-tab">
+    <div class="tab-pane fade show active" id="nav-all-articles" role="tabpanel"
+         aria-labelledby="nav-all-articles-tab">
+      <div class="card ml-5 mr-5 mt-3 thumbnail bg-success">
+        <a>
+          <div class="card-header">
+            <div class="float-left">
+              <h4>Article title</h4>
+            </div>
+            <div class="float-right">
+              <p class="text-right">Article approved</p>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </a>
+        <div class="card-body bg-light">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-rejected-articles" role="tabpanel" aria-labelledby="nav-rejected-articles-tab">
+    <div class="tab-pane fade show active" id="nav-all-articles" role="tabpanel"
+         aria-labelledby="nav-all-articles-tab">
+      <div class="card ml-5 mr-5 mt-3 thumbnail bg-danger">
+        <a>
+          <div class="card-header">
+            <div class="float-left">
+              <h4>Article title</h4>
+            </div>
+            <div class="float-right">
+              <p class="text-right">Article rejected</p>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </a>
+        <div class="card-body bg-light">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+            additional content. This content is a little bit longer.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-articles-under-review" role="tabpanel"
+       aria-labelledby="nav-articles-under-review-tab">
+    <div class="card ml-5 mr-5 mt-3 thumbnail bg-warning">
+      <a>
+        <div class="card-header">
+          <div class="float-left">
+            <h4>Article title</h4>
+          </div>
+          <div class="float-right">
+            <p class="text-right">Article under review</p>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </a>
+      <div class="card-body bg-light">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+          content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
+</div>

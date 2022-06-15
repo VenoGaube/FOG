@@ -8,6 +8,7 @@ import { ReviewArticleComponent } from '../review-article/review-article.compone
 import { HomeComponent } from '../home/home.component';
 import { NftsComponent } from '../nfts/nfts.component';
 import { ArticlesComponent } from '../articles/articles.component';
+import { ArticlesEditorComponent} from "../articles-editor/articles-editor.component";
 
 const poti: Routes = [
   { path: '', component: HomeComponent },
@@ -15,7 +16,8 @@ const poti: Routes = [
   { path: 'myarticles', component: MyArticlesComponent },
   { path: 'submit', component: SubmitArticleComponent },
   { path: 'review', component: ReviewArticleComponent },
-  { path: 'nfts', component: NftsComponent }
+  { path: 'nfts', component: NftsComponent },
+  { path: 'articles-editor', component: ArticlesEditorComponent}
 ];
 
 @NgModule({

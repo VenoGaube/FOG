@@ -10,6 +10,7 @@ import { ReviewArticleComponent } from './review-article/review-article.componen
 import { HomeComponent } from './home/home.component';
 import { NftsComponent } from './nfts/nfts.component';
 import { ArticlesComponent } from './articles/articles.component';
+import { ArticlesEditorComponent } from './articles-editor/articles-editor.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ArticlesComponent } from './articles/articles.component';
     ReviewArticleComponent,
     HomeComponent,
     NftsComponent,
-    ArticlesComponent
+    ArticlesComponent,
+    ArticlesEditorComponent
   ],
   imports: [
     BrowserModule,
