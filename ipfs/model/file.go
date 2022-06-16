@@ -6,25 +6,15 @@ import (
 	"net/http"
 )
 
-type IpfsFile struct {
-	CID  string `json:"cid"`
-	Data []byte `json:"data"`
-}
-
-type CreateFileParam struct {
-	File []byte
-}
-
-type CreateFileIpfsResponse struct {
+type IpfsResponse struct {
 	Bytes int64  `json:"Bytes"`
 	Hash  string `json:"Hash"`
 	Name  string `json:"Name"`
 	Size  string `json:"Size"`
 }
 
-func (store *Store) GetFileByCID(cid string) (*IpfsFile, error) {
+func (store *Store) GetFileByCID(cid string) (content []byte, err error) {
 
-	// QmcfFS2MFVJRvn6ZLKPSDga69BxipAyo3hnmRHjjPfVjkU
 	url := fmt.Sprintf("%s/api/v0/cat?arg=%s", store.address, cid)
 	resp, err := http.Post(url, "application/json", nil)
 	if err != nil {
@@ -32,19 +22,14 @@ func (store *Store) GetFileByCID(cid string) (*IpfsFile, error) {
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	content, err = ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil, err
+		return
 	}
 
-	file := &IpfsFile{
-		CID:  cid,
-		Data: body,
-	}
-
-	return file, nil
+	return
 }
 
-func (store *Store) CreateFile() {
-	//url := fmt.Sprintf("%s/api/v0/cat?arg=%s", store.address)
+func (store *Store) CreateFile(content []byte) (cid string, err error) {
+	return
 }
