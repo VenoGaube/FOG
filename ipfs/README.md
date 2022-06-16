@@ -11,6 +11,7 @@ IPFS_ADDRESS=http://localhost:5001
 ```
 3. Run `docker-compose up`.
 4. Send request on base url `http://localhost:8000`.
+5. Fix volumes in docker-compose.yaml
 
 
 ### IPFS in Docker container
