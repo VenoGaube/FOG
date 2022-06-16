@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  ipfs:
+    image: ipfs/go-ipfs:latest
+    ports:
+      - "4001:4001"
+      - "4001:4001/udp"
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:5001:5001"
+    volumes:
+      - D:/Dokumenti/Documents/Faks/FC/ipfs/staging:/export
+      - D:/Dokumenti/Documents/Faks/FC/ipfs/data:/data/ipfs
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000" # Edit port of microservice if necessary.
+    environment:
+      - IPFS_ADDRESS=http://ipfs:5001
+    depends_on:
+      - ipfs
+    command: [ "/app/main" ]
