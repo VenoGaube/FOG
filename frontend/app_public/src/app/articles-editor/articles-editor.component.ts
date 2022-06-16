@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {conditionallyCreateMapObjectLiteral} from "@angular/compiler/src/render3/view/util";
 
 @Component({
   selector: 'app-articles-editor',
@@ -14,7 +15,12 @@ export class ArticlesEditorComponent implements OnInit {
 
   onclick(el:any):void {
     el = el as Element
-    console.log(el.attributes.id)
+    el = el.parentElement
+    console.log(el)
+    if(el.children[1].style.maxHeight=="0px")
+      el.children[1].style.maxHeight="500px"
+    else
+      el.children[1].style.maxHeight="0px"
   }
 
 }

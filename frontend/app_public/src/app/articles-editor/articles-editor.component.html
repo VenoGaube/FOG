@@ -15,71 +15,9 @@
   </div>
 </nav>
 <div class="tab-content mt-5" id="nav-tabContent">
-  <div (click)="onclick($event.target)" class="tab-pane fade show active" id="nav-all-articles" role="tabpanel" aria-labelledby="nav-all-articles-tab">
+  <div class="tab-pane fade show active" id="nav-all-articles" role="tabpanel" aria-labelledby="nav-all-articles-tab">
     <div class="card ml-5 mr-5 mt-3 bg-success thumbnail">
-      <a>
-        <div class="card-header">
-          <div class="float-left">
-            <h4>Article title</h4>
-          </div>
-          <div class="float-right">
-            <p class="text-right">Article approved</p>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-      </a>
-      <div class="card-body bg-light">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-      <div id="details" style="max-height: 0px; overflow: hidden">
-        <a>JEBIGA UNU</a>
-      </div>
-    </div>
-    <div class="card ml-5 mr-5 mt-3 thumbnail bg-danger">
-      <a>
-        <div class="card-header">
-          <div class="float-left">
-            <h4>Article title</h4>
-          </div>
-          <div class="float-right">
-            Article rejected
-          </div>
-          <div class="clearfix"></div>
-        </div>
-      </a>
-      <div class="card-body bg-light">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-          content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-    <div class="card ml-5 mr-5 mt-3 thumbnail bg-warning">
-      <a>
-        <div class="card-header">
-          <div class="float-left">
-            <h4>Article title</h4>
-          </div>
-          <div class="float-right">
-            <p class="text-right">Article under review</p>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-      </a>
-      <div class="card-body bg-light">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-          content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-  </div>
-  <div class="tab-pane fade" id="nav-approved-articles" role="tabpanel" aria-labelledby="nav-approved-articles-tab">
-    <div class="tab-pane fade show active" id="nav-all-articles" role="tabpanel"
-         aria-labelledby="nav-all-articles-tab">
-      <div class="card ml-5 mr-5 mt-3 thumbnail bg-success">
+      <div (click)="onclick($event.currentTarget)">
         <a>
           <div class="card-header">
             <div class="float-left">
@@ -97,12 +35,46 @@
           <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
       </div>
+      <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
+        <div class="card-body bg-light" style="display:inline-flex">
+          <div class="float-left"  style="display: inline-block">
+            <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
+            <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
+          </div>
+          <div class="float-left" style="margin-left: 30px">
+            <h5 class="card-text" >Author: <small>John Doe</small></h5>
+            <h5 class="card-text">Reviewer: <small>Jane Doe</small></h5>
+            <br>
+            <div>
+              <h5 class="card-text" style="margin-left: 50px">Author comments:</h5>
+              <div>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                  adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                  molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                  harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                  officia!
+              </div>
+              <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
+              <div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                officia!
+              </div>
+            </div>
+            <div style="margin-top: 20px">
+              <button class="btn btn-danger float-left" style="height: 50px">Request revision</button>
+              <button class="btn btn-success float-right" style="height: 50px">Accept article</button>
+            </div>
+            <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="tab-pane fade" id="nav-rejected-articles" role="tabpanel" aria-labelledby="nav-rejected-articles-tab">
-    <div class="tab-pane fade show active" id="nav-all-articles" role="tabpanel"
-         aria-labelledby="nav-all-articles-tab">
-      <div class="card ml-5 mr-5 mt-3 thumbnail bg-danger">
+    <div class="card ml-5 mr-5 mt-3 bg-danger thumbnail">
+      <div (click)="onclick($event.currentTarget)">
         <a>
           <div class="card-header">
             <div class="float-left">
@@ -115,33 +87,288 @@
           </div>
         </a>
         <div class="card-body bg-light">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-            additional content. This content is a little bit longer.</p>
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
           <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+      <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
+        <div class="card-body bg-light" style="display:inline-flex">
+          <div class="float-left"  style="display: inline-block">
+            <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
+            <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
+          </div>
+          <div class="float-left" style="margin-left: 30px">
+            <h5 class="card-text" >Author: <small>John Doe</small></h5>
+            <h5 class="card-text">Reviewer: <small>Jane Doe</small></h5>
+            <br>
+            <div>
+              <h5 class="card-text" style="margin-left: 50px">Author comments:</h5>
+              <div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                officia!
+              </div>
+              <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
+              <div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                officia!
+              </div>
+            </div>
+            <div style="margin-top: 20px">
+              <button class="btn btn-danger float-left" style="height: 50px">Request revision</button>
+              <button class="btn btn-success float-right" style="height: 50px">Accept article</button>
+            </div>
+            <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card ml-5 mr-5 mt-3 bg-warning thumbnail">
+      <div (click)="onclick($event.currentTarget)">
+        <a>
+          <div class="card-header">
+            <div class="float-left">
+              <h4>Article title</h4>
+            </div>
+            <div class="float-right">
+              <p class="text-right">Article under review</p>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </a>
+        <div class="card-body bg-light">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+      <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
+        <div class="card-body bg-light" style="display:inline-flex">
+          <div class="float-left"  style="display: inline-block">
+            <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
+            <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
+          </div>
+          <div class="float-left" style="margin-left: 30px">
+            <h5 class="card-text" >Author: <small>John Doe</small></h5>
+            <h5 class="card-text">Reviewer: <small>Jane Doe</small></h5>
+            <br>
+            <div>
+              <h5 class="card-text" style="margin-left: 50px">Author comments:</h5>
+              <div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                officia!
+              </div>
+              <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
+              <div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                officia!
+              </div>
+            </div>
+            <div style="margin-top: 20px">
+              <button class="btn btn-danger float-left" style="height: 50px">Request revision</button>
+              <button class="btn btn-success float-right" style="height: 50px">Accept article</button>
+            </div>
+            <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-approved-articles" role="tabpanel" aria-labelledby="nav-approved-articles-tab">
+    <div class="tab-pane fade show active" id="nav-all-articles" role="tabpanel"
+         aria-labelledby="nav-all-articles-tab">
+      <div class="card ml-5 mr-5 mt-3 bg-success thumbnail">
+        <div (click)="onclick($event.currentTarget)">
+          <a>
+            <div class="card-header">
+              <div class="float-left">
+                <h4>Article title</h4>
+              </div>
+              <div class="float-right">
+                <p class="text-right">Article approved</p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </a>
+          <div class="card-body bg-light">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+        <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
+          <div class="card-body bg-light" style="display:inline-flex">
+            <div class="float-left"  style="display: inline-block">
+              <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
+              <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
+            </div>
+            <div class="float-left" style="margin-left: 30px">
+              <h5 class="card-text" >Author: <small>John Doe</small></h5>
+              <h5 class="card-text">Reviewer: <small>Jane Doe</small></h5>
+              <br>
+              <div>
+                <h5 class="card-text" style="margin-left: 50px">Author comments:</h5>
+                <div>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                  adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                  molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                  harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                  officia!
+                </div>
+                <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
+                <div>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                  adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                  molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                  harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                  officia!
+                </div>
+              </div>
+              <div style="margin-top: 20px">
+                <button class="btn btn-danger float-left" style="height: 50px">Request revision</button>
+                <button class="btn btn-success float-right" style="height: 50px">Accept article</button>
+              </div>
+              <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-rejected-articles" role="tabpanel" aria-labelledby="nav-rejected-articles-tab">
+    <div class="tab-pane fade show active" id="nav-all-articles" role="tabpanel"
+         aria-labelledby="nav-all-articles-tab">
+      <div class="card ml-5 mr-5 mt-3 bg-danger thumbnail">
+        <div (click)="onclick($event.currentTarget)">
+          <a>
+            <div class="card-header">
+              <div class="float-left">
+                <h4>Article title</h4>
+              </div>
+              <div class="float-right">
+                <p class="text-right">Article rejected</p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </a>
+          <div class="card-body bg-light">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+        <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
+          <div class="card-body bg-light" style="display:inline-flex">
+            <div class="float-left"  style="display: inline-block">
+              <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
+              <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
+            </div>
+            <div class="float-left" style="margin-left: 30px">
+              <h5 class="card-text" >Author: <small>John Doe</small></h5>
+              <h5 class="card-text">Reviewer: <small>Jane Doe</small></h5>
+              <br>
+              <div>
+                <h5 class="card-text" style="margin-left: 50px">Author comments:</h5>
+                <div>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                  adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                  molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                  harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                  officia!
+                </div>
+                <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
+                <div>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                  adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                  molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                  harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                  officia!
+                </div>
+              </div>
+              <div style="margin-top: 20px">
+                <button class="btn btn-danger float-left" style="height: 50px">Request revision</button>
+                <button class="btn btn-success float-right" style="height: 50px">Accept article</button>
+              </div>
+              <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
+            </div>
+            <div class="clearfix"></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div class="tab-pane fade" id="nav-articles-under-review" role="tabpanel"
        aria-labelledby="nav-articles-under-review-tab">
-    <div class="card ml-5 mr-5 mt-3 thumbnail bg-warning">
-      <a>
-        <div class="card-header">
-          <div class="float-left">
-            <h4>Article title</h4>
+    <div class="card ml-5 mr-5 mt-3 bg-warning thumbnail">
+      <div (click)="onclick($event.currentTarget)">
+        <a>
+          <div class="card-header">
+            <div class="float-left">
+              <h4>Article title</h4>
+            </div>
+            <div class="float-right">
+              <p class="text-right">Article under review</p>
+            </div>
+            <div class="clearfix"></div>
           </div>
-          <div class="float-right">
-            <p class="text-right">Article under review</p>
+        </a>
+        <div class="card-body bg-light">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+      <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
+        <div class="card-body bg-light" style="display:inline-flex">
+          <div class="float-left"  style="display: inline-block">
+            <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
+            <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
+          </div>
+          <div class="float-left" style="margin-left: 30px">
+            <h5 class="card-text" >Author: <small>John Doe</small></h5>
+            <h5 class="card-text">Reviewer: <small>Jane Doe</small></h5>
+            <br>
+            <div>
+              <h5 class="card-text" style="margin-left: 50px">Author comments:</h5>
+              <div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                officia!
+              </div>
+              <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
+              <div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                officia!
+              </div>
+            </div>
+            <div style="margin-top: 20px">
+              <button class="btn btn-danger float-left" style="height: 50px">Request revision</button>
+              <button class="btn btn-success float-right" style="height: 50px">Accept article</button>
+            </div>
+            <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
           </div>
           <div class="clearfix"></div>
         </div>
-      </a>
-      <div class="card-body bg-light">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-          content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       </div>
     </div>
   </div>
