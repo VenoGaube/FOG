@@ -1,8 +1,7 @@
 package api
 
 import (
-	"log"
-	"mime/multipart"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -12,8 +11,8 @@ type getFileRequest struct {
 	CID string `uri:"cid" binding:"required"`
 }
 
-type createFileRequest struct {
-	File *multipart.FileHeader `form:"file" binding:"required"`
+type createFileResponse struct {
+	CID string `json:"cid"`
 }
 
 func (server *Server) GetFileByCID(ctx *gin.Context) {
@@ -25,25 +24,35 @@ func (server *Server) GetFileByCID(ctx *gin.Context) {
 		return
 	}
 
-	result, err := server.store.GetFileByCID(req.CID)
+	content, err := server.store.GetFileByCID(req.CID)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"message": err})
 		ctx.Abort()
 		return
 	}
 
-	ctx.JSON(http.StatusOK, result)
+	ctx.Data(http.StatusOK, "application/octet-stream", content)
 }
 
 func (server *Server) UploadFile(ctx *gin.Context) {
 
-	var req createFileRequest
-	if err := ctx.ShouldBind(&req); err != nil {
-		log.Println(err)
+	content, err := ioutil.ReadAll(ctx.Request.Body)
+	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"message": err})
 		ctx.Abort()
 		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{"message": req.File.Size})
+	cid, err := server.store.CreateFile(content)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"message": err})
+		ctx.Abort()
+		return
+	}
+
+	resp := &createFileResponse{
+		CID: cid,
+	}
+
+	ctx.JSON(http.StatusCreated, resp)
 }
