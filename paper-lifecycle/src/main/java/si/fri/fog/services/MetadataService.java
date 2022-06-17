@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import java.sql.Date;
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -24,14 +25,18 @@ public class MetadataService {
     @Inject
     UserService userService;
 
-    public boolean saveMetadata(MetadataDTO metadataDTO){
+    public String saveMetadata(MetadataDTO metadataDTO){
+        metadataDTO.setId(UUID.randomUUID().toString());
         Metadata metadata = contructMetadata(metadataDTO);
-        firestoreService.addMetadata(metadata);
-        return true;
+        boolean success = firestoreService.addMetadata(metadata);
+        if (success) {
+            return metadata.getId();
+        }
+        return null;
     }
 
-    public Metadata getMetadata(String article){
-        return firestoreService.getMetadata(article);
+    public Metadata getMetadata(String id){
+        return firestoreService.getMetadata(id);
     }
 
     public List<Metadata> getMetadata(User user){
@@ -39,18 +44,24 @@ public class MetadataService {
         return articles.stream().map(article -> firestoreService.getMetadata(article)).collect(Collectors.toList());
     }
 
-    public User getUser(String article){
-        String email = firestoreService.getMetadata(article).getUser();
+    public User getUser(String id){
+        String email = firestoreService.getMetadata(id).getUser();
         return userService.getUser(email);
     }
 
     public void updateMetadata(MetadataDTO metadataDTO){
-        Metadata metadata = getMetadata(metadataDTO.getArticle());
+        Metadata metadata = getMetadata(metadataDTO.getId());
+        if (metadataDTO.getTitle() != null) {
+            metadata.setTitle(metadataDTO.getTitle());
+        }
+        if (metadataDTO.getSubmission() != null) {
+            metadata.setSubmission(metadataDTO.getSubmission());
+        }
+        if (metadataDTO.getRevision() != null) {
+            metadata.setRevision(metadataDTO.getRevision());
+        }
         if (metadataDTO.getUser() != null){
             metadata.setUser(metadataDTO.getUser());
-        }
-        if (metadataDTO.getRating() != null){
-            metadata.setRating(metadata.getRating());
         }
         if (metadataDTO.getStage() != null){
             metadata.setStage(Stage.getStageFromName(metadataDTO.getStage()));
@@ -58,7 +69,7 @@ public class MetadataService {
         if (metadataDTO.getFinalDecision() != null){
             metadata.setFinalDecision(metadataDTO.getFinalDecision());
         }
-        firestoreService.updateMetadata(metadataDTO.getArticle(), metadata);
+        firestoreService.updateMetadata(metadataDTO.getId(), metadata);
     }
 
     public void addReview(String article, Review review){
@@ -69,11 +80,14 @@ public class MetadataService {
 
     private Metadata contructMetadata(MetadataDTO metadataDTO){
         return Metadata.builder()
-                .article(metadataDTO.getArticle())
+                .id(metadataDTO.getId())
+                .submission(metadataDTO.getSubmission())
+                .revision(metadataDTO.getRevision())
                 .submittedDate(Date.from(Instant.now()))
-                .rating(metadataDTO.getRating())
                 .stage(Stage.SUBMITTED)
                 .user(metadataDTO.getUser())
+                .title(metadataDTO.getTitle())
+                .finalDecision(metadataDTO.getFinalDecision())
                 .build();
     }
 }

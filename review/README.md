@@ -18,7 +18,6 @@ The rudamentary paper review process will be as follows:
 -   the reviewers review the paper and report their decision
     -   accept the paper
     -   reject the paper
-    -   order for further revision of the paper
 -   if further revision is needed the authors address the concerns
 -   if the paper is accepted it can be published
 

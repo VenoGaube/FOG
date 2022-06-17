@@ -17,7 +17,7 @@ public enum Stage {
 
     public static Stage getStageFromName(String name){
         for (Stage s : Stage.values()){
-            if (s.name.equals(name)){
+            if (s.name.equalsIgnoreCase(name)){
                 return s;
             }
         }

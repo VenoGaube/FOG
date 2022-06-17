@@ -1,7 +1,8 @@
 ## Identity - CRUD - deploy_identity.js
-- create(verifier: string address): will create a new account : private key if there is no local wallet available, or local wallet account : private key if there is. Verifier address is the address of the actor with authority rights over the user management.
-- read(contract: string address): will return user address, private key hash, user type and user authority
-- update_authority_values(contract: string address, authority_address: string address, type: int): will set authority to authority_address and change user type to type - 1 author, 2 reviewer, 3 editor (and 0 reader by default)
+- default_user_data: each user starts with deafult JSON object (acts like a dictionary) where user data for each role can be stored. The structure can be subsequently modified as per operating needs. The object is converted to string for smart contract.
+- create(verifier: string address, local: boolean): will create a new wallet and private key if local is set to false or there is no local wallet available, or local wallet account and private key if local is set to true. Verifier address is the address of the actor with authority rights over the user management.
+- read(contract: string address): will return user address, private key hash, user type, user authority address and user data object.
+- update_authority_values(contract: string address, authority_address: string address, type: int, user_data: JSON object): will set authority to authority_address, change user type to type - 1 author, 2 reviewer, 3 editor (and 0 reader by default) and set user data to passed user data.
 - update_owner_values(contract: string address, user_address: string address, private_key: string): will set user address and hash, effectively changing the user
 - delete_user(contract: string address): will set user address and hash to 0 values, effectively invalidating the user
 

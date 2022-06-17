@@ -8,6 +8,7 @@ contract JournalDID {
     enum Journal_usertype{ READER, REVIEWER, EDITOR, AUTHOR }
     Journal_usertype current_usertype; // user type
     address authority_address; // string, only journal authority can elevate user
+    string user_data_json; //json string for dynamically storing user data
 
     modifier onlyOwner(){
         if (msg.sender == owner) _;
@@ -20,6 +21,7 @@ contract JournalDID {
     constructor() {
         owner = msg.sender;
         current_usertype = Journal_usertype.READER;
+        user_data_json = "{}";
     }
 
     function changeOwner(address _ownerAddress, int _hash) public onlyOwner {
@@ -54,12 +56,20 @@ contract JournalDID {
     function setReviewerType() public onlyAuthority {
         current_usertype = Journal_usertype.REVIEWER;
     }
+
     function setAuthorType() public onlyAuthority {
         current_usertype = Journal_usertype.AUTHOR;
     }
+
     function setEditorType() public onlyAuthority {
         current_usertype = Journal_usertype.EDITOR;
     }
 
-    
+    function setUserData(string memory _newJson) public onlyAuthority {
+        user_data_json = _newJson;
+    }
+
+    function getUserData() external view returns (string memory) {
+        return user_data_json;
+    }
 }
