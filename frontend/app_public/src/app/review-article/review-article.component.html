@@ -1,0 +1,196 @@
+<nav>
+    <div class="nav nav-tabs mt-5" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-articles-under-review-tab" data-toggle="tab"
+            href="#nav-articles-under-review" role="tab" aria-controls="nav-articles-under-review" aria-selected="true"
+            (click)="reset()">Articles under review <span class="badge badge-light">3</span></a>
+        <a class="nav-item nav-link" (click)="reset()" id="nav-reviewed-articles-tab" data-toggle="tab"
+            href="#nav-reviewed-articles" role="tab" aria-controls="nav-reviewed-articles"
+            aria-selected="false">Reviewed articles<span class="badge badge-light">1</span></a>
+    </div>
+</nav>
+<div *ngIf="!articleSelected" class="tab-content mt-5" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-articles-under-review" role="tabpanel"
+        aria-labelledby="nav-articles-under-review-tab">
+        <div class="card ml-5 mr-5 mt-3 bg-warning thumbnail">
+            <a (click)="test(1)">
+                <div class="card-header ">
+                    <div class="float-left">
+                        <h4>Article title 1</h4>
+                    </div>
+                    <div class="float-right">
+                        <p class="text-right">Article under review</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+            <div class="card-body bg-light">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                    content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+        <div class="card ml-5 mr-5 mt-3 bg-warning thumbnail">
+            <a (click)="test(2)">
+                <div class="card-header">
+                    <div class="float-left">
+                        <h4>Article title 2</h4>
+                    </div>
+                    <div class="float-right">
+                        <p class="text-right">Article under review</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+            <div class="card-body bg-light">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                    content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+        <div class="card ml-5 mr-5 mt-3 bg-warning thumbnail">
+            <a (click)="test(3)">
+                <div class="card-header">
+                    <div class="float-left">
+                        <h4>Article title 3</h4>
+                    </div>
+                    <div class="float-right">
+                        <p class="text-right">Article under review</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+            <div class="card-body bg-light">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                    content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="nav-reviewed-articles" role="tabpanel" aria-labelledby="nav-reviewed-articles-tab">
+        <div class="tab-pane fade show active" id="nav-articles-under-review" role="tabpanel"
+            aria-labelledby="nav-articles-under-review-tab">
+            <div class="card ml-5 mr-5 mt-3 bg-success thumbnail">
+                <a (click)="test(4)">
+                    <div class="card-header">
+                        <div class="float-left">
+                            <h4>Reviewed article 1</h4>
+                        </div>
+                        <div class="float-right">
+                            <p class="text-right">Article reviewed</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+                <div class="card-body bg-light">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div *ngIf="articleSelected && !selectedAlreadyReviewedArticle" class="container">
+    <div class="row mt-5 justify-content-center">
+        <div class="col-sm-10 col-md-8 col-lg-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="float-left">
+                        <img src="../../assets/43716.jpg" style="width: 300px;">
+                    </div>
+                    <div class="float-right mt-5 mr-5">
+                        <h3 class="card-title">Sample article</h3>
+                        <ul class="list-inline rating-list">
+                            <li><i class="fas fa-star fa-2x"></i></li>
+                            <li><i class="fas fa-star fa-2x"></i></li>
+                            <li><i class="fas fa-star fa-2x"></i></li>
+                            <li><i class="fas fa-star fa-2x"></i></li>
+                            <li><i class="fas fa-star fa-2x"></i></li>
+                        </ul>
+
+                        <h3 class="card-title">John Doe</h3>
+                        <h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>
+                        <button class="btn btn-primary">Download article</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="card-body">
+                    <!--col-sm-5 col-md-4 col-lg-5-->
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                        adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                        molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                        harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                        officia!</p>
+                    <hr>
+                    <h3 class="card-text font-weight-bold">Article review:</h3>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Comments for the author...</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea2">Comments for the editor...</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea2" rows="3"></textarea>
+                    </div>
+                </div>
+                <a href="/" class="btn btn-success w-25 mx-auto mb-3">Submit review</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="articleSelected && selectedAlreadyReviewedArticle" class="container">
+    <div class="row mt-5 justify-content-center">
+        <div class="col-sm-10 col-md-8 col-lg-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="float-left">
+                        <img src="../../assets/43716.jpg" style="width: 300px;">
+                    </div>
+                    <div class="float-right mt-5 mr-5">
+                        <h3 class="card-title">Reviewed article 1</h3>
+                        <ul class="list-inline rating-list2">
+                            <li><i class="fas fa-star fa-2x"></i></li>
+                            <li><i class="fas fa-star fa-2x"></i></li>
+                            <li><i class="fas fa-star fa-2x"></i></li>
+                            <li><i class="fas fa-star fa-2x"></i></li>
+                            <li><i class="fas fa-star fa-2x"></i></li>
+                        </ul>
+
+                        <h3 class="card-title">John Doe</h3>
+                        <h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>
+                        <button class="btn btn-primary">Download article</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="card-body">
+                    <!--col-sm-5 col-md-4 col-lg-5-->
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
+                        adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
+                        molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
+                        harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
+                        officia!</p>
+                    <hr>
+                    <h3 class="card-text font-weight-bold">Article review:</h3>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Comments for the author...</label>
+                        <textarea disabled class="form-control" id="exampleFormControlTextarea1"
+                            rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam autem doloremque nobis vel sed unde consequuntur dolore, sequi aspernatur! Animi libero doloremque consequatur, earum nihil laborum praesentium. Magni nam recusandae dolores nostrum voluptatum. Reiciendis totam impedit rerum assumenda, officiis cum labore repellendus nulla repudiandae corporis modi id non quidem alias.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea2">Comments for the editor...</label>
+                        <textarea disabled class="form-control" id="exampleFormControlTextarea2"
+                            rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt tempora, exercitationem consequuntur atque veniam impedit incidunt natus corrupti consequatur alias inventore distinctio veritatis? Porro dolores iure commodi, blanditiis accusantium nesciunt, aliquam nemo repellendus ipsum nulla quia veritatis omnis iste. Dicta placeat consequatur cupiditate eum tempore vero tempora provident esse facere.</textarea>
+                    </div>
+                </div>
+                <!--<a href="/" class="btn btn-success w-25 mx-auto mb-3">Revise review</a>-->
+            </div>
+        </div>
+    </div>
+</div>
