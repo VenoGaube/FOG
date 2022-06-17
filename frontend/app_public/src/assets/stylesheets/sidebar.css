@@ -1,0 +1,61 @@
+/* The side navigation menu */
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  right: 0;
+  /*background-color: #FFFFFF;*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  /*padding-top: 75px;*/
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  /*color: #000000;*/
+
+  display: block;
+  transition: 0.3s;
+}
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+.dropdown-item {
+  font-size: 25px;
+  font-weight: bold;
+}
+.dropdown-item:hover{
+  background: transparent;
+}
+.dropdown-item:focus{
+  background: transparent;
+}
+
+.dropdown-name {
+  font-size: 35px;
+  font-weight: bold;
+}
+.bolezen-drop {
+  transition: 0.5s;
+  max-height:0px;
+  overflow: hidden;
+}
+.dropdown-item-small{
+  font-size: 20px;
+}
+.dot {
+  height: 50px;
+  width: 50px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}

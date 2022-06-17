@@ -1,0 +1,28 @@
+
+a.nav-link.active{
+  background-color: #5bc0de
+}
+
+a {
+  cursor: pointer;
+}
+
+#details {
+  transition: 0.4s;
+}
+
+.bg-warning.thumbnail:hover {
+  background-color: orange !important;
+}
+
+.bg-success.thumbnail:hover {
+  background-color: green !important;
+}
+
+.bg-warning.thumbnail:hover {
+  background-color: orange !important;
+}
+
+.bg-danger.thumbnail:hover {
+  background-color: red !important;
+}
