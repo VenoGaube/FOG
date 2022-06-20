@@ -7,13 +7,15 @@ import {AuthorNFTContract} from "../AuthorNFTContract";
 export class AuthorNFTFactoryService {
 
   public create(rawDJTContract: any, address: string): AuthorNFTContract {
-    const authorMint = (title: string) => rawDJTContract.methods.authorMint(title, "Author test", "testni ipfs", 1).send({
+    const authorMint = (title: string, author: string, articleData: string) => rawDJTContract.methods.authorMint(title, author, articleData).send({
       from: address
     });
-    const getAuthorNFTData = () => rawDJTContract.methods.getAuthorNFTData(0).call();
+    const getAuthorNFTData = (tokenId: number) => rawDJTContract.methods.getAuthorNFTData(tokenId).call();
 
     const getOwnedNfts = () => rawDJTContract.methods.getOwnedNfts().call();
 
-    return {authorMint, getAuthorNFTData, getOwnedNfts};
+    const tokenURI = (tokenId: number) => rawDJTContract.methods.tokenURI(tokenId).call();
+
+    return {authorMint, getAuthorNFTData, getOwnedNfts, tokenURI};
   }
 }

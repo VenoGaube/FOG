@@ -54,6 +54,24 @@ public class FileFacade {
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @Path("/submission/released/{id}")
+    public Response getReleasedFile(@PathParam("id") String id){
+        Metadata metadata = metadataService.getMetadata(id);
+        File file = fileService.getReleasedArticle(metadata.getCid());
+        if (file != null) {
+            java.nio.file.Path path = file.toPath();
+            StreamingOutput output = o -> {
+                Files.copy(path, o);
+                Files.deleteIfExists(path);
+            };
+            return Response.ok().entity(output).build();
+        }
+        return Response.status(Response.Status.BAD_REQUEST).build();
+    }
+
+    @Deprecated
     @POST
     @Path("/revision/{id}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)

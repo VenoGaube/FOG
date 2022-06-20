@@ -19,19 +19,20 @@ public class Metadata {
     String id;
     String user;
     Date submittedDate;
+    /**
+     * Hash of the file stored on GCP
+     */
     String submission;
     String title;
     Stage stage;
-    FinalDecision finalDecision;
     String revision;
+    /**
+     * Used for IPFS
+     */
+    String cid;
     List<Review> reviews = new ArrayList<>();
 
     public void addReview(Review review){
         reviews.add(review);
-    }
-
-    public enum FinalDecision {
-        ACCEPTED,
-        REJECTED;
     }
 }
