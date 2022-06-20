@@ -34,7 +34,7 @@ public class FileService {
 
     public String saveUnreleasedArticle(File file){
         String fileName = hashFileName(file);
-        boolean success = this.googleCloudStorageService.saveFile(fileName, file);
+        boolean success = (Boolean) this.googleCloudStorageService.saveFile(fileName, file);
         if (success) {
             return fileName;
         }
