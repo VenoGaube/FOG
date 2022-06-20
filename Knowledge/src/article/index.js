@@ -1,4 +1,5 @@
-const DKG = require('dkg.js')
+const DKG = require('dkg.js');
+const util = require('util')
 
 const dkg = new DKG({ 
     endpoint: '127.0.0.1', 
@@ -8,46 +9,60 @@ const dkg = new DKG({
 });
 
 async function saveArticle(article) {
-    var article = await dkg.assets.create({
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": article.title,
-        "author": article.user,
-        "submission": article.submission,
-        "revision": article.revision,
-        "stage": article.stage,
-        "finalDecision": article.finalDecision
-    }, {
-        "keywords": ["article"],
-        "visibility": "public"
-    });
 
-    var ual = article.data.metadata.UALs[0];
-    return ual;
+    try {
+        var article = await dkg.assets.create({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": article.title,
+            "author": article.user,
+            "submission": article.submission,
+            "revision": article.revision,
+            "stage": article.stage,
+            "finalDecision": article.finalDecision,
+            "review": []
+        }, {
+            "keywords": ["article"],
+            "visibility": "public"
+        });
+        return article;
+    } catch(e) {
+        console.log(e);
+    }
+    
 }
 
 async function readArticle(ual) {
+    try {
     var articleProxy = await dkg.assets.get(ual);
+    const data = await articleProxy.data;
+    //const articleData = await articleProxy;
 
-    const articleData = await articleProxy.data.valueOf;
-
-    return articleData;
+    return data;
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 async function updateArticle(ual, article) {
-    var result = await dkg.assets.update({
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": article.title,
-        "author": article.user,
-        "submission": article.submission,
-        "revision": article.revision,
-        "stage": article.stage,
-        "finalDecision": article.finalDecision
-    }, ual, {
-        "keywords": ["article"],
-        "visibility": "public"
-    })
+    
+    try{
+        var result = await dkg.assets.update({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": article.title,
+            "author": article.user,
+            "submission": article.submission,
+            "revision": article.revision,
+            "stage": article.stage,
+            "finalDecision": article.finalDecision
+        }, ual, {
+            "keywords": ["article"],
+            "visibility": "public"
+        })
+    } catch(e) {
+        console.log(e);
+    }
 }
 
 async function searchArticleByKeyword(keyword) {
@@ -57,3 +72,34 @@ async function searchArticleByKeyword(keyword) {
 
     return articleData;
 }
+
+let article = {
+    title: "Article title",
+    user: "Author",
+    submission: "Submission",
+    revision: "Revision",
+    stage: "Not ready",
+    finalDecision: "NO"
+}
+
+async function test() {
+    var result = await dkg.nodeInfo();
+    console.log(JSON.stringify(result, null, 2));
+}
+
+async function saveTestArticle() {
+    
+    article = await saveArticle(article);
+    var ual = await article.data.metadata.UALs[0];
+    console.log(ual);
+}
+
+ual = "b520cdf18819f471bf9e8bf9624b4e440461e2bfc33a7bf560f8bc41151ea3be"
+async function getTestArticle() {
+    article = await readArticle(ual);
+    console.log(util.inspect(article.valueOf, false, null, true /* enable colors */))
+}
+
+//test()
+//saveTestArticle()
+getTestArticle()
