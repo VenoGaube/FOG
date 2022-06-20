@@ -1,0 +1,23 @@
+.bg-warning.thumbnail:hover {
+    background-color: orange !important;
+    font-weight: bold;
+}
+
+.bg-success.thumbnail:hover {
+    background-color: green !important;
+    font-weight: bold;
+}
+
+a {
+    cursor: pointer;
+}
+
+.rating-list li {
+    float: right;
+    color: yellow;
+}
+
+.rating-list {
+    display: inline-block;
+    list-style: none;
+}
