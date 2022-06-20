@@ -41,6 +41,14 @@ public class FileService {
         return null;
     }
 
+    public File getReleasedArticle(String cid) {
+        return this.ipfsStorageService.getFile(cid);
+    }
+
+    public String saveReleasedArticle(File file){
+        return this.ipfsStorageService.saveFile("", file).toString();
+    }
+
     public static String hashFileName(File file) {
         try {
             return Files.hash(file, HASH_FUNCTION).toString();

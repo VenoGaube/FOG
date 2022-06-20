@@ -13,22 +13,22 @@ import si.fri.fog.pojo.Metadata;
 public class MetadataDTO {
 
     String id;
+    String cid;
     String user;
     String title;
     String submission;
     String revision;
     String stage;
-    Metadata.FinalDecision finalDecision;
 
     public static MetadataDTO toMetadataDTO(Metadata metadata) {
         return MetadataDTO.builder()
                 .id(metadata.getId())
+                .cid(metadata.getCid())
                 .title(metadata.getTitle())
                 .user(metadata.getUser())
                 .submission(metadata.getSubmission())
                 .revision(metadata.getRevision())
                 .stage(metadata.getStage().name())
-                .finalDecision(metadata.getFinalDecision())
                 .build();
     }
 }

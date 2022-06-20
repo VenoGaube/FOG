@@ -1,0 +1,25 @@
+----------------------------574228684163218657059519
+Content-Disposition: form-data; name=""; filename="five_networks.py"
+Content-Type: application/octet-stream
+
+import networkx as nx
+
+def read_network(file_name: str) -> nx.Graph:
+    return nx.read_edgelist(file_name)
+
+networks = [read_network(f"networks/network_{i}.adj") for i in range(1,6)]
+
+#print([nx.average_clustering(network) for network in networks])
+
+# average clustering
+# [0.25394067066706016, 3.437215379691078e-05, 0.0, 0.07978452668214911, 0.6163320902945112]
+# iz tega bi sklepal da je 1. , 2. random graph, 3. Flickr (because affiliation graph is a bipartite one), 4. author colloboration 5. IMDB (highest clustering)
+# izračuni še <d>
+
+
+#print([nx.average_shortest_path_length(network) for network in networks])
+
+print(nx.average_shortest_path_length(networks[0]))
+
+
+----------------------------574228684163218657059519--

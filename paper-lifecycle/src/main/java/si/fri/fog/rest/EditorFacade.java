@@ -29,9 +29,9 @@ public class EditorFacade {
     }
 
     @POST
-    @Path("/decision/{article}")
-    public Response saveDecision(@PathParam("article") String article, String decision){
-        editorService.saveFinalDecision(article, decision);
+    @Path("/decision/{id}")
+    public Response saveDecision(@PathParam("id") String id, @QueryParam("decision") String decision){
+        editorService.saveFinalDecision(id, decision);
         return Response.ok().build();
     }
 }
