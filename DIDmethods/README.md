@@ -2,40 +2,65 @@
 Student: Gregor Novak
 
 ### Used technologies
-For defining DID methods and other tasks linked to DIDs that are in the scope of this topic,
-use of Ethereum and Solidity language is currently planned, along with JSON.
-This can be changed, according to which blockchain and technologies will be used in other parts of our decentralized journal.
+For DID registry, which will be needed for defining DID methods within this topic, 
+use of smart contracts for saving paper data etc. is planned. These smart contracts are part of other topics within our decentralized journal,
+but we can get all the necessary data from them and because of this, we can avoid duplicating code for similar purposes within our project.
+DID documents are planned to be represented with JSON, while API and other parts of DID method drivers are planned to be implemented with Python and its simple framework Flask.
+DID resolver UI will be implemented with HTML, CSS and JavaScript with the help of jQuery only, to keep implementation as simple as possible,
+since the whole implementation is planned to be deployed with Docker container.
 
 ### Main objectives
-- Define DID methods for creating/resolving/updating/deactivating various DIDs, needed in our project.
-- Manage tasks, other than pure DID methods, that are potentially out of scope of other topics. These could include:
-  - Defining/managing DID subjects and DID controllers,
-  - Defining DID documents,
-  - Defining DID resolvers and resolutions, needed at other places within the main project.
+Because the need for other DID methods and DIDs for our project, that would be covered in this topic, did not arise,
+implementation of DID method for papers and potentially paper reviews is planned. With this method, users will be able to prove their paper authorship
+and/or reviewership of specific papers.
+Specifically, this topic will cover:
+- defining how smart contracts of our project can be used as DID registry for our DID method,
+- defining how data, stored on blockchain/IPFS/our knowledge base can be used to generate DID documents,
+- implementation of DID driver and API for resolving DIDs and fetching their data,
+- implementation of DID resolver, which will combine DID driver and API with frontend UI for resolving
+    (retrieving data) of our DIDs for papers, and potentially reviews.
 
-Topic of DID methods is closely linked to other selected topics, such as for example *Identity management*. 
-Therefore we plan to co-operate with students, working on such topics.
+Paper DIDs will have the following structure (paper being the name of DID method):
+- `did:paper:[paper-id]`
 
-### Examples of DIDs and their methods, potentially used in our project
-Currently, a fixed collection of needed DIDs and methods is not yet defined. We plan to determine this through time, when more of our decentralized journal is implemented and the needs for DIDs arise for various functionalities.
-<br>
-Bellow are some descriptive examples of DIDs and their methods, that can be used in our project and should be provided in the scope of *DID Methods* topic.
-<br>
-#### DID for paper/article
-Papers are going to be one of the main parts of our journal. When a paper is submitted,
-DID for this paper is created. If paper is rejected, its DID should be deactivated, indicating that paper is, in a way, no longer part of the journal. In the process of reviewing, publishing, etc., paper's DID should be updated.
-For example, someone can change various properties of a paper, for which we can define appropriate DID methods.
-It should also be determined, who has the control over the paper, but various tasks for the paper can exist.
-Therefore, different types of controllers should be defined. DID subject in this case, is a specific paper.
-<br>
-These DIDs and their methods are closely linked to paper lifecycle.
-#### DID for user review
-In reputation mechanism and ranking system of the users, reviews could be used.
-Here we can use DID, whose DID subject is a specific review. Review controller is its author and potential moderators, who can modify/delete the review if it is not appropriate.
-Each user should be able to create only one review per addressed entity. If review's author changes opinion, expressed in the review, they can modify the review.
-They could also be able to delete the review if they so choose. In this case, review's DID is deactivated.
-#### DIDs which are part of the DAO
-In the scope of DAO, voting functionality will be provided. Here we could use DIDs for the entities, which are receiving the votes.
-Whenever a vote for a specific entity is submitted, its DID is updated through DID method, indicating the new received number of votes.
-If voting is addressing various users, these DIDs could then also be part of Identity management if this would appear to be reasonable.
+If DIDs for reviews will also be used, method is planned to be called `journal` (after our project) and DIDs will have the following structure:
+- `did:journal:paper:[paper-id]`
+- `did:journal:review:[review-id]`
 
+
+### Progress so far
+Work on DID resolver has started and first version of the UI already exists. Some API endpoints have been defined,
+but because, our project is not yet functional since we need to integrate different parts of the whole decentralized journal, these endpoints don't yet return actual DID data.
+<br>
+Currently, further work is on hold. It will be continued, when at least some integration is successfully achieved
+so that we can better understand how the data, needed for DID documents is being stored and used.   
+
+## Running the DID resolver implementation
+For running the code, Python is required.
+<br>
+To install Python requirements, navigate to `DIDmethods/did_resolver` directory and run:
+```
+pip install -r requirements.txt
+```
+
+You can run DID resolver app from your IDE or you can use the following command from the `DIDmethods/did_resolver` directory in the terminal:
+```
+python app.py
+```
+
+App UI will be available on `http://127.0.0.1:5000`.
+
+### Running with Docker
+You can also run DID resolver app in Docker container.
+First, build Docker image. Make sure you are located in `DIDmethods/did_resolver` directory and run:
+```
+docker image build -t did_resolver .
+```
+This will build Docker image called `did_resolver`.
+
+To run the latest version of the image, use following command.
+```
+docker run -p 5000:5000 did_resolver:latest 
+```
+
+App can now be used in the same manner as if run without Docker container.
