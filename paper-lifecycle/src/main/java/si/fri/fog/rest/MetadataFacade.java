@@ -19,6 +19,11 @@ public class MetadataFacade {
         this.metadataService = metadataService;
     }
 
+    @GET
+    public Response getArticles(){
+        return Response.ok().entity(metadataService.getMetadata()).build();
+    }
+
     @POST
     @Path("/new")
     @Consumes(MediaType.APPLICATION_JSON)

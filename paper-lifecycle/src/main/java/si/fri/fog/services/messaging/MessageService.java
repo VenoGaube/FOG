@@ -33,4 +33,8 @@ public class MessageService {
         mailService.sendEmail(author.getEmail(), "Status of your article: " + article, "Your article was: " + decision.name());
     }
 
+    public void notifyAuthorSubmission(String email, String article) {
+        mailService.sendEmail(email, "Article submission", "Your article: " + article + " was successfully submitted!");
+    }
+
 }

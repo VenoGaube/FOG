@@ -35,6 +35,10 @@ public class MetadataService {
         return null;
     }
 
+    public List<Metadata> getMetadata(){
+        return firestoreService.getMetadata();
+    }
+
     public Metadata getMetadata(String id){
         return firestoreService.getMetadata(id);
     }

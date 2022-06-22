@@ -13,18 +13,18 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/reviewer")
+@Path("/review")
 public class ReviewerFacade {
 
     @Inject
     ReviewerService reviewerService;
-
     @GET
-    @Path("/{article}")
-    public Response getReviewers(@PathParam("article") String article) {
-        List<User> reviewers = reviewerService.getReviewers(article);
-        return Response.ok().entity(reviewers).build();
+    @Path("/{id}")
+    public Response getReviewers(@PathParam("id") String id) {
+        List<Review> reviews = reviewerService.getReviews(id);
+        return Response.ok().entity(reviews).build();
     }
+
 
     @POST
     @Path("/{article}")

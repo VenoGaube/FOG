@@ -5,6 +5,7 @@ import si.fri.fog.pojo.Metadata;
 import si.fri.fog.pojo.Stage;
 import si.fri.fog.pojo.User;
 import si.fri.fog.pojo.dtos.MetadataDTO;
+import si.fri.fog.services.authorization.UserService;
 import si.fri.fog.services.messaging.MessageService;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -26,8 +27,11 @@ public class EditorService {
     @Inject
     FileService fileService;
 
-    public void addReviewers(String article, List<String> reviewers){
-        //TODO: Blockchain logic - using smart contract
+    @Inject
+    UserService userService;
+
+    public void addReviewers(String article){
+        messageService.notifyReviewer(article, userService.getRandomReviewer());
     }
 
     public void saveFinalDecision(String id, String decision){
@@ -47,6 +51,6 @@ public class EditorService {
                 .stage(finalDecision.toString())
                 .build();
         metadataService.updateMetadata(metadataDTO);
-        //messageService.notifyAuthor(metadata.getTitle(), metadataService.getUser(metadata.getTitle()), finalDecision);
+        messageService.notifyAuthor(metadata.getTitle(), metadataService.getUser(metadata.getTitle()), finalDecision);
     }
 }

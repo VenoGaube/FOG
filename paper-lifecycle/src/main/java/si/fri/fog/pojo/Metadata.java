@@ -33,6 +33,10 @@ public class Metadata {
     List<Review> reviews = new ArrayList<>();
 
     public void addReview(Review review){
+        // When deserializing from Firestore list is not initialized
+        if (reviews == null) {
+            reviews = new ArrayList<>();
+        }
         reviews.add(review);
     }
 }

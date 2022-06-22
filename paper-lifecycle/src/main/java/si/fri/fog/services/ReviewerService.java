@@ -17,8 +17,8 @@ public class ReviewerService {
     @Inject
     MetadataService metadataService;
 
-    public List<User> getReviewers(String article) {
-        return Collections.emptyList();
+    public List<Review> getReviews(String id){
+        return metadataService.getMetadata(id).getReviews();
     }
 
     public void addReview(String article, ReviewDTO reviewDTO){

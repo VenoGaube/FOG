@@ -23,8 +23,8 @@ public class EditorFacade {
 
     @POST
     @Path("/reviwers/{article}")
-    public Response saveReviewers(@PathParam("article") String article, List<String> emails) {
-        editorService.addReviewers(article, emails);
+    public Response saveReviewers(@PathParam("article") String article) {
+        editorService.addReviewers(article);
         return Response.noContent().build();
     }
 

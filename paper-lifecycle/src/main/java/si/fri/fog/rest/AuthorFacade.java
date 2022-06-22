@@ -6,6 +6,7 @@ import si.fri.fog.pojo.User;
 import si.fri.fog.pojo.dtos.MetadataDTO;
 import si.fri.fog.services.authorization.AuthenticationService;
 import si.fri.fog.services.MetadataService;
+import si.fri.fog.services.authorization.UserService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -16,23 +17,16 @@ import javax.ws.rs.core.Response;
 public class AuthorFacade {
 
     @Inject
-    AuthenticationService authenticationService;
+    UserService userService;
 
     @Inject
     MetadataService metadataService;
 
     @GET
-    @Path("/article")
-    public Response getArticles(@HeaderParam("Authorization") String token){
-        if (token == null) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
-        }
-
-        if (authenticationService.hasPermissions(token, Role.AUTHOR)) {
-            User user = authenticationService.getUser(token);
-            return Response.ok().entity(metadataService.getMetadata(user)).build();
-        }
-        return Response.status(Response.Status.FORBIDDEN).build();
+    @Path("/{email}/article/")
+    public Response getArticles(@PathParam("email") String email){
+        User user = userService.getUser(email);
+        return Response.ok().entity(metadataService.getMetadata(user)).build();
     }
 
 }
