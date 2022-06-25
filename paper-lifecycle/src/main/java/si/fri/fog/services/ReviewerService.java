@@ -21,9 +21,9 @@ public class ReviewerService {
         return metadataService.getMetadata(id).getReviews();
     }
 
-    public void addReview(String article, ReviewDTO reviewDTO){
+    public void addReview(String id, ReviewDTO reviewDTO){
         Review review = buildReview(reviewDTO);
-        metadataService.addReview(article, review);
+        metadataService.addReview(id, review);
     }
 
     private Review buildReview(ReviewDTO reviewDTO){

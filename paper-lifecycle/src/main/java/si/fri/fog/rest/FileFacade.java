@@ -2,6 +2,9 @@ package si.fri.fog.rest;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import si.fri.fog.pojo.Metadata;
 import si.fri.fog.pojo.dtos.MetadataDTO;
 import si.fri.fog.services.FileService;
@@ -27,6 +30,17 @@ public class FileFacade {
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     @Path("/submission/{id}")
+    @Operation(summary = "Get submission", description = "Get unreleased article with given id")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Successfully retrieved submission"
+            ),
+            @APIResponse(
+                    responseCode = "400",
+                    description = "Something went wrong with retrieving the submission"
+            )
+    })
     public Response getFile(@PathParam("id") String id){
         File file = submissionService.getUnreleasedArticle(id);
         if (file != null) {
@@ -43,6 +57,17 @@ public class FileFacade {
     @POST
     @Path("/submission/{id}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Operation(summary = "Upload submission", description = "Upload submitted article and connect it with article with given id")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "204",
+                    description = "Successfully created submission"
+            ),
+            @APIResponse(
+                    responseCode = "500",
+                    description = "Something went wrong with saving the submission"
+            )
+    })
     public Response saveSubmission(@PathParam("id") String id, File file){
         boolean success = submissionService.saveUnreleasedArticle(id, file);
         if (success){
@@ -54,6 +79,17 @@ public class FileFacade {
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     @Path("/submission/released/{id}")
+    @Operation(summary = "Get released article", description = "Get released article with given id")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Successfully retrieved released article"
+            ),
+            @APIResponse(
+                    responseCode = "400",
+                    description = "Something went wrong with retrieving the released article"
+            )
+    })
     public Response getReleasedFile(@PathParam("id") String id){
         File file = submissionService.getReleasedArticle(id);
         if (file != null) {

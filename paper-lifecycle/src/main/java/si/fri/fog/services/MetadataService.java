@@ -76,10 +76,10 @@ public class MetadataService {
         firestoreService.updateMetadata(metadataDTO.getId(), metadata);
     }
 
-    public void addReview(String article, Review review){
-        Metadata metadata = getMetadata(article);
+    public void addReview(String id, Review review){
+        Metadata metadata = getMetadata(id);
         metadata.addReview(review);
-        firestoreService.updateMetadata(article, metadata);
+        firestoreService.updateMetadata(id, metadata);
     }
 
     private Metadata constructMetadata(MetadataDTO metadataDTO){

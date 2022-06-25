@@ -19,6 +19,8 @@ List of functionalities:
 * provide services that will listen to Blockchain events and act accordingly (just a demo, since we did not integrate)
 * notifying users that there were changes to the paper stage (submission, acceptance, rejection, ...) via email
 
+REST endpoints with corresponding descriptions can be seen here:
+https://paper-lifecycle-rnxu55ua6a-uc.a.run.app/q/swagger-ui/
 
 ## Building the application
 
