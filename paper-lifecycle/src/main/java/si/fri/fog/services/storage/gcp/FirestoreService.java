@@ -1,5 +1,6 @@
 package si.fri.fog.services.storage.gcp;
 
+import com.google.api.client.util.Lists;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,7 @@ public class FirestoreService {
         firestore = firestoreOptions.getService();
     }
 
-    public void addMetadata(Metadata metadata){
+    public boolean addMetadata(Metadata metadata){
         ApiFuture<WriteResult> result = firestore.collection(METADATA_COLLECTION).document().set(metadata);
         try {
             log.info("Added metadata {} at time {}", metadata, result.get().getUpdateTime());
@@ -41,6 +42,7 @@ public class FirestoreService {
             log.error("Error while saving new metadata to Firestore");
             throw new RuntimeException(e);
         }
+        return true;
     }
 
     public Metadata getMetadata(String article){
@@ -52,14 +54,28 @@ public class FirestoreService {
         }
     }
 
-    public void updateMetadata(String article, Metadata metadata){
-        String documentId = getDocumentIdFromArticle(article);
+    public List<Metadata> getMetadata(){
+        var documents = Lists.newArrayList(firestore.collection(METADATA_COLLECTION).listDocuments().iterator());
+        return documents.stream().map(element -> {
+            try {
+                return element.get().get().toObject(Metadata.class);
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }).collect(Collectors.toList());
+    }
+
+    public void updateMetadata(String id, Metadata metadata){
+        String documentId = getDocumentIdFromArticle(id);
         Map<String, Object> data = new HashMap<>();
         data.put("user", metadata.getUser());
         data.put("submittedDate", metadata.getSubmittedDate());
-        data.put("article", article);
-        data.put("rating", metadata.getRating());
+        data.put("submission", metadata.getSubmission());
+        data.put("revision", metadata.getRevision());
         data.put("stage", metadata.getStage());
+        data.put("reviews", metadata.getReviews());
+        data.put("title", metadata.getTitle());
+        data.put("cid", metadata.getCid());
 
         firestore.collection(METADATA_COLLECTION).document(documentId).update(data);
     }
@@ -69,20 +85,23 @@ public class FirestoreService {
         Query query = metadatas.whereEqualTo("user", user.getEmail());
 
         try {
-            return query.get().get().getDocuments().stream().map(e -> (String)e.get("article")).collect(Collectors.toList());
+            return query.get().get().getDocuments().stream().map(e -> (String)e.get("id")).collect(Collectors.toList());
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private String getDocumentIdFromArticle(String article) {
+    private String getDocumentIdFromArticle(String id) {
         var metadatas = firestore.collection(METADATA_COLLECTION);
-        Query query = metadatas.whereEqualTo("article", article);
+        Query query = metadatas.whereEqualTo("id", id);
 
         try {
             var documents = query.get().get().getDocuments();
-            if (documents.size() != 1){
-                throw new RuntimeException("For given query for article " + article +  " there is more than just one document");
+            if (documents.size() > 1){
+                throw new RuntimeException("For given query for article " + id +  " there is more than just one document");
+            }
+            else if (documents.size() == 0){
+                throw new RuntimeException("For given query for article " + id + " there is no records.");
             }
             return documents.get(0).getId();
 

@@ -16,8 +16,8 @@ import java.io.IOException;
 @ApplicationScoped
 public class MailService {
 
-    private static final String API_KEY = "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";
-    private static final String SENDER_MAIL = "fog-computing@protonmail.com";
+    private static final String API_KEY = System.getenv("sendgrid");
+    private static final String SENDER_MAIL = "fog-computing-2022@proton.me";
     private final SendGrid sendGrid = new SendGrid(API_KEY);
 
     public void sendEmail(String receiverEmail, String subject, String contentBody) {
