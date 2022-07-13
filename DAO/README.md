@@ -20,15 +20,6 @@ Everyone can be author, reader, reviewer; but has to be elected to become an edi
 
 For every role (except for Reader), we will generate a membership NFT so that the DAO could identify a specific role a user has in order to allow or deny his/her vote.
 
-### Functions needed to be implemented
-
-- `confirmEditor()` - to elect an editor
-- `revokeEditor()` - to revoke someone as an editor
-- `addReviewer()` - to asign a role as a reviewer to someone
-- ...
-
-The list will be updated as new functions will be thought of / needed.
-
 ### Technology stack
 
 - DAO will be written in JavaScript
@@ -62,3 +53,15 @@ This is mostly helpful to manage the users with editor roles. The NFT drop of ed
 In our app is this done simply just by updating the old contract address of the Edition Drop with the new one every 4 years.
 
 That way all previous editors get to keep their old editor NFTs as a souvenir in their wallet without any need of burning or transfering them.
+
+### Token based voting
+
+Current implementation is that once a year we drop 100 DJDAO governence tokens to every DAO user.
+
+Each proposal:
+
+- a DAO user wants to propose will cost him eg. 20 DJDAO tokens
+- is valid approx 1 month (197100 blocks) until it is accepted/rejected
+- Vote quorum is 1% of total supply - currently 50 people have to agree (if one vote is 20 tokens) in order for proposal to be accepted
+
+TODO: consult with tokenomics guy to adjust airdrop amount, vote quorum, etc. according to our plan
