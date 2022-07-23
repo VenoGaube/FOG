@@ -1,25 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { MetaMaskInpageProvider } from "@metamask/providers";
-import Web3 from 'web3';
-declare let require: any;
+import { Injectable } from '@angular/core';
+import {MetaMaskInpageProvider} from "@metamask/providers";
 
-declare global {
-  interface Window{
-    ethereum?:MetaMaskInpageProvider
-  }
-}
-
-// @ts-ignore
-@Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+@Injectable({
+  providedIn: 'root'
 })
+export class MetamaskServiceService {
 
-
-export class HomeComponent implements OnInit {
-
-  constructor() { }
+  constructor() {
+    this.account = this.vrniUporabnika();
+  }
   foundAccount:boolean = false
   public account:any = ""
 
@@ -31,14 +20,16 @@ export class HomeComponent implements OnInit {
       if (racuni != null) {
         //alert(racuni[0]);
         this.foundAccount = true;
-        console.log(racuni[0])
+        //console.log(racuni[0])
+        this.account = racuni[0];
         return racuni[0];
       } else return ""
     } else return "";
   }
 
-  ngOnInit(): void {
+  public getUser(): any {
     this.account = this.vrniUporabnika();
+    return this.account;
   }
 
 }
