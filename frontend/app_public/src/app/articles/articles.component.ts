@@ -14,14 +14,20 @@ export class ArticlesComponent implements OnInit {
   cur_user: User=new User();
 
   ngOnInit(): void {
-    this.mms.account.then((res: string) => {
-      this.cur_user=this.dbs.getUserById(res);
-      // @ts-ignore
-      document.getElementById("user_name").innerText=this.cur_user.name+" "+this.cur_user.surname;
-
-      // @ts-ignore
-      document.getElementById("user_rep").innerText=this.cur_user.reputation;
-    })
+    this.sidebarHandling();
+    console.log(this.dbs.getAllArticles());
+    this.dbs.makeNewArticle("neki", "hahaha", "bruh", "myass", ".txt");
+    console.log(this.dbs.getAllArticles());
   }
+   sidebarHandling():void {
+     this.mms.account.then((res: string) => {
+       this.cur_user=this.dbs.getUserById(res);
+       // @ts-ignore
+       document.getElementById("user_name").innerText=this.cur_user.name+" "+this.cur_user.surname;
+
+       // @ts-ignore
+       document.getElementById("user_rep").innerText=this.cur_user.reputation;
+     })
+   }
 
 }

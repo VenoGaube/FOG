@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import Web3 from 'web3';
+import {MetamaskServiceService} from "../Services/metamask-service.service";
+import {DatabaseService} from "../Services/database.service";
+import {User} from "../../assets/classes/User";
 declare let require: any;
 
 declare global {
@@ -19,7 +22,18 @@ declare global {
 
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private mms:MetamaskServiceService, private dbs:DatabaseService) { }
+  cur_user: User=new User();
+  sidebarHandling():void {
+    this.mms.account.then((res: string) => {
+      this.cur_user=this.dbs.getUserById(res);
+      // @ts-ignore
+      document.getElementById("user_name").innerText=this.cur_user.name+" "+this.cur_user.surname;
+
+      // @ts-ignore
+      document.getElementById("user_rep").innerText=this.cur_user.reputation;
+    })
+  }
   foundAccount:boolean = false
   public account:any = ""
 
@@ -39,6 +53,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.account = this.vrniUporabnika();
+    this.sidebarHandling();
   }
 
 }
