@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {User} from "../../assets/classes/User";
 import {Article} from "../../assets/classes/Article";
 import {Review} from "../../assets/classes/Review";
+import {ArticleDao} from "../../assets/classes/ArticleDao";
 import {Md5} from "ts-md5";
 
 
@@ -36,7 +37,34 @@ export class DatabaseService {
     sampArticle.title = "Example article";
     sampArticle.uploaded = "23.07.2022";
     this.articles.push(sampArticle);
+    sampArticle = new Article();
+    sampArticle.id_author = "0x54cef6b9a54656865dac7906cec0bf839da424bb";
+    sampArticle.id = "2";
+    sampArticle.link = "https://www.youtube.com/"
+    sampArticle.review = new Review();
+    sampArticle.ratings = [3,4,5];
+    sampArticle.id_approver = "0x54cef6b9a54656865dac7906cec0bf839da424bb";
+    sampArticle.status = "In Review";
+    sampArticle.summary = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!"
+    sampArticle.title = "Example articleIR";
+    sampArticle.uploaded = "23.07.2022";
+    this.articles.push(sampArticle);
   }
+private toArticleDao(art:Article):ArticleDao{
+  var artdao = new ArticleDao();
+  artdao.id = art.id;
+  artdao.approver = this.getUserById(art.id_approver);
+  artdao.author = this.getUserById(art.id_author);
+  artdao.link = art.link;
+  artdao.summary = art.summary;
+  artdao.review = art.review;
+  artdao.ratings = art.ratings;
+  artdao.status = art.status;
+  artdao.title = art.title;
+  artdao.uploaded = art.uploaded;
+  return artdao;
+
+}
 
 public getUserById(id:string):any {
     for(var i = 0;i<this.users.length;i++){
@@ -56,7 +84,7 @@ public getUserArticles(userId:string):any {
     var out = [];
     for(var art of this.articles){
       if(art.id_author == userId){
-        out.push(art);
+        out.push(this.toArticleDao(art));
       }
     }
     return out;
@@ -65,8 +93,8 @@ public getUserArticles(userId:string):any {
 public getApprovedArticles():any {
     var out = [];
     for(var art of this.articles){
-      if(art.status="Approved"){
-        out.push(art);
+      if(art.status=="Approved"){
+        out.push(this.toArticleDao(art));
       }
     }
     return out;
@@ -75,8 +103,8 @@ public getApprovedArticles():any {
   public getRejectedArticles():any {
     var out = [];
     for(var art of this.articles){
-      if(art.status="Rejected"){
-        out.push(art);
+      if(art.status=="Rejected"){
+        out.push(this.toArticleDao(art));
       }
     }
     return out;
@@ -85,8 +113,8 @@ public getApprovedArticles():any {
   public getInReviewArticles():any {
     var out = [];
     for(var art of this.articles){
-      if(art.status="In Review"){
-        out.push(art);
+      if(art.status=="In Review"){
+        out.push(this.toArticleDao(art));
       }
     }
     return out;
@@ -96,7 +124,7 @@ public getApprovedArticles():any {
     var out = [];
     for(var art of this.articles){
       if(art.id_approver==id){
-        out.push(art);
+        out.push(this.toArticleDao(art));
       }
     }
     return out;
@@ -104,7 +132,7 @@ public getApprovedArticles():any {
 
   public getArticleReview(articleId:string):any {
     for(var art of this.articles) {
-      if (art.id = articleId) {
+      if (art.id == articleId) {
         return art.review;
       }
     }
@@ -125,6 +153,14 @@ public getApprovedArticles():any {
     for(var art of this.articles){
       if(art.id==articleId && art.status=="In Review"){
         art.status="Approved";
+      }
+    }
+  }
+
+  public rejectArticle(articleId:string){
+    for(var art of this.articles){
+      if(art.id==articleId && art.status=="In Review"){
+        art.status = "Rejected"
       }
     }
   }
@@ -167,8 +203,12 @@ public getApprovedArticles():any {
     this.articles.push(newart);
   }
 
-  public getAllArticles(){
-    return this.articles;
+  public getAllArticles() {
+    var out = [];
+    for(var art of this.articles){
+      out.push(this.toArticleDao(art))
+    }
+    return out;
   }
 
 

@@ -3,6 +3,8 @@ import {conditionallyCreateMapObjectLiteral} from "@angular/compiler/src/render3
 import {MetamaskServiceService} from "../Services/metamask-service.service";
 import {DatabaseService} from "../Services/database.service";
 import {User} from "../../assets/classes/User";
+import {Article} from "../../assets/classes/Article";
+import {ArticleDao} from "../../assets/classes/ArticleDao";
 
 @Component({
   selector: 'app-articles-editor',
@@ -13,9 +15,16 @@ export class ArticlesEditorComponent implements OnInit {
 
   constructor(private mms:MetamaskServiceService, private dbs:DatabaseService) { }
   cur_user: User=new User();
+  articles_approved: ArticleDao[] = [];
+  articles_inreview: ArticleDao[] = [];
+  articles_rejected: ArticleDao[] = [];
 
   ngOnInit(): void {
     this.sidebarHandling();
+    this.articles_approved = this.dbs.getApprovedArticles();
+    this.articles_inreview = this.dbs.getInReviewArticles();
+    this.articles_rejected = this.dbs.getRejectedArticles();
+    console.log(this.articles_rejected);
   }
   sidebarHandling():void {
     this.mms.account.then((res: string) => {
@@ -36,6 +45,16 @@ export class ArticlesEditorComponent implements OnInit {
       el.children[1].style.maxHeight="500px"
     else
       el.children[1].style.maxHeight="0px"
+  }
+
+  approveArticle(id:string){
+    this.dbs.approveArticle(id);
+    this.ngOnInit();
+  }
+
+  rejectArticle(id:string){
+    this.dbs.rejectArticle(id);
+    this.ngOnInit();
   }
 
 }
