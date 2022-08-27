@@ -28,7 +28,7 @@ export class DatabaseService {
     var sampArticle = new Article();
     sampArticle.id_author = "0x54cef6b9a54656865dac7906cec0bf839da424bb";
     sampArticle.id = "1";
-    sampArticle.link = "https://www.youtube.com/"
+    sampArticle.link = "../../assets/PDFs/Algoritmi-03.pdf"
     sampArticle.review = new Review();
     sampArticle.ratings = [3,4,5];
     sampArticle.id_approver = "0x54cef6b9a54656865dac7906cec0bf839da424bb";
@@ -40,7 +40,7 @@ export class DatabaseService {
     sampArticle = new Article();
     sampArticle.id_author = "0x54cef6b9a54656865dac7906cec0bf839da424bb";
     sampArticle.id = "2";
-    sampArticle.link = "https://www.youtube.com/"
+    sampArticle.link = "../../assets/PDFs/NRG_seminar.pdf"
     sampArticle.review = new Review();
     sampArticle.ratings = [3,4,5];
     sampArticle.id_approver = "0x54cef6b9a54656865dac7906cec0bf839da424bb";
@@ -73,7 +73,7 @@ public getUserById(id:string):any {
     }
       var us = new User();
       us.user_id="guest";
-      us.type="guest";
+      us.type="Guest";
       us.name="Guest";
       us.surname="User";
       us.reputation = 0;

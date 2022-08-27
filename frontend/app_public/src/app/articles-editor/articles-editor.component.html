@@ -1,7 +1,7 @@
 <nav>
   <div class="nav nav-tabs mt-5" id="nav-tab" role="tablist">
     <a class="nav-item nav-link active" id="nav-all-articles-tab" data-toggle="tab" href="#nav-all-articles"
-       role="tab" aria-controls="nav-all-articles" aria-selected="true">My articles <span
+       role="tab" aria-controls="nav-all-articles" aria-selected="true">All articles <span
       class="badge badge-light">{{this.articles_approved.length + this.articles_rejected.length + this.articles_inreview.length}}</span></a>
     <a class="nav-item nav-link" id="nav-approved-articles-tab" data-toggle="tab" href="#nav-approved-articles"
        role="tab" aria-controls="nav-approved-articles" aria-selected="false">Approved articles<span
@@ -40,7 +40,7 @@
         <div class="card-body bg-light" style="display:inline-flex">
           <div class="float-left"  style="display: inline-block">
             <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
-            <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
+            <button class="btn btn-primary" (click)="redirect(art.link)" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
           </div>
           <div class="float-left" style="margin-left: 30px">
             <h5 class="card-text" >Author: <small>{{art.author.name}} {{art.author.surname}}</small></h5>
@@ -52,10 +52,10 @@
               <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
               <div>{{art.review.editor_comments}}</div>
             </div>
-            <div style="margin-top: 20px">
+            <!--<div style="margin-top: 20px">
               <button class="btn btn-danger float-left" style="height: 50px"  (click)="rejectArticle(art.id)">Request revision</button>
               <button class="btn btn-success float-right" style="height: 50px" (click)="approveArticle(art.id)">Accept article</button>
-            </div>
+            </div>-->
             <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
           </div>
           <div class="clearfix"></div>
@@ -87,7 +87,7 @@
           <div class="card-body bg-light" style="display:inline-flex">
             <div class="float-left"  style="display: inline-block">
               <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
-              <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
+              <button class="btn btn-primary" (click)="redirect(art.link)" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
             </div>
             <div class="float-left" style="margin-left: 30px">
               <h5 class="card-text" >Author: <small>{{art.author.name}} {{art.author.surname}}</small></h5>
@@ -99,10 +99,10 @@
                 <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
                 <div>{{art.review.editor_comments}}</div>
               </div>
-              <div style="margin-top: 20px">
+              <!--<div style="margin-top: 20px">
                 <button class="btn btn-danger float-left" style="height: 50px" (click)="rejectArticle(art.id)">Request revision</button>
                 <button class="btn btn-success float-right" style="height: 50px" (click)="approveArticle(art.id)">Accept article</button>
-              </div>
+              </div>-->
               <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
             </div>
             <div class="clearfix"></div>
@@ -134,7 +134,7 @@
           <div class="card-body bg-light" style="display:inline-flex">
             <div class="float-left"  style="display: inline-block">
               <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
-              <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
+              <button class="btn btn-primary" (click)="redirect(art.link)" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
             </div>
             <div class="float-left" style="margin-left: 30px">
               <h5 class="card-text" >Author: <small>{{art.author.name}} {{art.author.surname}}</small></h5>
@@ -185,7 +185,7 @@
             <div class="card-body bg-light" style="display:inline-flex">
               <div class="float-left"  style="display: inline-block">
                 <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
-                <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
+                <button class="btn btn-primary" (click)="redirect(art.link)" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
               </div>
               <div class="float-left" style="margin-left: 30px">
                 <h5 class="card-text" >Author: <small>{{art.author.name}} {{art.author.surname}}</small></h5>
@@ -197,10 +197,10 @@
                   <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
                   <div>{{art.review.editor_comments}}</div>
                 </div>
-                <div style="margin-top: 20px">
+                <!--<div style="margin-top: 20px">
                   <button class="btn btn-danger float-left" style="height: 50px" (click)="rejectArticle(art.id)">Request revision</button>
                   <button class="btn btn-success float-right" style="height: 50px" (click)="approveArticle(art.id)">Accept article</button>
-                </div>
+                </div>-->
                 <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
               </div>
               <div class="clearfix"></div>
@@ -237,7 +237,7 @@
             <div class="card-body bg-light" style="display:inline-flex">
               <div class="float-left"  style="display: inline-block">
                 <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
-                <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
+                <button class="btn btn-primary" (click)="redirect(art.link)" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
               </div>
               <div class="float-left" style="margin-left: 30px">
                 <h5 class="card-text" >Author: <small>{{art.author.name}} {{art.author.surname}}</small></h5>
@@ -249,10 +249,10 @@
                   <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
                   <div>{{art.review.editor_comments}}</div>
                 </div>
-                <div style="margin-top: 20px">
+                <!--<div style="margin-top: 20px">
                   <button class="btn btn-danger float-left" style="height: 50px" (click)="rejectArticle(art.id)">Request revision</button>
                   <button class="btn btn-success float-right" style="height: 50px" (click)="approveArticle(art.id)">Accept article</button>
-                </div>
+                </div>-->
                 <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
               </div>
               <div class="clearfix"></div>
@@ -288,7 +288,7 @@
           <div class="card-body bg-light" style="display:inline-flex">
             <div class="float-left"  style="display: inline-block">
               <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
-              <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
+              <button class="btn btn-primary" (click)="redirect(art.link)" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
             </div>
             <div class="float-left" style="margin-left: 30px">
               <h5 class="card-text" >Author: <small>{{art.author.name}} {{art.author.surname}}</small></h5>

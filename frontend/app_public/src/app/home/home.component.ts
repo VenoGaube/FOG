@@ -24,9 +24,20 @@ export class HomeComponent implements OnInit {
 
   constructor(private mms:MetamaskServiceService, private dbs:DatabaseService) { }
   cur_user: User=new User();
+
   sidebarHandling():void {
     this.mms.account.then((res: string) => {
       this.cur_user=this.dbs.getUserById(res);
+      if(this.cur_user.type!="Editor" && this.cur_user.type!="Admin"){
+        // @ts-ignore
+        document.getElementById("rev_link").style.pointerEvents="none";
+        // @ts-ignore
+        document.getElementById("edi_link").style.pointerEvents="none";
+      }
+      if(this.cur_user.type == "Guest")
+      { // @ts-ignore
+        document.getElementById("art_link").style.pointerEvents="none";
+      }
       // @ts-ignore
       document.getElementById("user_name").innerText=this.cur_user.name+" "+this.cur_user.surname;
 
