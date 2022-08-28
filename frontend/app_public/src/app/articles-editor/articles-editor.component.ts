@@ -81,7 +81,6 @@ export class ArticlesEditorComponent implements OnInit {
   onclick(el:any):void {
     el = el as Element
     el = el.parentElement
-    //console.log(el)
     if(el.children[1].style.maxHeight=="0px")
       el.children[1].style.maxHeight="500px"
     else

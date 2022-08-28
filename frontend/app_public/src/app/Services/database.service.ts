@@ -19,7 +19,8 @@ export class DatabaseService {
                               new Review("2","0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", "Bolj natančni opisi bi bili primerni za ta članek. Drugače je soliden.", "Brez pripomb."),
                               new Review("3","0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", "I'm not sure this is the right file?", "The summary doesn't even match the uploaded file."),
                               new Review("4","0x54cef6b9a54656865dac7906cec0bf839da424bb", "Zelo podroben članek. Zadnje poglavje lahko izboljšate.", " Zadnje poglavje bi se moralo dopolniti pred objavo v revijo." ),
-                              new Review("5","0x54cef6b9a54656865dac7906cec0bf839da424bb", "Kratek a jedrnat članek.", "Korelacijski filter je res močno state-of-the-art orodje. Tem članku bi lahko dali prednost na naslednji konferenci.")
+                              new Review("5","0x54cef6b9a54656865dac7906cec0bf839da424bb", "Kratek a jedrnat članek.", "Korelacijski filter je res močno state-of-the-art orodje. Tem članku bi lahko dali prednost na naslednji konferenci."),
+                              new Review("8", "0x54cef6b9a54656865dac7906cec0bf839da424bb", "", "")
                             ];
   public articles: Article[] = [new Article("6","Heartbeat detector",
     "As one of the important components of electrocardiogram (ECG) signals, QRS signal represents the basic characteristics of ECG signals. The detection of QRS waves is also an essential step for ECG signal analysis. In order to further meet the clinical needs for the accuracy and real-time detection of QRS waves, a simple, fast, reliable, and hardware-friendly algorithm for real-time QRS detection is proposed. The exponential transform (ET) and proportional-derivative (PD) control-based adaptive threshold are designed to detect QRS-complex. ",
@@ -48,12 +49,11 @@ export class DatabaseService {
 "A series of reforms were implemented to improve the quality of primary care services in China. This study aims to assess patients' perceived quality of primary health care between rural and urban community health centers in Guangdong. Methods: A cross-sectional survey was conducted from July to December 2015 in Guangdong.",
 "chen", "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2",
 [1], "../../assets/PDFs/Algoritmi-03.pdf", "Rejected", this.reviews[2]
-)];
-  
+), new Article("8", "testing for","SUMMARY OF THIS ARTICLE", "matej", "0x54cef6b9a54656865dac7906cec0bf839da424bb", [3,2], "../../assets/PDFs/Algoritmi-03.pdf",
+      "In Review", this.reviews[5])];
 
-  constructor() {
-    console.log("a?")
-  }
+
+  constructor() {}
 
 private toArticleDao(art:Article):ArticleDao{
   var artdao = new ArticleDao();
