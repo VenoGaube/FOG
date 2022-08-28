@@ -28,13 +28,13 @@
   <div class="collapse navbar-collapse" id="navbarMain">
     <ul class="navbar-nav mr-auto">
       <li class="navbar-nav">
-        <a class="nav-link" href="/articles">All articles</a>
+        <a class="nav-link" (click)="navto('articles')">All articles</a>
       </li>
       <li class="navbar-nav">
-        <a class="nav-link" href="/submit">Submit article</a>
+        <a class="nav-link" (click)="navto('submit')">Submit article</a>
       </li>
       <li class="navbar-nav">
-        <a class="nav-link" href="/review">Review article</a>
+        <a class="nav-link" (click)="navto('review')">Review article</a>
       </li>
     </ul>
   </div>
@@ -56,7 +56,7 @@
               </div>
               <a class="dropdown-item nav-link" (click)="openBol()">My profile</a>
               <div id="bolezen-drop" class="bolezen-drop" style="max-height:0px">
-                <a *ngIf="cur_user.type!='Guest'" class="dropdown-item nav-link" style="font-weight: normal" (click)="navto('myarticles')">&#8594; My articles</a>
+                <a *ngIf="cur_user.type!='Guest'" class="dropdown-item nav-link" style="font-weight: normal">&#8594; My articles</a>
                 <a *ngIf="cur_user.type!='Guest' && cur_user.type!='Regular'" class="dropdown-item nav-link" style="font-weight: normal" (click)="navto('/review')" id="rev_link">&#8594; Reviewer view</a>
                 <a *ngIf="cur_user.type=='Editor' || cur_user.type=='Admin'"  class="dropdown-item nav-link" style="font-weight: normal" (click)="navto('articles-editor')" id="edi_link">&#8594; Editor view</a>
               </div>
