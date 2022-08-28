@@ -32,14 +32,14 @@
     <div *ngIf="reviewed" class="tab-pane fade show active" id="nav-reviewed-articles" role="tabpanel" aria-labelledby="nav-reviewed-articles-tab">
         <div *ngFor="let art of this.articlesReviewed" class="tab-pane fade show active" id="nav-articles-under-review" role="tabpanel"
             aria-labelledby="nav-articles-under-review-tab">
-            <div class="card ml-5 mr-5 mt-3 bg-success thumbnail">
+            <div [className]="art.status=='Approved' ? 'card ml-5 mr-5 mt-3 bg-success thumbnail' : 'card ml-5 mr-5 mt-3 bg-warning thumbnail'">
                 <a (click)="displayReviewedArticle(art.id)">
                     <div class="card-header">
                         <div class="float-left">
                             <h4>{{art.title}}</h4>
                         </div>
                         <div class="float-right">
-                            <p class="text-right">Article reviewed</p>
+                            <p class="text-right">{{art.status=='Approved' ?  "Article reviewed" : "Article pending approval"}}</p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
