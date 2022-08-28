@@ -19,34 +19,59 @@ export class ArticlesEditorComponent implements OnInit {
   articles_approved: ArticleDao[] = [];
   articles_inreview: ArticleDao[] = [];
   articles_rejected: ArticleDao[] = [];
+  allArticles = true;
+  approvedArticles = false;
+  rejectedArticles = false;
+  inReviewArticles = false;
 
   ngOnInit(): void {
-    this.sidebarHandling();
+    this.refresh();
+  }
+
+  dispAllArticles(): void {
+    this.allArticles = true;
+    this.approvedArticles = false;
+    this.rejectedArticles = false;
+    this.inReviewArticles = false;
+  }
+
+  dispAppArticles(): void {
+    this.allArticles = false;
+    this.approvedArticles = true;
+    this.rejectedArticles = false;
+    this.inReviewArticles = false;
+  }
+
+  dispRejArticles(): void {
+    this.allArticles = false;
+    this.approvedArticles = false;
+    this.rejectedArticles = true;
+    this.inReviewArticles = false;
+  }
+
+  dispRevArticles(): void {
+    this.allArticles = false;
+    this.approvedArticles = false;
+    this.rejectedArticles = false;
+    this.inReviewArticles = true;
+  }
+
+  navToArt(){
+    this.router.navigate(['myarticles'])
+  }
+
+  sidebarHandling():void {
+    if(typeof this.mms.account != "string")
+      this.mms.account.then((res: string) => {
+        this.cur_user=this.dbs.getUserById(res);})
+    else
+      this.cur_user=this.dbs.getUserById(this.mms.account)
+  }
+
+  refresh(){
     this.articles_approved = this.dbs.getApprovedArticles();
     this.articles_inreview = this.dbs.getInReviewArticles();
     this.articles_rejected = this.dbs.getRejectedArticles();
-  }
-  sidebarHandling():void {
-    this.mms.account.then((res: string) => {
-      this.cur_user=this.dbs.getUserById(res);
-      if(this.cur_user.type!="Editor" && this.cur_user.type!="Admin"){
-        alert("You do not have permission for this feature! You will shortly be redirected.");
-        this.router.navigate(['articles']);
-        // @ts-ignore
-        document.getElementById("rev_link").style.pointerEvents="none";
-        // @ts-ignore
-        document.getElementById("edi_link").style.pointerEvents="none";
-      }
-      if(this.cur_user.type == "Guest")
-        { // @ts-ignore
-          document.getElementById("art_link").style.pointerEvents="none";
-        }
-      // @ts-ignore
-      document.getElementById("user_name").innerText=this.cur_user.name+" "+this.cur_user.surname;
-
-      // @ts-ignore
-      document.getElementById("user_rep").innerText=this.cur_user.reputation;
-    })
   }
 
   redirect(link:string){
@@ -65,12 +90,17 @@ export class ArticlesEditorComponent implements OnInit {
 
   approveArticle(id:string){
     this.dbs.approveArticle(id);
-    this.ngOnInit();
+    this.refresh();
   }
 
   rejectArticle(id:string){
     this.dbs.rejectArticle(id);
-    this.ngOnInit();
+    this.refresh();
+  }
+
+  deleteArticle(id:string){
+    this.dbs.deleteArticle(id);
+    this.refresh();
   }
 
 }

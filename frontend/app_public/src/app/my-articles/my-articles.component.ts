@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MetamaskServiceService} from "../Services/metamask-service.service";
-import {Database} from "@angular/fire/database";
 import {DatabaseService} from "../Services/database.service";
 import {User} from "../../assets/classes/User";
+import {ArticleDao} from "../../assets/classes/ArticleDao";
 
 @Component({
   selector: 'app-my-articles',
@@ -12,31 +12,82 @@ import {User} from "../../assets/classes/User";
 export class MyArticlesComponent implements OnInit {
 
   constructor(private mms:MetamaskServiceService, private dbs:DatabaseService) { }
-  cur_user = new User()
+  cur_user: User=new User();
+  articles_approved: ArticleDao[] = [];
+  articles_inreview: ArticleDao[] = [];
+  articles_rejected: ArticleDao[] = [];
+  allArticles = true;
+  approvedArticles = false;
+  rejectedArticles = false;
+  inReviewArticles = false;
+
+  dispAllArticles(): void {
+    this.allArticles = true;
+    this.approvedArticles = false;
+    this.rejectedArticles = false;
+    this.inReviewArticles = false;
+  }
+
+  dispAppArticles(): void {
+    this.allArticles = false;
+    this.approvedArticles = true;
+    this.rejectedArticles = false;
+    this.inReviewArticles = false;
+  }
+
+  dispRejArticles(): void {
+    this.allArticles = false;
+    this.approvedArticles = false;
+    this.rejectedArticles = true;
+    this.inReviewArticles = false;
+  }
+
+  dispRevArticles(): void {
+    this.allArticles = false;
+    this.approvedArticles = false;
+    this.rejectedArticles = false;
+    this.inReviewArticles = true;
+  }
 
   ngOnInit(): void {
     this.sidebarHandling();
   }
 
-  sidebarHandling():void {
-    this.mms.account.then((res: string) => {
-      this.cur_user=this.dbs.getUserById(res);
-      if(this.cur_user.type!="Editor" && this.cur_user.type!="Admin"){
-        // @ts-ignore
-        document.getElementById("rev_link").style.pointerEvents="none";
-        // @ts-ignore
-        document.getElementById("edi_link").style.pointerEvents="none";
-      }
-      if(this.cur_user.type == "Guest")
-      { // @ts-ignore
-        document.getElementById("art_link").style.pointerEvents="none";
-      }
-      // @ts-ignore
-      document.getElementById("user_name").innerText=this.cur_user.name+" "+this.cur_user.surname;
+  deleteArticle(id:string){
+    this.dbs.deleteArticle(id);
+    this.refresh();
+  }
 
-      // @ts-ignore
-      document.getElementById("user_rep").innerText=this.cur_user.reputation;
-    })
+  sidebarHandling():void {
+    if(typeof this.mms.account != "string")
+      this.mms.account.then((res: string) => {
+        this.cur_user=this.dbs.getUserById(res);
+        this.refresh()
+      })
+    else{
+      this.cur_user=this.dbs.getUserById(this.mms.account)
+      this.refresh()
+    }
+  }
+
+  refresh(){
+    this.articles_approved = this.dbs.getUserApprovedArticles(this.cur_user.user_id)
+    this.articles_rejected = this.dbs.getUserRejectedArticles(this.cur_user.user_id)
+    this.articles_inreview = this.dbs.getUserInReviewArticles(this.cur_user.user_id)
+  }
+
+  redirect(link:string){
+    window.open(link);
+  }
+
+  onclick(el:any):void {
+    el = el as Element
+    el = el.parentElement
+    //console.log(el)
+    if(el.children[1].style.maxHeight=="0px")
+      el.children[1].style.maxHeight="500px"
+    else
+      el.children[1].style.maxHeight="0px"
   }
 
 }

@@ -16,24 +16,11 @@ export class SubmitArticleComponent implements OnInit {
     this.sidebarHandling();
   }
   sidebarHandling():void {
-    this.mms.account.then((res: string) => {
-      this.cur_user=this.dbs.getUserById(res);
-      if(this.cur_user.type!="Editor" && this.cur_user.type!="Admin"){
-        // @ts-ignore
-        document.getElementById("rev_link").style.pointerEvents="none";
-        // @ts-ignore
-        document.getElementById("edi_link").style.pointerEvents="none";
-      }
-      if(this.cur_user.type == "Guest")
-      { // @ts-ignore
-        document.getElementById("art_link").style.pointerEvents="none";
-      }
-      // @ts-ignore
-      document.getElementById("user_name").innerText=this.cur_user.name+" "+this.cur_user.surname;
-
-      // @ts-ignore
-      document.getElementById("user_rep").innerText=this.cur_user.reputation;
-    })
+    if(typeof this.mms.account != "string")
+      this.mms.account.then((res: string) => {
+        this.cur_user=this.dbs.getUserById(res);})
+    else
+      this.cur_user=this.dbs.getUserById(this.mms.account)
   }
 
 }

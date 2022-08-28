@@ -11,6 +11,8 @@ import { HomeComponent } from './home/home.component';
 import { NftsComponent } from './nfts/nfts.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticlesEditorComponent } from './articles-editor/articles-editor.component';
+import {DatabaseService} from "./Services/database.service";
+import {MetamaskServiceService} from "./Services/metamask-service.service";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,7 @@ import { ArticlesEditorComponent } from './articles-editor/articles-editor.compo
     BrowserModule,
     AppUsmerjanjeModule,
   ],
-  providers: [],
+  providers: [DatabaseService, MetamaskServiceService],
   bootstrap: [TemplateComponent]
 })
 export class AppModule { }

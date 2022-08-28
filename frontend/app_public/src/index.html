@@ -10,83 +10,13 @@
     <link rel="stylesheet" href="/assets/stylesheets/bootstrap.lux.min.css">
     <link rel="stylesheet" href="/assets/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/stylesheets/sidebar.css">
-      <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!--<script src="/assets/javascripts/sidebarlogic.js"></script>-->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
   <body class="pt-5 mat-typography">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="/">
-        <span>
-        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-        <path fill="white" d="M23.5 17L18.5 22L15 18.5L16.5 17L18.5 19L22 15.5L23.5 17M6 2C4.89 2 4 2.9 4 4V20C4 21.11 4.89 22 6 22H13.81C13.45 21.38 13.2 20.7 13.08 20H6V4H13V9H18V13.08C18.33 13.03 18.67 13 19 13C19.34 13 19.67 13.03 20 13.08V8L14 2M8 12V14H16V12M8 16V18H13V16Z" />
-        </svg>
-        </span>FOG
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarMain">
-        <ul class="navbar-nav mr-auto">
-          <li class="navbar-nav">
-            <a class="nav-link" href="/articles">All articles</a>
-          </li>
-          <li class="navbar-nav">
-            <a class="nav-link" href="/submit">Submit article</a>
-          </li>
-          <li class="navbar-nav">
-            <a class="nav-link" href="/review">Review article</a>
-          </li>
-        </ul>
-      </div>
-      <div class="navbar-collapse collapse order-2 dual-collapse2">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <div class="btn-group dropleft">
-						<span onclick="openNav()">
-                <svg class="dot" style="width:50px; height:50px;" viewBox="0 0 24 24">
-                  <path fill="white" d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
-              </svg>
-						</span>
-              <div class="sidenav bg-dark" id="mySidenav">
-                <div id="items" style="margin-left: 20px">
-                  <a href ="javascript:void(0)" class="closebtn nav-link" onclick="closeNav()">&times;</a>
-                  <div class="dropdown-name nav-link">
-                  <a style="padding-left: 0px" id="user_name">John Doe</a>
-                  <a style="font-size: 20px; padding-top:0px;padding-left: 0px">Reputation: <strong id="user_rep">42</strong></a>
-                  </div>
-                  <a class="dropdown-item nav-link" onclick="openBol()">My profile</a>
-                  <div id="bolezen-drop" class="bolezen-drop" style="max-height:0px">
-                    <a class="dropdown-item nav-link" style="font-weight: normal" href="/myarticles" id="art_link">&#8594; My articles</a>
-                    <a class="dropdown-item nav-link" style="font-weight: normal" href="/review" id="rev_link">&#8594; Reviewer view</a>
-                    <a class="dropdown-item nav-link" style="font-weight: normal" href="/articles-editor" id="edi_link">&#8594; Editor view</a>
-                  </div>
-                  <a class="dropdown-item nav-link" href="/submit">Submit an article</a>
-                  <a class="dropdown-item nav-link" href="/nfts">My NFTs</a>
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <main>
-      <div class="container-fluid mt-4 content">
-        <app-template></app-template>
-        <footer class="mt-5">
-          <div class="row justify-content-center">
-            <div class="col-12">
-              <small>&copy; FOG</small>
-            </div>
-          </div>
-        </footer>
-      </div>
-    </main>
-    <script src="/assets/javascripts/jquery-3.5.1.min.js"></script>
-    <script src="/assets/javascripts/popper.min.js"></script>
-    <script src="/assets/javascripts/bootstrap.min.js"></script>
-    <script src="/assets/javascripts/preverjanje.js"></script>
-    <script src="/assets/javascripts/sidebarlogic.js"></script>
+      <app-template></app-template>
   </body>
 </html>

@@ -22,13 +22,14 @@ export class MetamaskServiceService {
         this.foundAccount = true;
         //console.log(racuni[0])
         this.account = racuni[0];
+        console.log(racuni[0])
         return racuni[0];
       } else return ""
     } else return "";
   }
 
   public getUser(): any {
-    this.account = this.vrniUporabnika();
+    this.vrniUporabnika();
     return this.account;
   }
 

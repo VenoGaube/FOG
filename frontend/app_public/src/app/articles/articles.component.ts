@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MetamaskServiceService} from "../Services/metamask-service.service";
 import {DatabaseService} from "../Services/database.service";
 import {User} from "../../assets/classes/User";
+import {ArticleDao} from "../../assets/classes/ArticleDao";
 
 @Component({
   selector: 'app-articles',
@@ -12,33 +13,47 @@ export class ArticlesComponent implements OnInit {
 
   constructor(private mms:MetamaskServiceService, private dbs:DatabaseService) { }
   cur_user: User=new User();
+  articles: ArticleDao[] = [];
 
   ngOnInit(): void {
     this.sidebarHandling();
-    console.log(this.dbs.getAllArticles());
-    this.dbs.makeNewArticle("neki", "hahaha", "bruh", "myass", ".txt");
-    console.log(this.dbs.getAllArticles());
+    this.refresh();
   }
-   sidebarHandling():void {
-     this.mms.account.then((res: string) => {
-       this.cur_user=this.dbs.getUserById(res);
-       if(this.cur_user.type!="Editor" && this.cur_user.type!="Admin"){
-         // @ts-ignore
-         document.getElementById("rev_link").style.pointerEvents="none";
-         // @ts-ignore
-         document.getElementById("edi_link").style.pointerEvents="none";
-       }
-       console.log(this.cur_user)
-       if(this.cur_user.type == "Guest")
-       { // @ts-ignore
-         document.getElementById("art_link").style.pointerEvents="none";
-       }
-       // @ts-ignore
-       document.getElementById("user_name").innerText=this.cur_user.name+" "+this.cur_user.surname;
 
-       // @ts-ignore
-       document.getElementById("user_rep").innerText=this.cur_user.reputation;
-     })
+   sidebarHandling():void {
+     if(typeof this.mms.account != "string")
+       this.mms.account.then((res: string) => {
+         this.cur_user=this.dbs.getUserById(res);})
+     else
+       this.cur_user=this.dbs.getUserById(this.mms.account)
+   }
+
+  redirect(link:string){
+    window.open(link);
+  }
+
+   refresh() {
+    this.articles=this.dbs.getApprovedArticles();
+   }
+
+   average(arr: any){
+      let avg = 0;
+      for(let a of arr){
+        avg = avg+a;
+      }
+      avg=avg/arr.length
+      avg = Math.floor(avg);
+      return Array(avg).keys();
+   }
+
+   averageNot(arr: any){
+     let avg = 0;
+     for(let a of arr){
+       avg = avg+a;
+     }
+     avg=avg/arr.length
+     avg = Math.floor(avg);
+     return Array(5-avg).keys();
    }
 
 }

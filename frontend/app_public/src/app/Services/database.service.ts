@@ -10,46 +10,43 @@ import {Md5} from "ts-md5";
   providedIn: 'root'
 })
 export class DatabaseService {
-  public users: User[];
-  public articles: Article[];
-  public reviews: Review[];
+  public users: User[] = [new User("Editor",
+    "0x54cef6b9a54656865dac7906cec0bf839da424bb", 69, "Ivo", "Pajer")];
+  public articles: Article[] = [new Article("2","Example article In Review",
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore," +
+    " ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!",
+    "guest", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
+    [3,4,5], "../../assets/PDFs/Algoritmi-03.pdf", "In Review", new Review(),"23.07.2022"
+  ), new Article("1","Example article",
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore," +
+    " ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!",
+    "0x54cef6b9a54656865dac7906cec0bf839da424bb", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
+    [3,4,5], "../../assets/PDFs/NRG_seminar.pdf", "Approved", new Review(),"24.07.2022"
+  ),
+    new Article("3","Example article 3",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore," +
+      " ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!",
+      "guest", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
+      [3,4,5], "../../assets/PDFs/Algoritmi-03.pdf", "Approved", new Review(),"23.07.2022"
+  ),
+    new Article("4","Example article 4",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore," +
+      " ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!",
+      "guest", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
+      [3,4,5], "../../assets/PDFs/Algoritmi-03.pdf", "Approved", new Review(),"23.07.2022"
+  ),
+    new Article("5","Example article 5",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore," +
+      " ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!",
+      "guest", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
+      [3,4,5], "../../assets/PDFs/Algoritmi-03.pdf", "Approved", new Review(),"23.07.2022"
+    )];
+  public reviews: Review[] = [];
 
   constructor() {
-    this.users = [];
-    this.articles = [];
-    this.reviews = [];
-    var sampUser = new User();
-    sampUser.reputation=69;
-    sampUser.surname="Pajer";
-    sampUser.name="Ivo";
-    sampUser.type="Editor";
-    sampUser.user_id="0x54cef6b9a54656865dac7906cec0bf839da424bb"
-    this.users.push(sampUser);
-    var sampArticle = new Article();
-    sampArticle.id_author = "0x54cef6b9a54656865dac7906cec0bf839da424bb";
-    sampArticle.id = "1";
-    sampArticle.link = "../../assets/PDFs/Algoritmi-03.pdf"
-    sampArticle.review = new Review();
-    sampArticle.ratings = [3,4,5];
-    sampArticle.id_approver = "0x54cef6b9a54656865dac7906cec0bf839da424bb";
-    sampArticle.status = "Approved";
-    sampArticle.summary = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!"
-    sampArticle.title = "Example article";
-    sampArticle.uploaded = "23.07.2022";
-    this.articles.push(sampArticle);
-    sampArticle = new Article();
-    sampArticle.id_author = "0x54cef6b9a54656865dac7906cec0bf839da424bb";
-    sampArticle.id = "2";
-    sampArticle.link = "../../assets/PDFs/NRG_seminar.pdf"
-    sampArticle.review = new Review();
-    sampArticle.ratings = [3,4,5];
-    sampArticle.id_approver = "0x54cef6b9a54656865dac7906cec0bf839da424bb";
-    sampArticle.status = "In Review";
-    sampArticle.summary = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!"
-    sampArticle.title = "Example articleIR";
-    sampArticle.uploaded = "23.07.2022";
-    this.articles.push(sampArticle);
+    console.log("a?")
   }
+
 private toArticleDao(art:Article):ArticleDao{
   var artdao = new ArticleDao();
   artdao.id = art.id;
@@ -89,6 +86,36 @@ public getUserArticles(userId:string):any {
     }
     return out;
 }
+
+  public getUserApprovedArticles(userId:string):any {
+    var out = [];
+    for(var art of this.articles){
+      if(art.status=="Approved" && art.id_author==userId){
+        out.push(this.toArticleDao(art));
+      }
+    }
+    return out;
+  }
+
+  public getUserRejectedArticles(userId:string):any {
+    var out = [];
+    for(var art of this.articles){
+      if(art.status=="Rejected" && art.id_author==userId){
+        out.push(this.toArticleDao(art));
+      }
+    }
+    return out;
+  }
+
+  public getUserInReviewArticles(userId:string):any {
+    var out = [];
+    for(var art of this.articles){
+      if(art.status=="In Review" && art.id_author==userId){
+        out.push(this.toArticleDao(art));
+      }
+    }
+    return out;
+  }
 
 public getApprovedArticles():any {
     var out = [];
@@ -155,6 +182,8 @@ public getApprovedArticles():any {
         art.status="Approved";
       }
     }
+    console.log("kaj se dogaja?")
+    console.log(this.articles)
   }
 
   public rejectArticle(articleId:string){
@@ -163,6 +192,12 @@ public getApprovedArticles():any {
         art.status = "Rejected"
       }
     }
+  }
+
+  public deleteArticle(articleId:string){
+    this.articles.forEach( (item, index) => {
+      if(item.id === articleId) this.articles.splice(index,1);
+    });
   }
 
   public setUserType(userId:string, type:string){

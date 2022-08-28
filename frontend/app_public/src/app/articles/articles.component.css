@@ -17,6 +17,10 @@ a {
     color: yellow;
 }
 
+.not {
+  color: lightgrey;
+}
+
 .rating-list {
     display: inline-block;
     list-style: none;
