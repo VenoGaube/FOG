@@ -3,7 +3,7 @@ import {MetamaskServiceService} from "../Services/metamask-service.service";
 import {DatabaseService} from "../Services/database.service";
 import {User} from "../../assets/classes/User";
 import {ArticleDao} from "../../assets/classes/ArticleDao";
-import {auditTime} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-review-article',
@@ -11,7 +11,7 @@ import {auditTime} from "rxjs";
   styleUrls: ['./review-article.component.css']
 })
 export class ReviewArticleComponent implements OnInit {
-  constructor(private mms:MetamaskServiceService, private dbs:DatabaseService) { }
+  constructor(private mms:MetamaskServiceService, private dbs:DatabaseService, private router:Router) { }
 
   cur_user = new User();
   articlesForReview:ArticleDao[] = [];
@@ -37,6 +37,10 @@ export class ReviewArticleComponent implements OnInit {
     this.selectedAlreadyReviewedArticle = false;
   }
 
+  onSubmitClick(form:any){
+    this.dbs.setArticleReview(this.articleSelectedDAO.id, this.cur_user.user_id, form.editorComment, form.authorComment)
+    this.router.navigate(['articles'])
+  }
 
   test(id: number){
     console.log(id)

@@ -66,27 +66,27 @@
                         <h3 class="card-title">{{this.articleSelectedDAO.title}}</h3>
 
                         <h3 class="card-title">{{this.articleSelectedDAO.author.name}} {{this.articleSelectedDAO.author.surname}}</h3>
-                        <h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>
+                        <h4 class="card-subtitle mb-4 text-muted">{{this.articleSelectedDAO.uploaded}}</h4>
                         <button class="btn btn-primary" (click)="redirect(articleSelectedDAO.link)">Download article</button>
                     </div>
                     <div class="clearfix"></div>
                 </div>
 
-                <from class="card-body">
+                <form #commentSubmit="ngForm" class="card-body" (ngSubmit)="onSubmitClick(commentSubmit.value)">
                     <!--col-sm-5 col-md-4 col-lg-5-->
                     <p class="card-text">{{this.articleSelectedDAO.summary}}</p>
                     <hr>
                     <h3 class="card-text font-weight-bold">Article review:</h3>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Comments for the author...</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea name="authorComment" class="form-control" id="exampleFormControlTextarea1" rows="3" ngModel></textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea2">Comments for the editor...</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea2" rows="3"></textarea>
+                        <textarea name="editorComment" class="form-control" id="exampleFormControlTextarea2" rows="3" ngModel></textarea>
                     </div>
-                </from>
-                <a href="/" class="btn btn-success w-25 mx-auto mb-3">Submit review</a>
+                  <button type="submit" value="submit" class="btn btn-success w-25 mx-auto mb-3">Submit review</button>
+                </form>
             </div>
         </div>
     </div>
