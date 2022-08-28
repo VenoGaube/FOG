@@ -13,33 +13,43 @@ export class DatabaseService {
   public users: User[] = [new User("Editor",
     "0x54cef6b9a54656865dac7906cec0bf839da424bb", 69, "Ivo", "Pajer"), new User("Editor",
     "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", 42, "Nino", "Brezac"), new User("Author",
-    "matej", 1, "Matej", "Pičulin")];
-  public articles: Article[] = [new Article("2","Example article In Review",
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore," +
-    " ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!",
-    "guest", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
-    [3,4,5], "../../assets/PDFs/Algoritmi-03.pdf", "In Review", new Review(),"23.07.2022"
+    "matej", 1, "Matej", "Pičulin"), new User("Author",
+    "chen", 1, "Aiyun", "Chen")];
+    public reviews: Review[] = [new Review("1","0x54cef6b9a54656865dac7906cec0bf839da424bb", "Hvala!", "Kakovosten članek. Kar naprej."),
+                              new Review("2","0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", "Ok.", "Bolj natančni opisi bi bili primerni za ta članek. Drugače je soliden."),
+                              new Review("3","0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", "Sorry! I uploaded the wrong file.", "I'm not sure this is the right file?"),
+                              new Review("4","0x54cef6b9a54656865dac7906cec0bf839da424bb", "Se strinjam. Poglavje bom dopolnil.", "Zelo podroben članek. Zadnje poglavje lahko izboljšate." ),
+                              new Review("5","0x54cef6b9a54656865dac7906cec0bf839da424bb", "Zahvaljujem se na recenziji.", "Kratek a jedrnat članek. Korelacijski filter je res močno orodje.")
+                            ];
+  public articles: Article[] = [new Article("6","Heartbeat detector",
+    "As one of the important components of electrocardiogram (ECG) signals, QRS signal represents the basic characteristics of ECG signals. The detection of QRS waves is also an essential step for ECG signal analysis. In order to further meet the clinical needs for the accuracy and real-time detection of QRS waves, a simple, fast, reliable, and hardware-friendly algorithm for real-time QRS detection is proposed. The exponential transform (ET) and proportional-derivative (PD) control-based adaptive threshold are designed to detect QRS-complex. ",
+    "chen", "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2",
+    [3,4,5], "../../assets/PDFs/chen.pdf", "In Review", new Review(),"23.07.2022"
   ), new Article("1","Spektralno upodabljanje ",
   "Spektralno upodabljanje (angl. Spectral Rendering) je tehnika upodabljanja, kjer je prenos svetlobe modeliran s frekvencami svetlobe namesto samo barvami. Ta tehnika je pocasnejša od običajne, ki upodobi sceno v rdeči, zeleni in modri komponenti, ki jo nato združi.",
-    "0x54cef6b9a54656865dac7906cec0bf839da424bb", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
-    [5,5,5], "../../assets/PDFs/NRG_seminar.pdf", "Approved", new Review(),"24.07.2022"
+    "0x54cef6b9a54656865dac7906cec0bf839da424bb", "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2",
+    [5,5,5], "../../assets/PDFs/NRG_seminar.pdf", "Approved", this.reviews[0]
   ),
     new Article("4","Pregled dokazov brez razkritja znanja",
       "Dokaz brez razkritja znanja (angl. Zero knowledge proof) je zelo uporaben matematičen problem, kjer udeleženec komunikacije pozna skrivnost in to lahko dokaže, ne da bi jo pri tem razkril. Zaradi izjemne elegantnosti in učinkovitosti se prej omenjeni koncept vedno več uporablja v računalništvu.",
       "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
-      [3,4,5], "../../assets/PDFs/Pregled dokazov brez razkritja znanja.pdf", "In Review", new Review("4","0x54cef6b9a54656865dac7906cec0bf839da424bb", "", ""),"23.07.2022"
+      [3,4,5], "../../assets/PDFs/Pregled dokazov brez razkritja znanja.pdf", "Approved", this.reviews[3]
   ),
     new Article("5","Correlation filter tracking",
       "Tracking using a correlation filter is yet another efficient object tracking solution. The central idea is: the target in the next frame can be found by convolution with an optimal filter (maximum response on target). The new position of the target then updates the optimal filter. This paper provides a short overview of the correlation filter tracker, how it performs and where it can be improved.",
       "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
-      [3,4,5], "../../assets/PDFs/Correlation filter.pdf", "Approved", new Review(),"23.07.2022"
+      [3,4,5], "../../assets/PDFs/Correlation filter.pdf", "Approved", this.reviews[4]
     ),
-    new Article("3","NP prevedbe",
+    new Article("2","NP prevedbe",
     "Problem SAT. Cook-Levinov izrek. Rodovne funkcije.",
     "matej", "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2",
-    [3,3,3], "../../assets/PDFs/Algoritmi-03.pdf", "Approved", new Review(),"23.07.2022"
+    [3,3,3], "../../assets/PDFs/Algoritmi-03.pdf", "Approved", this.reviews[1]
+), new Article("3","Comparison of Patients’ Perceived Quality of Primary Care Between Urban and Rural Community Health Centers in Guangdong, China",
+"A series of reforms were implemented to improve the quality of primary care services in China. This study aims to assess patients' perceived quality of primary health care between rural and urban community health centers in Guangdong. Methods: A cross-sectional survey was conducted from July to December 2015 in Guangdong.",
+"chen", "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2",
+[1], "../../assets/PDFs/Algoritmi-03.pdf", "Rejected", this.reviews[2]
 )];
-  public reviews: Review[] = [];
+  
 
   constructor() {
     console.log("a?")

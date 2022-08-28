@@ -48,11 +48,11 @@
             <h5 class="card-text" >Author: <small>{{art.author.name}} {{art.author.surname}}</small></h5>
             <h5 class="card-text">Reviewer: <small>{{art.approver.name}} {{art.approver.surname}}</small></h5>
             <br>
-              <h5 class="card-text" >Author comments:</h5>
-              <div>{{art.review.author_comments}}</div>
-              <h5 class="card-text" >Editor comments:</h5>
-              <div>{{art.review.editor_comments}}</div>
-              <button class="btn btn-danger float-left mt-5" style="height: 50px"  (click)="deleteArticle(art.id)">Delete article</button>
+            <h5 class="card-text" >Editor comments:</h5>
+            <div>{{art.review.editor_comments}}</div>
+            <h5 class="card-text" >Author comments:</h5>
+            <div>{{art.review.author_comments}}</div>
+              <button class="btn btn-danger float-left mt-3" style="height: 50px"  (click)="deleteArticle(art.id)">Delete article</button>
             <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
           </div>
           <div class="clearfix"></div>
@@ -87,16 +87,17 @@
                 <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
                 <figcaption class="figure-caption"><button class="btn btn-primary" (click)="redirect(art.link)" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button></figcaption>
               </figure>
+              
             </div>
             <div class="float-left" style="margin-left: 30px">
               <h5 class="card-text" >Author: <small>{{art.author.name}} {{art.author.surname}}</small></h5>
               <h5 class="card-text">Reviewer: <small>{{art.approver.name}} {{art.approver.surname}}</small></h5>
               <br>
               <div>
-                <h5 class="card-text" >Author comments:</h5>
-                <div>{{art.review.author_comments}}</div>
                 <h5 class="card-text" >Editor comments:</h5>
-                <div>{{art.review.editor_comments}}</div>
+                  <div>{{art.review.editor_comments}}</div>
+                  <h5 class="card-text" >Author comments:</h5>
+                  <div>{{art.review.author_comments}}</div>
               </div>
               <!--<div style="margin-top: 20px">
                 <button class="btn btn-danger float-left" style="height: 50px" (click)="rejectArticle(art.id)">Request revision</button>
@@ -142,14 +143,14 @@
               <h5 class="card-text">Reviewer: <small>{{art.approver.name}} {{art.approver.surname}}</small></h5>
               <br>
               <div>
-                <h5 class="card-text" >Author comments:</h5>
-                <div>{{art.review.author_comments}}</div>
                 <h5 class="card-text" >Editor comments:</h5>
-                <div>{{art.review.editor_comments}}</div>
+                  <div>{{art.review.editor_comments}}</div>
+                  <h5 class="card-text" >Author comments:</h5>
+                  <div>{{art.review.author_comments}}</div>
               </div>
-              <div>
-                <button class="btn btn-danger float-left mt-5" style="height: 50px" (click)="rejectArticle(art.id)">Request revision</button>
-                <button class="btn btn-success float-right m5-5" style="height: 50px" (click)="approveArticle(art.id)">Accept article</button>
+              <div class="mt-5">
+                <button class="btn btn-danger float-left m-2" style="height: 50px" (click)="rejectArticle(art.id)">Request revision</button>
+                <button class="btn btn-success float-right m-2" style="height: 50px" (click)="approveArticle(art.id)">Accept article</button>
               </div>
               <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
             </div>
@@ -195,14 +196,12 @@
                 <h5 class="card-text">Reviewer: <small>{{art.approver.name}} {{art.approver.surname}}</small></h5>
                 <br>
                 <div>
-                  <h5 class="card-text" >Author comments:</h5>
-                  <div>{{art.review.author_comments}}</div>
                   <h5 class="card-text" >Editor comments:</h5>
                   <div>{{art.review.editor_comments}}</div>
+                  <h5 class="card-text" >Author comments:</h5>
+                  <div>{{art.review.author_comments}}</div>
                 </div>
-                <div style="margin-top: 20px">
-                  <button class="btn btn-danger float-left mt-5" style="height: 50px"  (click)="deleteArticle(art.id)">Delete article</button>
-                </div>
+                  <button class="btn btn-danger float-left mt-3" style="height: 50px"  (click)="deleteArticle(art.id)">Delete article</button>
                 <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
               </div>
               <div class="clearfix"></div>
@@ -219,7 +218,7 @@
         <div class="card ml-5 mr-5 mt-3 bg-danger thumbnail">
           <div (click)="onclick($event.currentTarget)">
             <a>
-              <div class="card-header">download article
+              <div class="card-header">
                 <div class="float-left">
                   <h4>{{art.title}}</h4>
                 </div>
@@ -248,10 +247,10 @@
                 <h5 class="card-text">Reviewer: <small>{{art.approver.name}} {{art.approver.surname}}</small></h5>
                 <br>
                 <div>
-                  <h5 class="card-text" >Author comments:</h5>
-                  <div>{{art.review.author_comments}}</div>
                   <h5 class="card-text" >Editor comments:</h5>
                   <div>{{art.review.editor_comments}}</div>
+                  <h5 class="card-text" >Author comments:</h5>
+                  <div>{{art.review.author_comments}}</div>
                 </div>
                 <!--<div style="margin-top: 20px">
                   <button class="btn btn-danger float-left" style="height: 50px" (click)="rejectArticle(art.id)">Request revision</button>
@@ -302,10 +301,10 @@
               <h5 class="card-text">Reviewer: <small>{{art.approver.name}} {{art.approver.surname}}</small></h5>
               <br>
               <div>
-                <h5 class="card-text" >Author comments:</h5>
-                <div>{{art.review.author_comments}}</div>
                 <h5 class="card-text" >Editor comments:</h5>
-                <div>{{art.review.editor_comments}}</div>
+                  <div>{{art.review.editor_comments}}</div>
+                  <h5 class="card-text" >Author comments:</h5>
+                  <div>{{art.review.author_comments}}</div>
               </div>
               <div class="mt-5">
                 <button class="btn btn-danger float-left m-2" style="height: 50px" (click)="rejectArticle(art.id)">Request revision</button>

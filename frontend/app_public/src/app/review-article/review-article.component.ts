@@ -55,6 +55,7 @@ export class ReviewArticleComponent implements OnInit {
     this.articleSelectedDAO = this.dbs.getArticleDAOById(articleId)
     this.selectedAlreadyReviewedArticle = false;
     this.articleSelected = true;
+    console.log(this.articleSelectedDAO)
   }
 
   redirect(link:string){
