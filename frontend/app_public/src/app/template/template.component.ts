@@ -26,6 +26,7 @@ export class TemplateComponent implements OnInit {
   }
   navto(url:string) {
     this.router.navigate([url])
+    this.closeNav()
   }
   openNav() {
     if(window.innerWidth<576){

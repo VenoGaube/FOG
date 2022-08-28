@@ -56,8 +56,8 @@
               </div>
               <a class="dropdown-item nav-link" (click)="openBol()">My profile</a>
               <div id="bolezen-drop" class="bolezen-drop" style="max-height:0px">
-                <a *ngIf="cur_user.type!='Guest'" class="dropdown-item nav-link" style="font-weight: normal">&#8594; My articles</a>
-                <a *ngIf="cur_user.type!='Guest' && cur_user.type!='Regular'" class="dropdown-item nav-link" style="font-weight: normal" (click)="navto('/review')" id="rev_link">&#8594; Reviewer view</a>
+                <a *ngIf="cur_user.type!='Guest'" class="dropdown-item nav-link" style="font-weight: normal"(click)="navto('myarticles')">&#8594; My articles</a>
+                <a *ngIf="cur_user.type!='Guest' && cur_user.type!='Regular'" class="dropdown-item nav-link" style="font-weight: normal" (click)="navto('review')" id="rev_link">&#8594; Reviewer view</a>
                 <a *ngIf="cur_user.type=='Editor' || cur_user.type=='Admin'"  class="dropdown-item nav-link" style="font-weight: normal" (click)="navto('articles-editor')" id="edi_link">&#8594; Editor view</a>
               </div>
               <a class="dropdown-item nav-link" href="/submit">Submit an article</a>

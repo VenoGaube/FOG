@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from "../../assets/classes/User";
 import {Article} from "../../assets/classes/Article";
 import {Review} from "../../assets/classes/Review";
 import {ArticleDao} from "../../assets/classes/ArticleDao";
 import {Md5} from "ts-md5";
-import {DatePipe} from "@angular/common";
 
 
 @Injectable({
@@ -28,13 +27,13 @@ export class DatabaseService {
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore," +
       " ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!",
       "guest", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
-      [3,4,5], "../../assets/PDFs/Algoritmi-03.pdf", "Approved", new Review(),"23.07.2022"
+      [3,4,5], "../../assets/PDFs/Algoritmi-03.pdf", "In Review", new Review("4","0x54cef6b9a54656865dac7906cec0bf839da424bb", "", ""),"23.07.2022"
   ),
     new Article("4","Example article 4",
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore," +
       " ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!",
       "guest", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
-      [3,4,5], "../../assets/PDFs/Algoritmi-03.pdf", "Approved", new Review(),"23.07.2022"
+      [3,4,5], "../../assets/PDFs/Algoritmi-03.pdf", "Approved", new Review("4","0x54cef6b9a54656865dac7906cec0bf839da424bb", "Author very good", "Editor very good" ),"23.07.2022"
   ),
     new Article("5","Example article 5",
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore," +
@@ -183,8 +182,6 @@ public getApprovedArticles():any {
         art.status="Approved";
       }
     }
-    console.log("kaj se dogaja?")
-    console.log(this.articles)
   }
 
   public rejectArticle(articleId:string){
@@ -236,6 +233,14 @@ public getApprovedArticles():any {
     newart.title = title;
     newart.link = link;
     newart.ratings = [];
+    var reviewers = [];
+    for(var u of this.users){
+      if(u.type=="Reviewer"||u.type=="Editor"){
+        reviewers.push(u);
+      }
+    }
+    var revid = Math.floor(Math.random()*reviewers.length);
+    newart.review.id_reviewer=reviewers[revid].user_id;
     this.articles.push(newart);
   }
 
@@ -244,6 +249,64 @@ public getApprovedArticles():any {
     for(var art of this.articles){
       out.push(this.toArticleDao(art))
     }
+    return out;
+  }
+
+  public getArticleById(articleId:string) {
+    var out = new Article()
+    for(var art of this.articles){
+      if(art.id==articleId) {
+        out = art
+        break;
+      }
+    }
+    return out;
+  }
+
+  public getArticleDAOById(articleId:string) {
+    var out = new Article()
+    for(var art of this.articles){
+      if(art.id==articleId) {
+        out = art
+        break;
+      }
+    }
+    return this.toArticleDao(out);
+  }
+
+  public updateArticle(articleId:string, newArticle:Article){
+    for(var art of this.articles){
+      if(art.id==articleId){
+        art = newArticle;
+      }
+    }
+  }
+
+  public setArticleReview(articleId:string, reviewerId:string ,reviewerComment:string, authorComment:string){
+    var art = this.getArticleById(articleId);
+    art.review = new Review(articleId, reviewerId, authorComment, reviewerComment);
+    this.updateArticle(articleId, art);
+  }
+
+  public getArticlesForReviewer(reviewerId:string){
+    var out = [];
+    for(var art of this.articles){
+      if(art.status=="In Review"&&art.review.id_reviewer==reviewerId && (art.review.editor_comments==""&&art.review.author_comments=="") ){
+        out.push(this.toArticleDao(art))
+      }
+    }
+    return out;
+  }
+
+  public getArticlesReviewedByReviewer(reviewerId:string){
+    var out = [];
+    for(var art of this.articles){
+      if(art.review.id_reviewer==reviewerId && (art.review.editor_comments!=""||art.review.author_comments!="") ){
+        out.push(this.toArticleDao(art))
+      }
+    }
+    console.log("myId:" + reviewerId)
+    console.log(out);
     return out;
   }
 
