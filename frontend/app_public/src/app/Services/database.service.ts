@@ -118,7 +118,7 @@ public getUserArticles(userId:string):any {
   public getUserInReviewArticles(userId:string):any {
     var out = [];
     for(var art of this.articles){
-      if(art.status=="In Review" && art.id_approver==userId){
+      if(art.status=="In Review" && art.id_author ==userId){
         out.push(this.toArticleDao(art));
       }
     }

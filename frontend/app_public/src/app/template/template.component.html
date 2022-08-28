@@ -60,8 +60,8 @@
                 <a *ngIf="cur_user.type!='Guest' && cur_user.type!='Regular'" class="dropdown-item nav-link" style="font-weight: normal" (click)="navto('review')" id="rev_link">&#8594; Reviewer view</a>
                 <a *ngIf="cur_user.type=='Editor' || cur_user.type=='Admin'"  class="dropdown-item nav-link" style="font-weight: normal" (click)="navto('articles-editor')" id="edi_link">&#8594; Editor view</a>
               </div>
-              <a *ngIf="cur_user.type!='Guest'" class="dropdown-item nav-link" href="/submit">Submit an article</a>
-              <a *ngIf="cur_user.type!='Guest'" class="dropdown-item nav-link" href="/nfts">My NFTs</a>
+              <a *ngIf="cur_user.type!='Guest'" class="dropdown-item nav-link" (click)="navto('submit')">Submit an article</a>
+              <a *ngIf="cur_user.type!='Guest'" class="dropdown-item nav-link" (click)="navto('nfts')">My NFTs</a>
             </div>
           </div>
         </div>
