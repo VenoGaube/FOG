@@ -1,5 +1,6 @@
 package si.fri.fog.services.storage.gcp;
 
+import com.google.api.client.util.Lists;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import lombok.extern.slf4j.Slf4j;
@@ -53,6 +54,17 @@ public class FirestoreService {
         }
     }
 
+    public List<Metadata> getMetadata(){
+        var documents = Lists.newArrayList(firestore.collection(METADATA_COLLECTION).listDocuments().iterator());
+        return documents.stream().map(element -> {
+            try {
+                return element.get().get().toObject(Metadata.class);
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }).collect(Collectors.toList());
+    }
+
     public void updateMetadata(String id, Metadata metadata){
         String documentId = getDocumentIdFromArticle(id);
         Map<String, Object> data = new HashMap<>();
@@ -63,7 +75,7 @@ public class FirestoreService {
         data.put("stage", metadata.getStage());
         data.put("reviews", metadata.getReviews());
         data.put("title", metadata.getTitle());
-        data.put("finalDecision", metadata.getFinalDecision());
+        data.put("cid", metadata.getCid());
 
         firestore.collection(METADATA_COLLECTION).document(documentId).update(data);
     }
@@ -73,7 +85,7 @@ public class FirestoreService {
         Query query = metadatas.whereEqualTo("user", user.getEmail());
 
         try {
-            return query.get().get().getDocuments().stream().map(e -> (String)e.get("article")).collect(Collectors.toList());
+            return query.get().get().getDocuments().stream().map(e -> (String)e.get("id")).collect(Collectors.toList());
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
@@ -85,8 +97,11 @@ public class FirestoreService {
 
         try {
             var documents = query.get().get().getDocuments();
-            if (documents.size() != 1){
+            if (documents.size() > 1){
                 throw new RuntimeException("For given query for article " + id +  " there is more than just one document");
+            }
+            else if (documents.size() == 0){
+                throw new RuntimeException("For given query for article " + id + " there is no records.");
             }
             return documents.get(0).getId();
 

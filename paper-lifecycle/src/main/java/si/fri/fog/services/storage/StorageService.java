@@ -10,7 +10,7 @@ public interface StorageService {
      * @param file File to be saved
      * @return true if saving is successful, otherwise it returns false
      */
-    boolean saveFile(String name, File file);
+    Object saveFile(String name, File file);
 
     /**
      * It returns file from storage

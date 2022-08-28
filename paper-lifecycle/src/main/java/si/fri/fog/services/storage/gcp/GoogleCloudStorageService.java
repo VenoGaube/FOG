@@ -28,7 +28,7 @@ public class GoogleCloudStorageService implements StorageService {
     }
 
     @Override
-    public boolean saveFile(String name, File file){
+    public Boolean saveFile(String name, File file){
         BlobId blobId = BlobId.of(BUCKET_NAME, name);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
         try {

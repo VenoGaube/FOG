@@ -2,6 +2,48 @@
 
 This part of the project focuses on storing data in the OriginTrail decetralized knowledge graphs (DKG).
 
+## OriginTrail Development Node Initialization
+
+### Prerequisites
+
+* An installed and running GraphDB
+* An installed and running MySQL
+* You should have installed npm and Node.js (v14)
+
+### Instalation steps
+
+#### Step 1 - Get the DKG code by cloning the  repo and checking out the proper branch
+```
+git clone https://github.com/OriginTrail/ot-node
+cd ot-node
+git checkout v6/develop
+```
+
+#### Step 2 - Install dependencies
+
+```
+npm install
+```
+
+#### Step 3 - Create .env file the ot-node root folder and add public and private keys for blockchain:
+
+```
+NODE_ENV=development
+PUBLIC_KEY=<insert_here>
+PRIVATE_KEY=<insert_here>
+```
+
+#### Step 4 - Run DB migrations
+
+```
+npx sequelize --config=./config/sequelizeConfig.js db:migrate
+```
+
+#### Step 6 - Start OriginTrail v6 node
+```
+node index.js
+```
+
 ## Properties of Origin trail
 
 OriginTrail is an ecosystem that connects Layer 1 techologies such as Ethereum with its graph technology on Layer 2. For storing the diles in the DKG, we need to run a node (local for deelopment) and run the node on OriginTrails testnet and later mainnet.

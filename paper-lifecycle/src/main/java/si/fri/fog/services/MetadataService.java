@@ -27,12 +27,16 @@ public class MetadataService {
 
     public String saveMetadata(MetadataDTO metadataDTO){
         metadataDTO.setId(UUID.randomUUID().toString());
-        Metadata metadata = contructMetadata(metadataDTO);
+        Metadata metadata = constructMetadata(metadataDTO);
         boolean success = firestoreService.addMetadata(metadata);
         if (success) {
             return metadata.getId();
         }
         return null;
+    }
+
+    public List<Metadata> getMetadata(){
+        return firestoreService.getMetadata();
     }
 
     public Metadata getMetadata(String id){
@@ -66,19 +70,19 @@ public class MetadataService {
         if (metadataDTO.getStage() != null){
             metadata.setStage(Stage.getStageFromName(metadataDTO.getStage()));
         }
-        if (metadataDTO.getFinalDecision() != null){
-            metadata.setFinalDecision(metadataDTO.getFinalDecision());
+        if (metadataDTO.getCid() != null){
+            metadata.setCid(metadataDTO.getCid());
         }
         firestoreService.updateMetadata(metadataDTO.getId(), metadata);
     }
 
-    public void addReview(String article, Review review){
-        Metadata metadata = getMetadata(article);
+    public void addReview(String id, Review review){
+        Metadata metadata = getMetadata(id);
         metadata.addReview(review);
-        firestoreService.updateMetadata(article, metadata);
+        firestoreService.updateMetadata(id, metadata);
     }
 
-    private Metadata contructMetadata(MetadataDTO metadataDTO){
+    private Metadata constructMetadata(MetadataDTO metadataDTO){
         return Metadata.builder()
                 .id(metadataDTO.getId())
                 .submission(metadataDTO.getSubmission())
@@ -87,7 +91,6 @@ public class MetadataService {
                 .stage(Stage.SUBMITTED)
                 .user(metadataDTO.getUser())
                 .title(metadataDTO.getTitle())
-                .finalDecision(metadataDTO.getFinalDecision())
                 .build();
     }
 }

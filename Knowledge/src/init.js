@@ -1,4 +1,4 @@
-const DKG = require('dkg.js')
+const DKG = require('dkg.js');
 
 const dkg = new DKG({ 
     endpoint: '127.0.0.1', 
@@ -7,5 +7,4 @@ const dkg = new DKG({
     loglevel: 'trace' 
 });
 
-var result = await dkg.nodeInfo();
-console.log(JSON.stringify(result, null, 2));
+exports.dkg = dkg;

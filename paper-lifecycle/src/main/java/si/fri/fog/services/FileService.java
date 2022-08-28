@@ -34,11 +34,19 @@ public class FileService {
 
     public String saveUnreleasedArticle(File file){
         String fileName = hashFileName(file);
-        boolean success = this.googleCloudStorageService.saveFile(fileName, file);
+        boolean success = (Boolean) this.googleCloudStorageService.saveFile(fileName, file);
         if (success) {
             return fileName;
         }
         return null;
+    }
+
+    public File getReleasedArticle(String cid) {
+        return this.ipfsStorageService.getFile(cid);
+    }
+
+    public String saveReleasedArticle(File file){
+        return this.ipfsStorageService.saveFile("", file).toString();
     }
 
     public static String hashFileName(File file) {
