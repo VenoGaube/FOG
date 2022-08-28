@@ -7,36 +7,34 @@
                         <img src="../../assets/43716.jpg" style="width: 300px;">
                     </div>
                     <div class="float-right mt-5 mr-5">
-                        <h3 class="card-title">John Doe</h3>
-                        <h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>
-                        <button class="btn btn-primary">Upload article</button>
+                        <h3 class="card-title">{{this.cur_user.name}} {{this.cur_user.surname}}</h3>
+                        <h4 class="card-subtitle mb-4 text-muted">{{this.date | date: 'dd.MM.yyyy'}}</h4>
                     </div>
-                    <!--<div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input bg-primary" id="inputGroupFile01">
-                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                        </div>
-                        </div>
-                      </div>-->
+                    <div class="input-group mb-3">
+                      </div>
                     <div class="clearfix"></div>
                 </div>
-                
-                <div class="card-body"> <!--col-sm-5 col-md-4 col-lg-5-->
+
+                <form #articleSubmit="ngForm" class="card-body" (ngSubmit)="onSubmitClick(articleSubmit.value)"> <!--col-sm-5 col-md-4 col-lg-5-->
                   <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-                  
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Article name</span>
-                      </div>
-                      <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+                  <div class="input-group-prepend mb-3">
+                    <div style="margin-top: 30px">
+                      <label for="inputGroupFile01" class="form-label">Choose the pdf:</label>
+                      <input name="file" type="file" class="form-control" id="inputGroupFile01" accept="application/pdf" ngModel>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="article_name" class="form-label">Article title:</label>
+                    <div class="form-group">
+                      <input name="title" id="article_name" type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" ngModel>
+                    </div>
                   </div>
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Article description:</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                        <label for="exampleFormControlTextarea1">Article summary:</label>
+                        <textarea name="summary" class="form-control" id="exampleFormControlTextarea1" rows="5" ngModel></textarea>
                       </div>
-                </div>
-                <a href="/articles" class="btn btn-success w-25 mx-auto mb-3">Submit article</a>
+                  <button type="submit" value="submit" class="btn btn-success mx-auto">Submit article</button>
+                </form>
               </div>
         </div>
     </div>

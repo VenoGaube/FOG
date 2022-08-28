@@ -4,6 +4,7 @@ import {Article} from "../../assets/classes/Article";
 import {Review} from "../../assets/classes/Review";
 import {ArticleDao} from "../../assets/classes/ArticleDao";
 import {Md5} from "ts-md5";
+import {DatePipe} from "@angular/common";
 
 
 @Injectable({
@@ -209,8 +210,7 @@ public getApprovedArticles():any {
   }
 
   public makeNewArticle(title:string, summary:string, id_author:string, id_approver:string,
-  link:string){
-    var now = new Date();
+  link:string, now:string){
     var newart = new Article();
     newart.id = Md5.hashStr(now+title+summary+id_author+id_approver+link);
     var repeat = false;
@@ -219,7 +219,7 @@ public getApprovedArticles():any {
       repeat = false
       for(var art of this.articles){
         if(art.id==newart.id){
-          newart.id = Md5.hashStr(now.toISOString()+title+summary+id_author+id_approver+link+";");
+          newart.id = Md5.hashStr(now+title+summary+id_author+id_approver+link+";");
           repeat = true;
           console.log("PANIKA!!!");
         }
@@ -231,7 +231,8 @@ public getApprovedArticles():any {
     newart.summary = summary;
     newart.review = new Review();
     newart.id_approver = id_approver;
-    newart.uploaded = now.toDateString();
+    // @ts-ignore
+    newart.uploaded = now
     newart.title = title;
     newart.link = link;
     newart.ratings = [];

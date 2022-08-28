@@ -37,6 +37,7 @@ export class ArticlesComponent implements OnInit {
    }
 
    average(arr: any){
+    if(arr.length>0){
       let avg = 0;
       for(let a of arr){
         avg = avg+a;
@@ -44,9 +45,13 @@ export class ArticlesComponent implements OnInit {
       avg=avg/arr.length
       avg = Math.floor(avg);
       return Array(avg).keys();
+    }
+    else
+      return Array(0).keys();
    }
 
    averageNot(arr: any){
+    if(arr.length>1){
      let avg = 0;
      for(let a of arr){
        avg = avg+a;
@@ -54,6 +59,9 @@ export class ArticlesComponent implements OnInit {
      avg=avg/arr.length
      avg = Math.floor(avg);
      return Array(5-avg).keys();
+    }
+    else
+      return Array(5).keys();
    }
 
 }
