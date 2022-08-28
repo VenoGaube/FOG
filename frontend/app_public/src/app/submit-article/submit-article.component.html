@@ -1,7 +1,8 @@
 <div class="container">
     <div class="row mt-5 justify-content-center">
         <div class="col-sm-10 col-md-8 col-lg-10">
-            <div class="card">
+          <form #articleSubmit="ngForm" class="card-body" (ngSubmit)="onSubmitClick(articleSubmit.value)">
+          <div class="card">
                 <div class="card-body">
                     <div class="float-left">
                         <img src="../../assets/43716.jpg" style="width: 300px;">
@@ -15,27 +16,28 @@
                     <div class="clearfix"></div>
                 </div>
 
-                <form #articleSubmit="ngForm" class="card-body" (ngSubmit)="onSubmitClick(articleSubmit.value)"> <!--col-sm-5 col-md-4 col-lg-5-->
+                 <!--col-sm-5 col-md-4 col-lg-5-->
                   <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-                  <div class="input-group-prepend mb-3">
+                  <div class="input-group-prepend m-3">
                     <div style="margin-top: 30px">
                       <label for="inputGroupFile01" class="form-label">Choose the pdf:</label>
                       <input name="file" type="file" class="form-control" id="inputGroupFile01" accept="application/pdf" ngModel>
                     </div>
                   </div>
-                  <div class="mb-3">
+                  <div class="m-3">
                     <label for="article_name" class="form-label">Article title:</label>
                     <div class="form-group">
                       <input name="title" id="article_name" type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" ngModel>
                     </div>
                   </div>
-                    <div class="form-group">
+                    <div class="form-group m-3">
                         <label for="exampleFormControlTextarea1">Article summary:</label>
                         <textarea name="summary" class="form-control" id="exampleFormControlTextarea1" rows="5" ngModel></textarea>
                       </div>
-                  <button type="submit" value="submit" class="btn btn-success mx-auto">Submit article</button>
-                </form>
+                      <button type="submit" value="submit" class="btn btn-success w-25 mx-auto mb-3">Submit article</button>
+                
               </div>
+            </form>
         </div>
     </div>
 </div>

@@ -15,16 +15,16 @@ export class DatabaseService {
     "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", 42, "Nino", "Brezac"), new User("Author",
     "matej", 1, "Matej", "Pičulin"), new User("Author",
     "chen", 1, "Aiyun", "Chen")];
-    public reviews: Review[] = [new Review("1","0x54cef6b9a54656865dac7906cec0bf839da424bb", "Hvala!", "Kakovosten članek. Kar naprej."),
-                              new Review("2","0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", "Ok.", "Bolj natančni opisi bi bili primerni za ta članek. Drugače je soliden."),
-                              new Review("3","0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", "Sorry! I uploaded the wrong file.", "I'm not sure this is the right file?"),
-                              new Review("4","0x54cef6b9a54656865dac7906cec0bf839da424bb", "Se strinjam. Poglavje bom dopolnil.", "Zelo podroben članek. Zadnje poglavje lahko izboljšate." ),
-                              new Review("5","0x54cef6b9a54656865dac7906cec0bf839da424bb", "Zahvaljujem se na recenziji.", "Kratek a jedrnat članek. Korelacijski filter je res močno orodje.")
+    public reviews: Review[] = [new Review("1","0x54cef6b9a54656865dac7906cec0bf839da424bb", "Kakovosten članek. Kar naprej.", "Kratko in jasno."),
+                              new Review("2","0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", "Bolj natančni opisi bi bili primerni za ta članek. Drugače je soliden.", "Brez pripomb."),
+                              new Review("3","0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", "I'm not sure this is the right file?", "The summary doesn't even match the uploaded file."),
+                              new Review("4","0x54cef6b9a54656865dac7906cec0bf839da424bb", "Zelo podroben članek. Zadnje poglavje lahko izboljšate.", " Zadnje poglavje bi se moralo dopolniti pred objavo v revijo." ),
+                              new Review("5","0x54cef6b9a54656865dac7906cec0bf839da424bb", "Kratek a jedrnat članek.", "Korelacijski filter je res močno state-of-the-art orodje. Tem članku bi lahko dali prednost na naslednji konferenci.")
                             ];
   public articles: Article[] = [new Article("6","Heartbeat detector",
     "As one of the important components of electrocardiogram (ECG) signals, QRS signal represents the basic characteristics of ECG signals. The detection of QRS waves is also an essential step for ECG signal analysis. In order to further meet the clinical needs for the accuracy and real-time detection of QRS waves, a simple, fast, reliable, and hardware-friendly algorithm for real-time QRS detection is proposed. The exponential transform (ET) and proportional-derivative (PD) control-based adaptive threshold are designed to detect QRS-complex. ",
     "chen", "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2",
-    [3,4,5], "../../assets/PDFs/chen.pdf", "In Review", new Review(),"23.07.2022"
+    [3,4,5], "../../assets/PDFs/chen.pdf", "In Review", new Review("6","0xc6dda634507c10919298d38f7ebfb2a0b150b5c2","",""),""
   ), new Article("1","Spektralno upodabljanje ",
   "Spektralno upodabljanje (angl. Spectral Rendering) je tehnika upodabljanja, kjer je prenos svetlobe modeliran s frekvencami svetlobe namesto samo barvami. Ta tehnika je pocasnejša od običajne, ki upodobi sceno v rdeči, zeleni in modri komponenti, ki jo nato združi.",
     "0x54cef6b9a54656865dac7906cec0bf839da424bb", "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2",
@@ -118,7 +118,7 @@ public getUserArticles(userId:string):any {
   public getUserInReviewArticles(userId:string):any {
     var out = [];
     for(var art of this.articles){
-      if(art.status=="In Review" && art.id_author==userId){
+      if(art.status=="In Review" && art.id_approver==userId){
         out.push(this.toArticleDao(art));
       }
     }
