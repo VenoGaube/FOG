@@ -25,32 +25,32 @@ export class DatabaseService {
   public articles: Article[] = [new Article("6","Heartbeat detector",
     "As one of the important components of electrocardiogram (ECG) signals, QRS signal represents the basic characteristics of ECG signals. The detection of QRS waves is also an essential step for ECG signal analysis. In order to further meet the clinical needs for the accuracy and real-time detection of QRS waves, a simple, fast, reliable, and hardware-friendly algorithm for real-time QRS detection is proposed. The exponential transform (ET) and proportional-derivative (PD) control-based adaptive threshold are designed to detect QRS-complex. ",
     "chen", "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2",
-    [3,4,5], "../../assets/PDFs/chen.pdf", "In Review", new Review("6","0xc6dda634507c10919298d38f7ebfb2a0b150b5c2","",""),""
+    [3,4,5], "../../assets/PDFs/chen.pdf", "In Review", new Review("6","0xc6dda634507c10919298d38f7ebfb2a0b150b5c2","",""),"21.8.2022"
   ), new Article("1","Spektralno upodabljanje ",
   "Spektralno upodabljanje (angl. Spectral Rendering) je tehnika upodabljanja, kjer je prenos svetlobe modeliran s frekvencami svetlobe namesto samo barvami. Ta tehnika je pocasnejša od običajne, ki upodobi sceno v rdeči, zeleni in modri komponenti, ki jo nato združi.",
     "0x54cef6b9a54656865dac7906cec0bf839da424bb", "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2",
-    [5,5,5], "../../assets/PDFs/NRG_seminar.pdf", "Approved", this.reviews[0]
+    [5,5,5], "../../assets/PDFs/NRG_seminar.pdf", "Approved", this.reviews[0], "24.8.2022"
   ),
     new Article("4","Pregled dokazov brez razkritja znanja",
       "Dokaz brez razkritja znanja (angl. Zero knowledge proof) je zelo uporaben matematičen problem, kjer udeleženec komunikacije pozna skrivnost in to lahko dokaže, ne da bi jo pri tem razkril. Zaradi izjemne elegantnosti in učinkovitosti se prej omenjeni koncept vedno več uporablja v računalništvu.",
       "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
-      [3,4,5], "../../assets/PDFs/Pregled dokazov brez razkritja znanja.pdf", "Approved", this.reviews[3]
+      [3,4,5], "../../assets/PDFs/Pregled dokazov brez razkritja znanja.pdf", "Approved", this.reviews[3], "25.8.2022"
   ),
     new Article("5","Correlation filter tracking",
       "Tracking using a correlation filter is yet another efficient object tracking solution. The central idea is: the target in the next frame can be found by convolution with an optimal filter (maximum response on target). The new position of the target then updates the optimal filter. This paper provides a short overview of the correlation filter tracker, how it performs and where it can be improved.",
       "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
-      [3,4,5], "../../assets/PDFs/Correlation filter.pdf", "Approved", this.reviews[4]
+      [3,4,5], "../../assets/PDFs/Correlation filter.pdf", "Approved", this.reviews[4], "22.8.2022"
     ),
     new Article("2","NP prevedbe",
     "Problem SAT. Cook-Levinov izrek. Rodovne funkcije.",
     "matej", "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2",
-    [3,3,3], "../../assets/PDFs/Algoritmi-03.pdf", "Approved", this.reviews[1]
+    [3,3,3], "../../assets/PDFs/Algoritmi-03.pdf", "Approved", this.reviews[1], "24.8.2022"
 ), new Article("3","Comparison of Patients’ Perceived Quality of Primary Care Between Urban and Rural Community Health Centers in Guangdong, China",
 "A series of reforms were implemented to improve the quality of primary care services in China. This study aims to assess patients' perceived quality of primary health care between rural and urban community health centers in Guangdong. Methods: A cross-sectional survey was conducted from July to December 2015 in Guangdong.",
 "chen", "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2",
-[1], "../../assets/PDFs/Algoritmi-03.pdf", "Rejected", this.reviews[2]
-), new Article("8", "testing for","SUMMARY OF THIS ARTICLE", "matej", "0x54cef6b9a54656865dac7906cec0bf839da424bb", [3,2], "../../assets/PDFs/Algoritmi-03.pdf",
-      "In Review", this.reviews[5])];
+[1], "../../assets/PDFs/Algoritmi-03.pdf", "Rejected", this.reviews[2], "27.8.2022"
+), new Article("8", "LATIN: Latin American Symposium on Theoretical Informatics","Konferenca je nazadnje gostovala v Buenos Airesu od 16. do 19. Aprila leta 2018. Če se bo stanje s korona virusom umirilo, pa bo naslednjič organizirana letos, izvaja se namreč približno vsako drugo leto. Kot že ime pove, se konferenca izvaja v Latinski Ameriki. Za obravnavo na konferenci je bilo oddanih 161 znanstvenih člankov. Vsak izmed njih je bil ovrednoten s strani štirih komitejev, pogosto tudi s pomočjo zunanjih ocenjevalcev. Za predstavitev je bilo izbranih 63 člankov. Konferenca se lahko med drugim pohvali tudi s keynote govorci iz univerz kot so University of Oxford, Georgia Institute of Technology.", "matej", "0x54cef6b9a54656865dac7906cec0bf839da424bb", [3,2], "../../assets/PDFs/LATIN2018-description.pdf",
+      "In Review", this.reviews[5], "21.3.2020")];
 
 
   constructor() {}

@@ -30,7 +30,7 @@ export class SubmitArticleComponent implements OnInit {
     let mo = new Intl.DateTimeFormat('si', { month: '2-digit' }).format(this.date);
     let da = new Intl.DateTimeFormat('si', { day: '2-digit' }).format(this.date);
     this.dbs.makeNewArticle(form.title, form.summary, this.cur_user.user_id, "", form.file,
-      `${da}${mo}.${ye}`)
+      `${da}.${mo}.${ye}`)
     this.router.navigate(['articles'])
   }
 
