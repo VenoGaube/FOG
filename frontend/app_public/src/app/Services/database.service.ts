@@ -11,36 +11,34 @@ import {Md5} from "ts-md5";
 })
 export class DatabaseService {
   public users: User[] = [new User("Editor",
-    "0x54cef6b9a54656865dac7906cec0bf839da424bb", 69, "Ivo", "Pajer")];
+    "0x54cef6b9a54656865dac7906cec0bf839da424bb", 69, "Ivo", "Pajer"), new User("Editor",
+    "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", 42, "Nino", "Brezac"), new User("Author",
+    "matej", 1, "Matej", "Pičulin")];
   public articles: Article[] = [new Article("2","Example article In Review",
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore," +
     " ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!",
     "guest", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
     [3,4,5], "../../assets/PDFs/Algoritmi-03.pdf", "In Review", new Review(),"23.07.2022"
-  ), new Article("1","Example article",
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore," +
-    " ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!",
+  ), new Article("1","Spektralno upodabljanje ",
+  "Spektralno upodabljanje (angl. Spectral Rendering) je tehnika upodabljanja, kjer je prenos svetlobe modeliran s frekvencami svetlobe namesto samo barvami. Ta tehnika je pocasnejša od običajne, ki upodobi sceno v rdeči, zeleni in modri komponenti, ki jo nato združi.",
     "0x54cef6b9a54656865dac7906cec0bf839da424bb", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
-    [3,4,5], "../../assets/PDFs/NRG_seminar.pdf", "Approved", new Review(),"24.07.2022"
+    [5,5,5], "../../assets/PDFs/NRG_seminar.pdf", "Approved", new Review(),"24.07.2022"
   ),
-    new Article("3","Example article 3",
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore," +
-      " ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!",
-      "guest", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
-      [3,4,5], "../../assets/PDFs/Algoritmi-03.pdf", "Approved", new Review(),"23.07.2022"
+    new Article("4","Pregled dokazov brez razkritja znanja",
+      "Dokaz brez razkritja znanja (angl. Zero knowledge proof) je zelo uporaben matematičen problem, kjer udeleženec komunikacije pozna skrivnost in to lahko dokaže, ne da bi jo pri tem razkril. Zaradi izjemne elegantnosti in učinkovitosti se prej omenjeni koncept vedno več uporablja v računalništvu.",
+      "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
+      [3,4,5], "../../assets/PDFs/Pregled dokazov brez razkritja znanja.pdf", "Approved", new Review(),"23.07.2022"
   ),
-    new Article("4","Example article 4",
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore," +
-      " ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!",
-      "guest", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
-      [3,4,5], "../../assets/PDFs/Algoritmi-03.pdf", "Approved", new Review(),"23.07.2022"
-  ),
-    new Article("5","Example article 5",
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore," +
-      " ducimus id. Voluptates quam est reprehenderit inventore rem eum quaerat rerum!",
-      "guest", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
-      [3,4,5], "../../assets/PDFs/Algoritmi-03.pdf", "Approved", new Review(),"23.07.2022"
-    )];
+    new Article("5","Correlation filter tracking",
+      "Tracking using a correlation filter is yet another efficient object tracking solution. The central idea is: the target in the next frame can be found by convolution with an optimal filter (maximum response on target). The new position of the target then updates the optimal filter. This paper provides a short overview of the correlation filter tracker, how it performs and where it can be improved.",
+      "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2", "0x54cef6b9a54656865dac7906cec0bf839da424bb",
+      [3,4,5], "../../assets/PDFs/Correlation filter.pdf", "Approved", new Review(),"23.07.2022"
+    ),
+    new Article("3","NP prevedbe",
+    "Problem SAT. Cook-Levinov izrek. Rodovne funkcije.",
+    "matej", "0xc6dda634507c10919298d38f7ebfb2a0b150b5c2",
+    [3,3,3], "../../assets/PDFs/Algoritmi-03.pdf", "Approved", new Review(),"23.07.2022"
+)];
   public reviews: Review[] = [];
 
   constructor() {
