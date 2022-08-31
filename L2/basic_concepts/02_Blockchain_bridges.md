@@ -10,4 +10,6 @@ https://eth-brownie.readthedocs.io/en/stable/
 
 https://medium.com/the-ethereum-name-service/a-general-purpose-bridge-for-ethereum-layer-2s-e28810ec1d88
 
+https://ethereum.org/en/developers/docs/bridges/
+
 
