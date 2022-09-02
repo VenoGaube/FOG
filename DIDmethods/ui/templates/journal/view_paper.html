@@ -1,0 +1,48 @@
+{% extends "journal/base.html" %}
+
+{%block title %}Edit Paper{% endblock %}
+{% block header %}
+<script>
+    const viewingDid = "{{ did }}";
+</script>
+<script src="{{url_for('static', filename='js/viewPaperInfo.js')}}"></script>
+{% endblock %}
+
+{% block navigation %}
+<div class="navigation-item no-select navigation-separator">
+    <div>⟶</div>
+</div>
+<div class="navigation-item no-select">
+    <div>{{ did }}</div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="view-wrapper">
+    <div class="view-paper-title"></div>
+    <div class="view-paper-did"></div>
+
+    <div class="view-paper-options">
+        <div class="row">
+            <div class="view-paper-option-button button-read row no-select pointer" title="Read paper">
+                <img src="{{url_for('static', filename='icons/read.svg')}}">
+                <div>Read</div>
+            </div>
+            <div class="view-paper-option-button button-edit row no-select pointer" title="Edit paper information">
+                <img src="{{url_for('static', filename='icons/edit.svg')}}">
+                <div>Edit</div>
+            </div>
+            <div class="view-paper-option-button button-delete row no-select pointer" title="Delete submitted paper">
+                <img src="{{url_for('static', filename='icons/delete.svg')}}">
+                <div>Delete</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="view-paper-paragraph-title">Keywords:</div>
+    <div class="view-paper-keywords"></div>
+
+    <div class="view-paper-paragraph-title">Abstract:</div>
+    <div class="view-paper-abstract"></div>
+</div>
+{% endblock %}

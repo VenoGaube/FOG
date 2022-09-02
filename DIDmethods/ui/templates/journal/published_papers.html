@@ -1,0 +1,21 @@
+{% extends "journal/base.html" %}
+
+{%block title %}My Papers{% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block content %}
+{% for x in range(100) %}
+    <div class="paper-row row pointer">
+        <div class="paper-row-info">
+            <div class="paper-row-title row">Title Lorem Ipsum Dolor Sit Amet</div>
+            <div class="paper-row-keywords row">Keyword1, Keyword2, Keyword3</div>
+        </div>
+        <div class="paper-options row">
+            <div class="paper-row-button button-read" title="Read paper">
+                <img src="{{url_for('static', filename='icons/read.svg')}}" alt="Read">
+            </div>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

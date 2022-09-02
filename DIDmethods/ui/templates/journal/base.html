@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} | Decentralized Journal</title>
+    <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
+    <script src="{{url_for('static', filename='js/libraries/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/libraries/web3/dist/web3.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/journal.js')}}"></script>
+    <script src="{{url_for('static', filename='js/didUrlDelete.js')}}"></script>
+
+    {% block header %}{% endblock %}
+</head>
+
+<body>
+<div class="border-round">
+    <div class="main-title-row row">
+        <h1 class="main-title">Decentralized Journal</h1>
+        <div class="user-menu no-select">
+            <div class="user-menu-button pointer">
+                <img src="{{url_for('static', filename='icons/user.svg')}}" alt="User">
+            </div>
+            <div class="user-info">
+                <div class="user-account">0x000000000000000000000000000000000000000000</div>
+                <div class="user-role">Role: Author</div>
+            </div>
+
+            <div class="user-info-hider row">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation row">
+        <a class="navigation-item no-select pointer" id="my-papers" href="/journal/my-papers">
+            <div>My Papers</div>
+        </a>
+        {% block navigation %}{% endblock %}
+    </div>
+</div>
+
+{% block above_content %}{% endblock %}
+<div class="main-content">
+    {% block content %}{% endblock %}
+</div>
+
+</body>

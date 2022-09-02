@@ -1,0 +1,46 @@
+{% extends "journal/base.html" %}
+
+{%block title %}Submit Paper{% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block navigation %}
+    <div class="navigation-item no-select navigation-separator"><div>⟶</div></div>
+    <div class="navigation-item no-select "><div>Submit new paper</div></div>
+{% endblock %}
+
+{% block content %}
+<form id="submit-paper" enctype="multipart/form-data" method="post">
+    <label>Upload paper PDF
+        <div class="row">
+            <input class="paper-input paper-upload-pdf" name="file" type="file" accept=".pdf" />
+            <div class="invalid-submit-input" hidden>Only PDF files are supported.</div>
+        </div>
+    </label>
+    <div class="separator-line"></div>
+    <label>Enter paper title
+        <div class="row">
+            <input class="paper-input" name="title" type="text" placeholder="Paper Title..." />
+            <div class="invalid-submit-input" hidden>Empty paper title</div>
+        </div>
+    </label>
+    <div class="separator-line"></div>
+    <label>Enter keywords (Use character '|' as delimiter)
+        <div class="row">
+            <input class="paper-input" name="keywords" type="text" placeholder="Keywords..." />
+            <div class="invalid-submit-input" hidden>Empty paper keywords</div>
+        </div>
+    </label>
+    <div class="separator-line"></div>
+    <label>Enter abstract
+        <div class="row">
+            <textarea class="paper-input" name="abstract" type="text" placeholder="Abstract..."></textarea>
+            <div class="invalid-submit-input" hidden>Empty paper abstract</div>
+        </div>
+    </label>
+    <div class="separator-line"></div>
+    <input type="button" class="submit-paper-button" value="Confirm submission" />
+    <div class="invalid-submit-input form-error-message" hidden>Please enter valid values.</div>
+</form>
+
+{% endblock %}
