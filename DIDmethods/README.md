@@ -2,12 +2,11 @@
 Student: Gregor Novak
 
 ### Used technologies
-For DID registry, which will be needed for defining DID methods within this topic, 
-use of smart contracts for saving paper data etc. is planned. These smart contracts are part of other topics within our decentralized journal,
-but we can get all the necessary data from them and because of this, we can avoid duplicating code for similar purposes within our project.
-DID documents are planned to be represented with JSON, while API and other parts of DID method drivers are planned to be implemented with Python and its simple framework Flask.
-DID resolver UI will be implemented with HTML, CSS and JavaScript with the help of jQuery only, to keep implementation as simple as possible,
-since the whole implementation is planned to be deployed with Docker container.
+- Solidity: Smart contract for DID registry
+- Flask & Python: Backend for DID registry and DID resolver
+- JavaScript, jQuery, HTML, CSS: Frontend for DID resolver and demonstration UI
+- Ganache & Truffle: For simulating Ethereum network and deploying smart contract
+- Docker: Using DID registry and DID resolver with Docker containers
 
 ### Main objectives
 Because the need for other DID methods and DIDs for our project, that would be covered in this topic, did not arise,
@@ -23,44 +22,87 @@ Specifically, this topic will cover:
 Paper DIDs will have the following structure (paper being the name of DID method):
 - `did:paper:[paper-id]`
 
-If DIDs for reviews will also be used, method is planned to be called `journal` (after our project) and DIDs will have the following structure:
-- `did:journal:paper:[paper-id]`
-- `did:journal:review:[review-id]`
+
+### Final result
+DID method, called "paper" was implemented, which handles the DIDs associated with papers.
+Papers are DID subjects and its authors are DID controllers.
+With DID method author can edit paper's basic data as well as delete it.
+Along with DID method, DID resolver for method was also implemented. With DID resolver, we can retrieve DID document for specific DID.
 
 
-### Progress so far
-Work on DID resolver has started and first version of the UI already exists. Some API endpoints have been defined,
-but because, our project is not yet functional since we need to integrate different parts of the whole decentralized journal, these endpoints don't yet return actual DID data.
-<br>
-Currently, further work is on hold. It will be continued, when at least some integration is successfully achieved
-so that we can better understand how the data, needed for DID documents is being stored and used.   
-
-## Running the DID resolver implementation
+## Running the code
 For running the code, Python is required.
 <br>
-To install Python requirements, navigate to `DIDmethods/did_resolver` directory and run:
+To install Python requirements, navigate to `DIDmethods` directory and run:
 ```
 pip install -r requirements.txt
 ```
 
-You can run DID resolver app from your IDE or you can use the following command from the `DIDmethods/did_resolver` directory in the terminal:
+### Ganache workspace  and smart contract deployment
+To create Ethereum network for development purposes, you can use Ganache and Truffle. Install both to your computer and create new Ganache workspace.
+Once you have created new Ganache workspace, you can add it to MetaMask in your browser. Then you can import addresses from workspace to use them as wallets.
+Note that first wallet in the workspace will be used for smart contract deployment.
+
+Now you can deploy a smart contract for DID registry. Navigate to `DIDmethods/method_registry` and run the following command:
+```
+truffle migrate
+```
+
+This will migrate the smart contract in the `method_registry` project and deploy it.
+
+### DID registry backend
+DID registry backend needs to be running if we want for demonstration UI and DID resolver to work correctly,
+since they both use its endpoints to get/post data. 
+
+You can run DID registry backend by navigating to `DIDmethods/method_registry` directory and run the following in the terminal:
 ```
 python app.py
 ```
 
-App UI will be available on `http://127.0.0.1:5000`.
-
-### Running with Docker
 You can also run DID resolver app in Docker container.
-First, build Docker image. Make sure you are located in `DIDmethods/did_resolver` directory and run:
+First, build Docker image. Make sure you are located in `DIDmethods/method_registry` directory and run:
+```
+docker image build -t method_registry .
+```
+This will build Docker image called `method_registry`.
+
+Because for demonstration purposes, papers are saved directly to the disk, mounting the directory with papers is needed when running the Docker image.
+You must specify the absolute path to the papers directory in the host, to mount it to the papers directory in the Docker container.
+Specifying local directory as absolute path is different from OS to OS and according to which terminal you are using.
+If you are using Windows, this can be done in the PowerShell, with the following command (from the `DIDmethods/method_registry` folder):
+```
+docker run -p 5002:5002 -v ${pwd}/res/papers:/app/res/papers method_registry:latest 
+```
+
+### DID resolver
+Using DID resolver is similar to DID registry backend.
+
+You can navigate to  `DIDmethods/did_resolver` directory and run:
+```
+python app.py
+```
+
+DID resolver UI will be available at `http://127.0.0.1:5000`.
+
+Or you can use it with Docker. Make sure you are located in `DIDmethods/did_resolver` directory and run:
 ```
 docker image build -t did_resolver .
 ```
 This will build Docker image called `did_resolver`.
 
-To run the latest version of the image, use following command.
+Now you can run image with the command:
 ```
 docker run -p 5000:5000 did_resolver:latest 
 ```
 
-App can now be used in the same manner as if run without Docker container.
+DID resolver app can now be used in the same manner as if run without Docker container.
+
+### Demonstration UI
+Demonstration UI doesn't use Docker. You can therefore only run it with python. Navigate to `DIDmethods/UI` and run:
+
+```
+python ui_app.py
+```
+
+UI will be available at `http://127.0.0.1`.
+
