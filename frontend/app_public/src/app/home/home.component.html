@@ -5,8 +5,9 @@
                 <div class="card-body mx-auto">
                         <img src="../../assets/MetaMask_Fox.svg" style="width: 300px;">
                     <div class="mt-5 mr-5">
-                        <h1 class="text-warning font-weight-bold" *ngIf="!foundAccount">Please connect your MetaMask account to continue using the app!</h1>
+                        <h1 class="text-warning font-weight-bold" *ngIf="!foundAccount">Please connect your MetaMask account to unlock all functionalities of the app!</h1>
                         <h1 class="text-success font-weight-bold" *ngIf="foundAccount">Metamask account successfully connected! <br> The app is ready for usage</h1>
+                        <a class="btn btn-primary w-25 p-2 m-3" *ngIf="!foundAccount" href="articles">Enter as guest</a>
                     </div>
                 </div>
         </div>

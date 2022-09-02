@@ -11,6 +11,9 @@ import { HomeComponent } from './home/home.component';
 import { NftsComponent } from './nfts/nfts.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticlesEditorComponent } from './articles-editor/articles-editor.component';
+import {DatabaseService} from "./Services/database.service";
+import {MetamaskServiceService} from "./Services/metamask-service.service";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -24,11 +27,12 @@ import { ArticlesEditorComponent } from './articles-editor/articles-editor.compo
     ArticlesComponent,
     ArticlesEditorComponent
   ],
-  imports: [
-    BrowserModule,
-    AppUsmerjanjeModule,
-  ],
-  providers: [],
+    imports: [
+        BrowserModule,
+        AppUsmerjanjeModule,
+        FormsModule,
+    ],
+  providers: [DatabaseService, MetamaskServiceService],
   bootstrap: [TemplateComponent]
 })
 export class AppModule { }

@@ -1,308 +1,156 @@
 <nav>
   <div class="nav nav-tabs mt-5" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active" id="nav-all-articles-tab" data-toggle="tab" href="#nav-all-articles"
-       role="tab" aria-controls="nav-all-articles" aria-selected="true">My articles <span
-      class="badge badge-light">3</span></a>
-    <a class="nav-item nav-link" id="nav-approved-articles-tab" data-toggle="tab" href="#nav-approved-articles"
-       role="tab" aria-controls="nav-approved-articles" aria-selected="false">Approved articles<span
-      class="badge badge-light">1</span></a>
-    <a class="nav-item nav-link" id="nav-rejected-articles-tab" data-toggle="tab" href="#nav-rejected-articles"
+    <a (click)="dispAllArticles()" [className]="this.allArticles ? 'nav-item nav-link active' : 'nav-item nav-link'" id="nav-all-articles-tab" data-toggle="tab"
+       role="tab" aria-controls="nav-all-articles" aria-selected="false">All articles <span
+      class="badge badge-light">{{this.articles_approved.length + this.articles_rejected.length + this.articles_inreview.length}}</span></a>
+    <a (click)="dispAppArticles()" [className]="this.approvedArticles ? 'nav-item nav-link active' : 'nav-item nav-link'" id="nav-approved-articles-tab" data-toggle="tab"
+       role="tab" aria-controls="nav-approved-articles" aria-selected="true">Approved articles<span
+      class="badge badge-light">{{this.articles_approved.length}}</span></a>
+    <a (click)="dispRejArticles()" [className]="this.rejectedArticles ? 'nav-item nav-link active' : 'nav-item nav-link'" id="nav-rejected-articles-tab" data-toggle="tab"
        role="tab" aria-controls="nav-rejected-articles" aria-selected="false">Rejected articles<span
-      class="badge badge-light">1</span></a>
-    <a class="nav-item nav-link" id="nav-articles-under-review-tab" data-toggle="tab"
-       href="#nav-articles-under-review" role="tab" aria-controls="nav-articles-under-review"
-       aria-selected="false">Articles under review<span class="badge badge-light">1</span></a>
+      class="badge badge-light">{{this.articles_rejected.length}}</span></a>
+    <a (click)="dispRevArticles()" [className]="this.inReviewArticles ? 'nav-item nav-link active' : 'nav-item nav-link'" id="nav-articles-under-review-tab" data-toggle="tab"
+        role="tab" aria-controls="nav-articles-under-review"
+       aria-selected="false">Articles under review<span class="badge badge-light">{{this.articles_inreview.length}}</span></a>
   </div>
 </nav>
 <div class="tab-content mt-5" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="nav-all-articles" role="tabpanel" aria-labelledby="nav-all-articles-tab">
+  <div *ngIf="this.allArticles" class="tab-pane fade show active" id="nav-all-articles" role="tabpanel" aria-labelledby="nav-all-articles-tab">
+    <div *ngFor="let art of articles_approved">
     <div class="card ml-5 mr-5 mt-3 bg-success thumbnail">
       <div (click)="onclick($event.currentTarget)">
         <a>
           <div class="card-header">
             <div class="float-left">
-              <h4>Article title</h4>
+              <h4>{{art.title}}</h4>
             </div>
             <div class="float-right">
-              <p class="text-right">Article approved</p>
+              <p class="text-right">{{art.status}}</p>
             </div>
             <div class="clearfix"></div>
           </div>
         </a>
         <div class="card-body bg-light">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h5 class="card-title">{{art.author.name}} {{art.author.surname}}</h5>
+          <p class="card-text">{{art.summary}}</p>
+          <p class="card-text"><small class="text-muted">{{art.uploaded}}</small></p>
         </div>
       </div>
       <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
         <div class="card-body bg-light" style="display:inline-flex">
           <div class="float-left"  style="display: inline-block">
-            <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
-            <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
+            <figure class="figure">
+              <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+              <figcaption class="figure-caption"><button class="btn btn-primary" (click)="redirect(art.link)" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button></figcaption>
+            </figure>
           </div>
           <div class="float-left" style="margin-left: 30px">
-            <h5 class="card-text" >Author: <small>John Doe</small></h5>
-            <h5 class="card-text">Reviewer: <small>Jane Doe</small></h5>
+            <h5 class="card-text" >Author: <small>{{art.author.name}} {{art.author.surname}}</small></h5>
+            <h5 class="card-text">Reviewer: <small>{{art.approver.name}} {{art.approver.surname}}</small></h5>
             <br>
-            <div>
-              <h5 class="card-text" style="margin-left: 50px">Author comments:</h5>
-              <div>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
-                  adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
-                  molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
-                  harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
-                  officia!
-              </div>
-              <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
-              <div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
-                adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
-                molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
-                harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
-                officia!
-              </div>
-            </div>
-            <div style="margin-top: 20px">
-              <button class="btn btn-danger float-left" style="height: 50px">Request revision</button>
-              <button class="btn btn-success float-right" style="height: 50px">Accept article</button>
-            </div>
+            <h5 class="card-text" >Comments for the editor</h5>
+            <div>{{art.review.editor_comments}}</div>
+            <h5 class="card-text" >Comments for the author</h5>
+            <div>{{art.review.author_comments}}</div>
+              <button class="btn btn-danger float-left mt-3" style="height: 50px"  (click)="deleteArticle(art.id)">Delete article</button>
             <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
           </div>
           <div class="clearfix"></div>
         </div>
       </div>
     </div>
-    <div class="card ml-5 mr-5 mt-3 bg-danger thumbnail">
-      <div (click)="onclick($event.currentTarget)">
-        <a>
-          <div class="card-header">
-            <div class="float-left">
-              <h4>Article title</h4>
-            </div>
-            <div class="float-right">
-              <p class="text-right">Article rejected</p>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-        </a>
-        <div class="card-body bg-light">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-      <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
-        <div class="card-body bg-light" style="display:inline-flex">
-          <div class="float-left"  style="display: inline-block">
-            <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
-            <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
-          </div>
-          <div class="float-left" style="margin-left: 30px">
-            <h5 class="card-text" >Author: <small>John Doe</small></h5>
-            <h5 class="card-text">Reviewer: <small>Jane Doe</small></h5>
-            <br>
-            <div>
-              <h5 class="card-text" style="margin-left: 50px">Author comments:</h5>
-              <div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
-                adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
-                molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
-                harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
-                officia!
-              </div>
-              <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
-              <div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
-                adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
-                molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
-                harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
-                officia!
-              </div>
-            </div>
-            <div style="margin-top: 20px">
-              <button class="btn btn-danger float-left" style="height: 50px">Request revision</button>
-              <button class="btn btn-success float-right" style="height: 50px">Accept article</button>
-            </div>
-            <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
-          </div>
-          <div class="clearfix"></div>
-        </div>
-      </div>
     </div>
-    <div class="card ml-5 mr-5 mt-3 bg-warning thumbnail">
-      <div (click)="onclick($event.currentTarget)">
-        <a>
-          <div class="card-header">
-            <div class="float-left">
-              <h4>Article title</h4>
-            </div>
-            <div class="float-right">
-              <p class="text-right">Article under review</p>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-        </a>
-        <div class="card-body bg-light">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-      <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
-        <div class="card-body bg-light" style="display:inline-flex">
-          <div class="float-left"  style="display: inline-block">
-            <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
-            <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
-          </div>
-          <div class="float-left" style="margin-left: 30px">
-            <h5 class="card-text" >Author: <small>John Doe</small></h5>
-            <h5 class="card-text">Reviewer: <small>Jane Doe</small></h5>
-            <br>
-            <div>
-              <h5 class="card-text" style="margin-left: 50px">Author comments:</h5>
-              <div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
-                adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
-                molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
-                harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
-                officia!
-              </div>
-              <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
-              <div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
-                adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
-                molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
-                harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
-                officia!
-              </div>
-            </div>
-            <div style="margin-top: 20px">
-              <button class="btn btn-danger float-left" style="height: 50px">Request revision</button>
-              <button class="btn btn-success float-right" style="height: 50px">Accept article</button>
-            </div>
-            <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
-          </div>
-          <div class="clearfix"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="tab-pane fade" id="nav-approved-articles" role="tabpanel" aria-labelledby="nav-approved-articles-tab">
-    <div class="tab-pane fade show active" id="nav-all-articles" role="tabpanel"
-         aria-labelledby="nav-all-articles-tab">
-      <div class="card ml-5 mr-5 mt-3 bg-success thumbnail">
-        <div (click)="onclick($event.currentTarget)">
-          <a>
-            <div class="card-header">
-              <div class="float-left">
-                <h4>Article title</h4>
-              </div>
-              <div class="float-right">
-                <p class="text-right">Article approved</p>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-          </a>
-          <div class="card-body bg-light">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-        <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
-          <div class="card-body bg-light" style="display:inline-flex">
-            <div class="float-left"  style="display: inline-block">
-              <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
-              <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
-            </div>
-            <div class="float-left" style="margin-left: 30px">
-              <h5 class="card-text" >Author: <small>John Doe</small></h5>
-              <h5 class="card-text">Reviewer: <small>Jane Doe</small></h5>
-              <br>
-              <div>
-                <h5 class="card-text" style="margin-left: 50px">Author comments:</h5>
-                <div>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
-                  adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
-                  molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
-                  harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
-                  officia!
-                </div>
-                <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
-                <div>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
-                  adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
-                  molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
-                  harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
-                  officia!
-                </div>
-              </div>
-              <div style="margin-top: 20px">
-                <button class="btn btn-danger float-left" style="height: 50px">Request revision</button>
-                <button class="btn btn-success float-right" style="height: 50px">Accept article</button>
-              </div>
-              <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
-            </div>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="tab-pane fade" id="nav-rejected-articles" role="tabpanel" aria-labelledby="nav-rejected-articles-tab">
-    <div class="tab-pane fade show active" id="nav-all-articles" role="tabpanel"
-         aria-labelledby="nav-all-articles-tab">
+    <div *ngFor="let art of articles_rejected">
       <div class="card ml-5 mr-5 mt-3 bg-danger thumbnail">
         <div (click)="onclick($event.currentTarget)">
           <a>
             <div class="card-header">
               <div class="float-left">
-                <h4>Article title</h4>
+                <h4>{{art.title}}</h4>
               </div>
               <div class="float-right">
-                <p class="text-right">Article rejected</p>
+                <p class="text-right">{{art.status}}</p>
               </div>
               <div class="clearfix"></div>
             </div>
           </a>
           <div class="card-body bg-light">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <h5 class="card-title">{{art.author.name}} {{art.author.surname}}</h5>
+            <p class="card-text">{{art.summary}}</p>
+            <p class="card-text"><small class="text-muted">{{art.uploaded}}</small></p>
           </div>
         </div>
         <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
           <div class="card-body bg-light" style="display:inline-flex">
             <div class="float-left"  style="display: inline-block">
-              <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
-              <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
+              <figure class="figure">
+                <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                <figcaption class="figure-caption"><button class="btn btn-primary" (click)="redirect(art.link)" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button></figcaption>
+              </figure>
+              
             </div>
             <div class="float-left" style="margin-left: 30px">
-              <h5 class="card-text" >Author: <small>John Doe</small></h5>
-              <h5 class="card-text">Reviewer: <small>Jane Doe</small></h5>
+              <h5 class="card-text" >Author: <small>{{art.author.name}} {{art.author.surname}}</small></h5>
+              <h5 class="card-text">Reviewer: <small>{{art.approver.name}} {{art.approver.surname}}</small></h5>
               <br>
               <div>
-                <h5 class="card-text" style="margin-left: 50px">Author comments:</h5>
-                <div>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
-                  adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
-                  molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
-                  harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
-                  officia!
-                </div>
-                <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
-                <div>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
-                  adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
-                  molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
-                  harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
-                  officia!
-                </div>
+                <h5 class="card-text" >Comments for the editor</h5>
+                  <div>{{art.review.editor_comments}}</div>
+                  <h5 class="card-text" >Comments for the author</h5>
+                  <div>{{art.review.author_comments}}</div>
               </div>
-              <div style="margin-top: 20px">
-                <button class="btn btn-danger float-left" style="height: 50px">Request revision</button>
-                <button class="btn btn-success float-right" style="height: 50px">Accept article</button>
+              <!--<div style="margin-top: 20px">
+                <button class="btn btn-danger float-left" style="height: 50px" (click)="rejectArticle(art.id)">Request revision</button>
+                <button class="btn btn-success float-right" style="height: 50px" (click)="approveArticle(art.id)">Accept article</button>
+              </div>-->
+              <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let art of articles_inreview">
+      <div class="card ml-5 mr-5 mt-3 bg-warning thumbnail">
+        <div (click)="onclick($event.currentTarget)">
+          <a>
+            <div class="card-header">
+              <div class="float-left">
+                <h4>{{art.title}}</h4>
+              </div>
+              <div class="float-right">
+                <p class="text-right">{{art.status}}</p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </a>
+          <div class="card-body bg-light">
+            <h5 class="card-title">{{art.author.name}} {{art.author.surname}}</h5>
+            <p class="card-text">{{art.summary}}</p>
+            <p class="card-text"><small class="text-muted">{{art.uploaded}}</small></p>
+          </div>
+        </div>
+        <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
+          <div class="card-body bg-light" style="display:inline-flex">
+            <div class="float-left"  style="display: inline-block">
+              <figure class="figure">
+                <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                <figcaption class="figure-caption"><button class="btn btn-primary" (click)="redirect(art.link)" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button></figcaption>
+              </figure>
+            </div>
+            <div class="float-left" style="margin-left: 30px">
+              <h5 class="card-text" >Author: <small>{{art.author.name}} {{art.author.surname}}</small></h5>
+              <h5 class="card-text">Reviewer: <small>{{art.approver.name}} {{art.approver.surname}}</small></h5>
+              <br>
+              <div>
+                <h5 class="card-text" >Comments for the editor</h5>
+                  <div>{{art.review.editor_comments}}</div>
+                  <h5 class="card-text" >Comments for the author</h5>
+                  <div>{{art.review.author_comments}}</div>
+              </div>
+              <div class="mt-5">
+                <button class="btn btn-danger float-left m-2" style="height: 50px" (click)="rejectArticle(art.id)">Request revision</button>
+                <button class="btn btn-success float-right m-2" style="height: 50px" (click)="approveArticle(art.id)">Accept article</button>
               </div>
               <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
             </div>
@@ -312,62 +160,160 @@
       </div>
     </div>
   </div>
-  <div class="tab-pane fade" id="nav-articles-under-review" role="tabpanel"
-       aria-labelledby="nav-articles-under-review-tab">
-    <div class="card ml-5 mr-5 mt-3 bg-warning thumbnail">
-      <div (click)="onclick($event.currentTarget)">
-        <a>
-          <div class="card-header">
-            <div class="float-left">
-              <h4>Article title</h4>
+  <div *ngIf="this.approvedArticles" class="tab-pane fade show active" id="nav-approved-articles" role="tabpanel" aria-labelledby="nav-approved-articles-tab">
+    <div class="tab-pane fade show active" id="nav-all-articles" role="tabpanel"
+         aria-labelledby="nav-all-articles-tab">
+      <div *ngFor="let art of articles_approved">
+        <div class="card ml-5 mr-5 mt-3 bg-success thumbnail">
+          <div (click)="onclick($event.currentTarget)">
+            <a>
+              <div class="card-header">
+                <div class="float-left">
+                  <h4>{{art.title}}</h4>
+                </div>
+                <div class="float-right">
+                  <p class="text-right">{{art.status}}</p>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </a>
+            <div class="card-body bg-light">
+              <h5 class="card-title">{{art.author.name}} {{art.author.surname}}</h5>
+              <p class="card-text">{{art.summary}}</p>
+              <p class="card-text"><small class="text-muted">{{art.uploaded}}</small></p>
             </div>
-            <div class="float-right">
-              <p class="text-right">Article under review</p>
+          </div>
+          <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
+            <div class="card-body bg-light" style="display:inline-flex">
+              <div class="float-left"  style="display: inline-block">
+                <figure class="figure">
+                  <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                  <figcaption class="figure-caption"><button class="btn btn-primary" (click)="redirect(art.link)" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button></figcaption>
+                </figure>
+              </div>
+              <div class="float-left" style="margin-left: 30px">
+                <h5 class="card-text" >Author: <small>{{art.author.name}} {{art.author.surname}}</small></h5>
+                <h5 class="card-text">Reviewer: <small>{{art.approver.name}} {{art.approver.surname}}</small></h5>
+                <br>
+                <div>
+                  <h5 class="card-text" >Comments for the editor</h5>
+                  <div>{{art.review.editor_comments}}</div>
+                  <h5 class="card-text" >Comments for the author</h5>
+                  <div>{{art.review.author_comments}}</div>
+                </div>
+                  <button class="btn btn-danger float-left mt-3" style="height: 50px"  (click)="deleteArticle(art.id)">Delete article</button>
+                <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="this.rejectedArticles" class="tab-pane fade show active" id="nav-rejected-articles" role="tabpanel" aria-labelledby="nav-rejected-articles-tab">
+    <div class="tab-pane fade show active" id="nav-all-articles" role="tabpanel"
+         aria-labelledby="nav-all-articles-tab">
+      <div *ngFor="let art of articles_rejected">
+        <div class="card ml-5 mr-5 mt-3 bg-danger thumbnail">
+          <div (click)="onclick($event.currentTarget)">
+            <a>
+              <div class="card-header">
+                <div class="float-left">
+                  <h4>{{art.title}}</h4>
+                </div>
+                <div class="float-right">
+                  <p class="text-right">{{art.status}}</p>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </a>
+            <div class="card-body bg-light">
+              <h5 class="card-title">{{art.author.name}} {{art.author.surname}}</h5>
+              <p class="card-text">{{art.summary}}</p>
+              <p class="card-text"><small class="text-muted">{{art.uploaded}}</small></p>
+            </div>
+          </div>
+          <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
+            <div class="card-body bg-light" style="display:inline-flex">
+              <div class="float-left"  style="display: inline-block">
+                <figure class="figure">
+                  <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                  <figcaption class="figure-caption"><button class="btn btn-primary" (click)="redirect(art.link)" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button></figcaption>
+                </figure>
+              </div>
+              <div class="float-left" style="margin-left: 30px">
+                <h5 class="card-text" >Author: <small>{{art.author.name}} {{art.author.surname}}</small></h5>
+                <h5 class="card-text">Reviewer: <small>{{art.approver.name}} {{art.approver.surname}}</small></h5>
+                <br>
+                <div>
+                  <h5 class="card-text" >Comments for the editor</h5>
+                  <div>{{art.review.editor_comments}}</div>
+                  <h5 class="card-text" >Comments for the author</h5>
+                  <div>{{art.review.author_comments}}</div>
+                </div>
+                <!--<div style="margin-top: 20px">
+                  <button class="btn btn-danger float-left" style="height: 50px" (click)="rejectArticle(art.id)">Request revision</button>
+                  <button class="btn btn-success float-right" style="height: 50px" (click)="approveArticle(art.id)">Accept article</button>
+                </div>-->
+                <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="this.inReviewArticles" class="tab-pane fade show active" id="nav-articles-under-review" role="tabpanel"
+       aria-labelledby="nav-articles-under-review-tab">
+    <div *ngFor="let art of articles_inreview">
+      <div class="card ml-5 mr-5 mt-3 bg-warning thumbnail">
+        <div (click)="onclick($event.currentTarget)">
+          <a>
+            <div class="card-header">
+              <div class="float-left">
+                <h4>{{art.title}}</h4>
+              </div>
+              <div class="float-right">
+                <p class="text-right">{{art.status}}</p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </a>
+          <div class="card-body bg-light">
+            <h5 class="card-title">{{art.author.name}} {{art.author.surname}}</h5>
+            <p class="card-text">{{art.summary}}</p>
+            <p class="card-text"><small class="text-muted">{{art.uploaded}}</small></p>
+          </div>
+        </div>
+        <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
+          <div class="card-body bg-light" style="display:inline-flex">
+            <div class="float-left"  style="display: inline-block">
+              <figure class="figure">
+                <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                <figcaption class="figure-caption"><button class="btn btn-primary" (click)="redirect(art.link)" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button></figcaption>
+              </figure>
+              
+            </div>
+            <div class="float-left" style="margin-left: 30px">
+              <h5 class="card-text" >Author: <small>{{art.author.name}} {{art.author.surname}}</small></h5>
+              <h5 class="card-text">Reviewer: <small>{{art.approver.name}} {{art.approver.surname}}</small></h5>
+              <br>
+              <div>
+                <h5 class="card-text" >Comments for the editor</h5>
+                  <div>{{art.review.editor_comments}}</div>
+                  <h5 class="card-text" >Comments for the author</h5>
+                  <div>{{art.review.author_comments}}</div>
+              </div>
+              <div class="mt-5">
+                <button class="btn btn-danger float-left m-2" style="height: 50px" (click)="rejectArticle(art.id)">Request revision</button>
+                <button class="btn btn-success float-right m-2" style="height: 50px" (click)="approveArticle(art.id)">Accept article</button>
+              </div>
+              <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
             </div>
             <div class="clearfix"></div>
           </div>
-        </a>
-        <div class="card-body bg-light">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-      <div class="card bg-light" id="details" style="max-height: 0px; overflow: hidden">
-        <div class="card-body bg-light" style="display:inline-flex">
-          <div class="float-left"  style="display: inline-block">
-            <img src="../../assets/43716.jpg" style="width: 200px; margin-bottom: 5px">
-            <button class="btn btn-primary" style="height: 50px; margin: 10px 10px 0px 10px">Download article</button>
-          </div>
-          <div class="float-left" style="margin-left: 30px">
-            <h5 class="card-text" >Author: <small>John Doe</small></h5>
-            <h5 class="card-text">Reviewer: <small>Jane Doe</small></h5>
-            <br>
-            <div>
-              <h5 class="card-text" style="margin-left: 50px">Author comments:</h5>
-              <div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
-                adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
-                molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
-                harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
-                officia!
-              </div>
-              <h5 class="card-text" style="margin-left: 50px">Editor comments:</h5>
-              <div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ad quod veniam
-                adipisci ex! Ab repellat, modi cupiditate soluta ea quia tempora corporis in, praesentium
-                molestias laborum, distinctio nemo sunt! Ullam quisquam mollitia aut explicabo temporibus, fuga
-                harum, soluta vel culpa, accusantium ipsum at nam deserunt voluptatibus? Dolorum, fugiat
-                officia!
-              </div>
-            </div>
-            <div style="margin-top: 20px">
-              <button class="btn btn-danger float-left" style="height: 50px">Request revision</button>
-              <button class="btn btn-success float-right" style="height: 50px">Accept article</button>
-            </div>
-            <!--<h4 class="card-subtitle mb-4 text-muted">7.6.2022</h4>-->
-          </div>
-          <div class="clearfix"></div>
         </div>
       </div>
     </div>
