@@ -12,10 +12,33 @@
 <body>
 <div class="main-wrapper">
     <h1 class="border-round">Decentralized Journal DID Resolver</h1>
-    <div class="instructions row">
-        <div>Placeholder:</div>
-        <div>TODO instructions</div>
+    <h2  class="instructions-title">Instructions and rules</h2>
+    <div class="instructions">
+        <h4>Supported DID methods:</h4>
+        <ul class="instructions-supported-methods">
+            <li>paper</li>
+        </ul>
+        <h4>DID syntax</h4>
+        <pre class="instructions-inner-margin">did:&lt;method name&gt;:&lt;method specific ID&gt;</pre>
+        <h4>Method specific ID syntax</h4>
+        <div class="instructions-inner-margin">paper:
+            <ul>
+                <li>
+                    <pre>case sensitive: True</pre>
+                </li>
+                <li>
+                    <pre>ID = ^[0-9a-z]{32}$</pre>
+                </li>
+            </ul>
+        </div>
+        <h4>Supported syntax example</h4>
+        <ul>
+            <li>
+                <pre>did:paper:example00000000012345678abcdefgh</pre>
+            </li>
+        </ul>
     </div>
+
     <div class="input-output-wrapper border-round">
         <div class="input-wrapper">
             <div class="row">

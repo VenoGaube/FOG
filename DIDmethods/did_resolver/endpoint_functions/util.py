@@ -1,4 +1,5 @@
 from .methods import get_supported_methods_list
+import re
 
 
 def check_did_formatting(did):
@@ -8,6 +9,9 @@ def check_did_formatting(did):
     did_indicator, did_method, did_identifier = split_by_colon
     if did_indicator != "did":
         return False, ("Input is not a DID", 400)
+
+    if did_method == "paper" and not re.compile("^[\\da-z]{32}$").match(did_identifier):
+        return False, ("Invalid input", 400)
     if did_method not in get_supported_methods_list():
         return False, (f"DID method '{did_method}' not supported by this resolver", 400)
 

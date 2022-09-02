@@ -1,9 +1,15 @@
 from .util import check_did_formatting
-from .identifiers import resolve_paper_did
-
+from .identifiers import resolve_paper_did, get_paper_data
+import time
+import datetime
 
 # key strings for resolved JSON
 resolution_metadata, did_document, document_metadata = "resolutionMetadata", "didDocument", "didDocumentMetadata"
+
+
+def timestamp_seconds_to_xml_datetime(timestamp):
+    date = datetime.datetime.utcfromtimestamp(timestamp)
+    return date.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def resolve_whole(did):
@@ -30,7 +36,9 @@ def resolve_whole(did):
 
 
 def resolve_whole_paper(did_identifier):
-    val_did_document, status_code = resolve_paper_did(did_identifier)
+    paper_data = get_paper_data(did_identifier)
+    val_did_document, status_code = resolve_paper_did(did_identifier, paper_data)
+
     if status_code == 404:
         return {
                    resolution_metadata: {"error": "notFound"},
@@ -44,11 +52,21 @@ def resolve_whole_paper(did_identifier):
                    document_metadata: {"deactivated": True}
                }, 410
 
-    val_document_metadata = ["TODO"]
-    val_resolution_metadata = ["TODO"]
+    val_document_metadata = {
+        "created": timestamp_seconds_to_xml_datetime(paper_data["timestampCreated"]),
+        "updated": timestamp_seconds_to_xml_datetime(paper_data["timestampChanged"]),
+        "updateType": paper_data["changeType"],
+        "status": paper_data["status"],
+        "controllerRoles": [{
+            "author": paper_data["author"]
+        }]
+    }
 
     return {
-               resolution_metadata: val_resolution_metadata,
+               resolution_metadata: {
+                   "contentType": "application/did+ld+json",
+                   "retrieved": timestamp_seconds_to_xml_datetime(time.time())
+               },
                did_document: val_did_document,
                document_metadata: val_document_metadata
            }, 200
