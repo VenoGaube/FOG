@@ -28,12 +28,23 @@ During the corse of this project we researched deeper into selected blockchain-r
 
 
 ## Etherium bridge demo
-### Setup
 
-1. create moralis account
-2. Add Metamask extension, create MetaMask account, add Rinkeby and Mumbai test networks
-3. Get some free tokens from faucets on both Rinkeby and Mumbai
-4. tokenContract.sol and MainBridge.sol -> mainnet (rinkeby), childContract.sol and SideBridge.sol -> sidechain (Mumbai)
-- first deploy contracts?
-
-### Use
+1. Create [moralis account](https://moralis.io/)
+1. Create a moralis testnet server, connect it to Ringeby and Mumbai testnets
+1. Add Metamask extension to browser, create MetaMask account, add Rinkeby and Mumbai test networks
+1. Get some free tokens from faucets on both Rinkeby and Mumbai
+1. Deploy smart contracts to appropriate networks
+    - tokenContract.sol and MainBridge.sol -> mainnet (rinkeby)
+    - childContract.sol and SideBridge.sol -> sidechain (Mumbai)]
+1. Save addresses from smart contracts, so they can be inserted later into other components
+1. In [cloudCode.js](L2/ERC20Bridge/moralis_server/cloudCode.js), enter your adressess from smart contracts: `MainBridge_address`, `SideBridge_address`, `mainToken_address`, `childToken_address` and config values from Moralis sever: `gateway_address`, `gatewayKey`.
+1. Copy [cloudCode.js](L2/ERC20Bridge/moralis_server/cloudCode.js) to Moralis server's Cloud Functions
+1. Add ABI listeners (Moralis server's Syncs). Click Add sync and then copy code from [ABI folder](L2/ERC20Bridge/moralis_server/eventsAbi.json)
+1. Enter addressess backend for frontend files ([logicBridge](L2/ERC20Bridge/frontend/static/logicBridge.js) and [logicReturn](L2/ERC20Bridge/frontend/static/logicReturn.js)): `mainTokenAddress`, `mainBridgeAddress`, `childTokenAddress` and `sideBridgeAddress`.
+1. Deploy frontend with some html server, for instance python server:
+```bash
+cd L2/ERC20Bridge/frontend
+python3 -m http.server
+```
+1. Bridge frontend should be on following addresses:
+`[::]:8000/bridge.html` and `[::]:8000/return.html`, so enter these two into browser and it should work.
