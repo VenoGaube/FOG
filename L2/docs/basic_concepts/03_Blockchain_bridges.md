@@ -23,4 +23,14 @@ Security-wise, bridges can be categorised as part of one of two groups: **truste
 
 Since bridges are still in the early stages of developement, there is a lot of secuirty risks. For start, there is a lot of different **open issues**, connected to immaturity of tehnology. Nobody nows how bridges could behave during previously unforseen events, such as network congestion or state rollbacks. There is always a **smart contract risk**, even one bug in contract, which defines the bridge, can be exploited and lead to attacks. Trusted bridges face also a **counterparty risk**. Usage of trusted bridges is based on assumption that facilitator of cross-chain transfer will not colude to steal the assets, censor transaction or perform some other sort of malitious activity.
 
+## Arhitecture of our bridge
+
+Our bridge falls into category of *oracle-based trusted bridges*. It works differently depending on the side. If transfering from mainnet to sidechain, it locks funds on mainnet and then mints new tokens on sidechain. If transfering from sidechain to mainnet, it burns tokens on sidechain and unlocks tokens on mainnet. It has several components:
+1. **Token defining smart contracts**. This is not actually part of a bridge, it just defines the tokens, our bridge is capable of transfering.
+1. **Bridge smart contracts**. Bridge needs two smart contracts, one on each side to be able top transfer funds accros. Functions from smart contract can only be triggered by bridge server from its address (for security reasons).
+1. **Event listeners**. This is part of bridge, which listens to events, posted by bridge's smart contracts and notifies server on events (for instance tokens were posted to smart contract and need to be transfered cross-chain)
+1. **Bridge server / oracle**. This is the actual server, which receives notifications about events and triggers functions in smart contracts, which (un)lock, mint or burn tokens.
+
+![Bridge](bridge_animation.png)
+
 [1]: <https://ethereum.org/en/developers/docs/bridges/>
