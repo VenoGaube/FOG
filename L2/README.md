@@ -24,7 +24,7 @@ Mihael Trajbarič
 Although there are no special requirements for deployment of L2 network, we could aim at creating a platform, which could be offered to various players (mostly from Slovenia), that want to get into web3 and don't know how. The network could be thought of as a educational platform to help with deployment of simple web3 projects. Project will most likely not achieve this goal of actually hosting a real web3 project, but we can still have a requirements in mind when making design choices.
 
 ## Theoretical part
-During the corse of this project we researched deeper into selected blockchain-related topic. Findings and notes are contained in [docs/](docs/) directory. This include [Etherium basics](docs/basic_concepts/01_Etherium.md), [comparison of L2 solutions](docs/basic_concepts/02_L2.md), [Blockchain bridges](docs/basic_concepts/03_Blockchain_bridges.md) and [why sidechain was chosen](docs/brainstorming/02_sidechain_choice.md) as L2 solution in this project. It also includes a [section](docs/basic_concepts/03_Blockchain_bridges.md), dedicated to explainging how our prototype works.
+During the corse of this project we researched deeper into selected blockchain-related topic. Findings and notes are contained in [docs/](docs/) directory. This include [Etherium basics](docs/basic_concepts/01_Etherium.md), [comparison of L2 solutions](docs/basic_concepts/02_L2.md), [Blockchain bridges](docs/basic_concepts/03_Blockchain_bridges.md) and [why sidechain was chosen](docs/brainstorming/02_sidechain_choice.md) as L2 solution in this project. It also includes a [section](docs/basic_concepts/03_Blockchain_bridges.md#arhitecture-of-our-bridge), dedicated to explainging how our prototype works.
 
 
 ## Etherium bridge demo
