@@ -12,6 +12,7 @@ Mihael Trajbarič
 - deploy prototype
 
 ## Key selected technologies
+- JavaScript, html
 - [Moralis SDK](https://moralis.io/)
 - [Metamask wallet](https://metamask.io/)
 - [Rinkeby (ETH) Testnet](https://www.rinkeby.io/)
