@@ -1,4 +1,3 @@
-console.log(window.location.pathname)
 if(window.location.pathname == "/map/"){
   document.getElementById("mySidenav").style.transition = "0s"
   openNav()

@@ -1,0 +1,17 @@
+{% extends "journal/base.html" %}
+
+{%block title %}Read Paper{% endblock %}
+{% block header %}
+{% endblock %}
+
+{% block navigation %}
+    <div class="navigation-item no-select navigation-separator"><div>⟶</div></div>
+    <a href="/journal/{{ did }}/view" class="navigation-item no-select pointer"><div>{{ did }}</div></a>
+    <div class="navigation-item no-select navigation-separator"><div>⟶</div></div>
+    <div class="navigation-item no-select "><div>Read</div></div>
+{% endblock %}
+
+
+{% block content %}
+<embed class="read-paper-embed" src="{{ pdfUrl }}">
+{% endblock %}

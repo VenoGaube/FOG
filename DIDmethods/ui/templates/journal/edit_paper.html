@@ -1,0 +1,42 @@
+{% extends "journal/base.html" %}
+
+{%block title %}Edit Paper{% endblock %}
+{% block header %}
+<script>
+    const updatingDid = "{{ did }}";
+</script>
+<script src="{{url_for('static', filename='js/editPaper.js')}}"></script>
+{% endblock %}
+
+{% block navigation %}
+    <div class="navigation-item no-select navigation-separator"><div>⟶</div></div>
+    <a href="/journal/{{ did }}/view" class="navigation-item no-select pointer"><div>{{ did }}</div></a>
+    <div class="navigation-item no-select navigation-separator"><div>⟶</div></div>
+    <div class="navigation-item no-select "><div>Edit</div></div>
+{% endblock %}
+
+{% block content %}
+<div class="edit-wrapper" hidden>
+    <label>Upload new PDF
+        <input class="paper-input edit paper-upload-pdf" name="file" type="file" accept=".pdf"/>
+    </label>
+    <input type="button" class="paper-confirm-new-pdf" value="Confirm update">
+    <div class="separator-line"></div>
+    <label>Edit paper title
+        <input class="paper-input" name="title" type="text" placeholder="Paper Title..."/>
+    </label>
+    <input type="button" class="paper-confirm-new-title" value="Confirm update">
+    <div class="separator-line"></div>
+    <label>Edit keywords (Use character '|' as delimiter)
+        <input class="paper-input" name="keywords" type="text" placeholder="Keywords..."/>
+    </label>
+    <input type="button" class="paper-confirm-new-keywords" value="Confirm update">
+    <div class="separator-line"></div>
+    <label>Edit abstract
+        <textarea class="paper-input" spellcheck="false" name="abstract" placeholder="Abstract..."></textarea>
+    </label>
+    <input type="button" class="paper-confirm-new-abstract" value="Confirm Update">
+    <br>
+</div>
+
+{% endblock %}
