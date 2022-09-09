@@ -2,6 +2,7 @@
 # Article/Paper review
 
 Assigned student: Rok Bosil
+
 This part of the project focuses on the design of the review process.
 
 ## Selected technologies
@@ -24,7 +25,7 @@ For a more detailed description of the installation you can also look in the off
 
 ## Review process
 
-**The rudamentary article review process will be as follows:**
+**The rudimentary article review process will be as follows:**
 -   author submits the article
 -   the editor preforms an inital review and assigns the article to the selected reviewers
 -   the reviewers review the article and cast a vote
@@ -39,11 +40,13 @@ oracle, events, database, smart contract, ...
 ---
 ### Design
 
-The review process was designed with the use of smart contracts. The review process starts with the author submitting the paper for reviewing. 
 
-Brownie a local network ganche, it can be also used with testnet easily like ropsten
+The review process was designed with the use of smart contracts. We tested the smart contract using brownie on a local ganache bockchain.
+If one wants to deploy the contracts on a testnet (e.g. ropsten, rinkeby, ...) this can easily be done in Brownie with the `--network` tag. For more information you can look at on the official [Brownie documentation](https://eth-brownie.readthedocs.io/en/stable/network-management.html) - network management. 
 
-The review procces was designed with the use of smart contracts. Once the article was submitted the reviewers have 45 to review the article and submit their vote. One article can be submitted for the review process only two times, meaning that if the reviewers decided that the article needs to be revised, the authors can make corrections to the article and re-submit it. But after re-submitting it the article can only be accepted or rejected (it can not be sent for another revision).
+The review process starts with the author submitting the paper for and then the editor assigns reviewers to this article. Once the article was submitted the reviewers have 45 days to review the article and submit their vote. There must be at least 3 reviewers per article and after they each cast their vote a decision is made based on the votes. The article can be accepted, rejected or be sent for revision. One article can be submitted for the review process only two times, meaning that if the reviewers decided that the article needs to be revised, the authors can make corrections to the article and re-submit it. But after re-submitting it the article can only be accepted or rejected (it cannot be sent for another revision).
+
+The methods of the review process each emmit different events. We implemented an event listener that listens for these events (currently there is an event filter that listens for events emmited after a vote has been cast by the reviewer). Currently the vote is additionally stored in a database so tha we can keep a history of all votes for all the submitted articles. But additional functionalities can easily be implemented for different emmited events. 
 
 #### Storage:
 We only store the essential information about the review process and the articles on the blockchain. On the blockchain we store the submitted articles (only their ids and the data needed in the review process), the current votes/reviews of the articles and user roles. All the votes are also stored on a database where we can see the history of the review/voting process for different articles. This means that if the article needed to be revised and was once again sent through the review process, we can see the previous and aso the current reviewers votes. 
@@ -106,12 +109,16 @@ pip install -r requirements.txt
 
 ### Running the tests
 > NOTE:  This is only needed if you wish to run the provided brownie tests.
-1. Create a database in MySQL, by executing the following command in the MySQL console:
+1. Create a database in MySQL, by running the following script (you will hae to install MySQL if it is not: [download](https://dev.mysql.com/downloads/mysql/)):
 ```
-Create database Review;
+python scripts/database_setup.py
 ```
+&emsp;&emsp;&emsp;This will create the `review` database and in it the `votes` table. If you wish to 're-create' the `votes` table you can execute the function `reset_table` inside `scripts/database_helper.py`.
+> NOTE: We created the MySQL database with user: `root` and password: `root`. If you have different parameters please change them in the connection part of the code in `scripts/database_setup` and `scripts/database_helper` (the `getConnection` method in the latter)
+
 2. In terminal run the command ```brownie test -s``` (you must be in the /review directory). This command runs the provided tests, which simmulate the whole review process. 
 
+> NOTE: If you wish to test the contract without the database you can simply delete or comment `tests/test_review_process_database.py` and run the previous command (with this you will not need to create the MySQL database and the votes will not be stored in it)
 ### Individual testing
 
 > NOTE: Alternatively you can test individual smart contract methods with the help of the brownie console (all the below commands are executed in the terminal from /review directory or the brownie console):
@@ -127,11 +134,3 @@ Create database Review;
 ```
 r = Review.deploy(0, {'from': accounts[0]})
 ```
----
-
-Te events + oracle can be used to then store some additional information in a database
-the oracle will listen to events and san store for example votes for an article + so to not store all information on the blockchain
-
----
-Beacuse we did not connect the whole project we implemented a "dummy" identity management to set user roles.
-We could verify the role of users with the functoon in the smart contract form the Identity Management
