@@ -11,8 +11,8 @@ contract Review {
     // address of the user (could be a reviewer/editor/...)
     address public userContractAddress;
 //    User userContract;
-    enum UserType { none, reader, reviewer, author, editor }
-    mapping (address => UserType) userType;
+    enum UserRole { none, reader, reviewer, author, editor }
+    mapping (address => UserRole) userRole;
 
     enum VoteStatus { none, accept, reject, revise }
     enum ArticleStatus { none, waitingForReviewers, voting, revise, accepted, rejected}
@@ -20,7 +20,6 @@ contract Review {
     struct Vote {
         bool voted;
         int8 grade;
-//        string feedbackIpfsHash;
     }
 
     struct Article {
@@ -32,12 +31,7 @@ contract Review {
         mapping (address => bool) reviewers_bool;
         mapping(address => Vote) votes;
         int8 voteCount;
-
-//        address[] voteRequests;
-//        uint32 collateralTotal;
-//        mapping(address => uint256) requestTimes;
-//        mapping(address => uint32) collateralAmounts;
-//        mapping(address => bool) votingRights;
+        uint256 numberOfReviewers;
     }
 
     mapping(bytes32 => Article) submittedArticles;
@@ -49,52 +43,48 @@ contract Review {
     event ArticleRejected(string event_name, bytes32 articleId, string articleIpfsHash);
     event ArticleForRevision(string event_name, bytes32 articleId, string articleIpfsHAsh);
     event VotingPeriodExpired(string event_name, bytes32 articleId);
-
-//    constructor() public {
-//        userContractAddress = msg.sender;
-//        userContract = User(userContractAddress);
-//    }
+    event VoteCasted(string event_name, bytes32 articleId, string articleIpfsHash, int8 grade, address reviewer, string type_);
 
     constructor(int editor) public {
         userContractAddress = msg.sender;
         if (editor == 0){
-            userType[msg.sender] = UserType.editor;
+            userRole[msg.sender] = UserRole.editor;
         }
     }
 
 
     // functions for setting and retrieving the type of user
     // can only be set by the editor role
-    function setAnyUserType(int t, address userAddress) public {
+    function setAnyUserRole(int t, address userAddress) public {
         require(
-            userType[msg.sender] == UserType.editor,
+            userRole[msg.sender] == UserRole.editor,
             "Only an editor can change types"
         );
 
         if (t == 1){
-            userType[userAddress] = UserType.reader;
+            userRole[userAddress] = UserRole.reader;
         } else if (t == 2){
-            userType[userAddress] = UserType.reviewer;
+            userRole[userAddress] = UserRole.reviewer;
         } else if (t == 3){
-            userType[userAddress] = UserType.author;
+            userRole[userAddress] = UserRole.author;
         } else if (t == 4){
-            userType[userAddress] = UserType.editor;
+            userRole[userAddress] = UserRole.editor;
         } else {
-            userType[userAddress] = UserType.none;
+            userRole[userAddress] = UserRole.none;
         }
     }
 
-    function setUserType(UserType newType, address userAddress) public {
+    function setUserRole(UserRole newType, address userAddress) public {
         require(
-            userType[msg.sender] == UserType.editor,
+            userRole[msg.sender] == UserRole.editor,
             "Only an editor can change types"
         );
 
-        userType[userAddress] = newType;
+        userRole[userAddress] = newType;
     }
 
-    function getUserType(address userAddress) public view returns (UserType) {
-        return userType[userAddress];
+    function getUserRole(address userAddress) public view returns (UserRole) {
+        return userRole[userAddress];
     }
 
     function getArticleStatus(string memory articleIpfsHash) public view returns (ArticleStatus) {
@@ -115,7 +105,7 @@ contract Review {
     // functions for review process
     function submitArticleForReview(string memory articleIpfsHash) public {
         require(
-            getUserType(msg.sender) == UserType.author,
+            getUserRole(msg.sender) == UserRole.author,
             "Only an author can submit an article for a review."
         );
 
@@ -134,7 +124,7 @@ contract Review {
 
     function assignReviewers(string memory articleIpfsHash, address[] assigned_reviewers) public {
         require(
-            getUserType(msg.sender) == UserType.editor,
+            getUserRole(msg.sender) == UserRole.editor,
             "Only an editor can assign reviewers."
         );
 
@@ -155,12 +145,13 @@ contract Review {
         for (uint i = 0; i < assigned_reviewers.length; i++) {
             // make assigned_reviewers type reviewer
             // this is part of ID management
-            setUserType(UserType.reviewer, assigned_reviewers[i]);
+            setUserRole(UserRole.reviewer, assigned_reviewers[i]);
 
             article.reviewers_bool[assigned_reviewers[i]] = true;
             article.reviewers = assigned_reviewers;
         }
 
+        article.numberOfReviewers = assigned_reviewers.length;
         article.status = ArticleStatus.voting;
 
         emit VotingStarted('VotingStarted', articleId, article.ipfsHash);
@@ -168,8 +159,13 @@ contract Review {
 
     function vote(string memory articleIpfsHash, int8 _grade) public {
         require(
-            getUserType(msg.sender) == UserType.reviewer,
+            getUserRole(msg.sender) == UserRole.reviewer,
             "You must be a reviewer to review an article."
+        );
+
+        require(
+            _grade <= 5 && _grade >= 1,
+            "The grade should be between 1 and 5"
         );
 
         bytes32 articleId = sha256(abi.encodePacked(articleIpfsHash));
@@ -203,9 +199,16 @@ contract Review {
         article.votes[msg.sender] = newVote;
         article.voteCount++;
 
+        if (article.status == ArticleStatus.voting) {
+            emit VoteCasted('VoteCasted', articleId, article.ipfsHash, newVote.grade, msg.sender, 'first vote');
+        }
+        else {
+            emit VoteCasted('VoteCasted', articleId, article.ipfsHash, newVote.grade, msg.sender, 'second vote');
+        }
+
+
         // check if all the reviewers voted
-        //if (article.voteCount == article.reviewers_bool.length)
-        if (article.voteCount == REQUIRED_REVIEWERS) {
+        if (uint256(article.voteCount) == article.numberOfReviewers) {
             makeDecision(articleId);
         }
     }

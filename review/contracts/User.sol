@@ -1,36 +1,42 @@
+// SPDX-License-Identifier: MIT
+
 pragma solidity ^0.4.8;
 
 contract User {
-    enum UserType { none, reader, reviewer, author, editor }
+    enum UserRole { none, reader, reviewer, author, editor }
+    
+    // Maps user Ethereum addresses to accounts roles
+    mapping (address => UserRole) userRole;
 
-    // Maps user Ethereum addresses to internal IDs
-    mapping (address => uint32) userId;
-    // Maps user Ethereum addresses to their profiles on IPFS
-    mapping (address => string) userIpfsHash;
-    // Maps user Ethereum addresses to accounts types
-    mapping (address => UserType) userType;
-
-    function updateUserId(uint32 id) {
-        userId[msg.sender] = id;
+    function updateUserRole(UserRole newType) public {
+        userRole[msg.sender] = newType;
     }
 
-    function retrieveUserId(address userAddress) constant returns (uint32) {
-        return userId[userAddress];
+    function retrieveUserRole(address userAddress) public view returns (UserRole) {
+        return userRole[userAddress];
     }
 
-    function updateUserData(string ipfsHash) {
-        userIpfsHash[msg.sender] = ipfsHash;
+    function setTypeEditor() public {
+        userRole[msg.sender] = UserRole.editor;
     }
 
-    function retrieveUserData(address userAddress) constant returns (string) {
-        return userIpfsHash[userAddress];
+    function setTypeEditor(address userAddress) public {
+        userRole[userAddress] = UserRole.editor;
     }
 
-    function updateUserType(UserType newType) {
-        userType[msg.sender] = newType;
+    function setTypeReviewer() public {
+        userRole[msg.sender] = UserRole.reviewer;
     }
 
-    function retrieveUserType(address userAddress) constant returns (UserType) {
-        return userType[userAddress];
+    function setTypeReviewer(address userAddress) public {
+        userRole[userAddress] = UserRole.reviewer;
+    }
+
+    function setTypeAuthor() public {
+        userRole[msg.sender] = UserRole.author;
+    }
+
+    function setTypeAuthor(address userAddress) public {
+        userRole[userAddress] = UserRole.author;
     }
 }
