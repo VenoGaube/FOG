@@ -35,21 +35,21 @@ For a more detailed description of the installation you can also look in the off
     - the article is rejected
 -   if further revision is needed the authors address the concerns and can re-submit the article
 -   if the article is accepted it can be published
-oracle, events, database, smart contract, ...
+
 
 ---
 ### Design
 
 
-The review process was designed with the use of smart contracts. We tested the smart contract using brownie on a local ganache bockchain.
+The review process was designed with the use of smart contracts. We tested the smart contract using Brownie on a local ganache blockchain.
 If one wants to deploy the contracts on a testnet (e.g. ropsten, rinkeby, ...) this can easily be done in Brownie with the `--network` tag. For more information you can look at on the official [Brownie documentation](https://eth-brownie.readthedocs.io/en/stable/network-management.html) - network management. 
 
-The review process starts with the author submitting the paper for and then the editor assigns reviewers to this article. Once the article was submitted the reviewers have 45 days to review the article and submit their vote. There must be at least 3 reviewers per article and after they each cast their vote a decision is made based on the votes. The article can be accepted, rejected or be sent for revision. One article can be submitted for the review process only two times, meaning that if the reviewers decided that the article needs to be revised, the authors can make corrections to the article and re-submit it. But after re-submitting it the article can only be accepted or rejected (it cannot be sent for another revision).
+The review process starts with the author submitting the paper for reviewing and then the editor assigns reviewers to this article. Once the article was submitted the reviewers have 45 days to review the article and submit their vote. There must be at least 3 reviewers per article and after they each cast their vote a decision is made based on the votes. The article can be accepted, rejected or be sent for revision. One article can be submitted for the review process only **two** times, meaning that if the reviewers decided that the article needs to be revised, the authors can make corrections to the article and re-submit it. But after re-submitting it the article can only be accepted or rejected (it cannot be sent for another revision).
 
-The methods of the review process each emmit different events. We implemented an event listener that listens for these events (currently there is an event filter that listens for events emmited after a vote has been cast by the reviewer). Currently the vote is additionally stored in a database so tha we can keep a history of all votes for all the submitted articles. But additional functionalities can easily be implemented for different emmited events. 
+The methods of the review process each emmit different events. We implemented an event listener that listens for these events (currently there is an event filter that listens for events emitted after a vote has been cast by the reviewer). Currently the vote is additionally stored in a database so that we can keep a history of all the votes for all the submitted articles. But additional functionalities can easily be implemented for different emitted events. 
 
 #### Storage:
-We only store the essential information about the review process and the articles on the blockchain. On the blockchain we store the submitted articles (only their ids and the data needed in the review process), the current votes/reviews of the articles and user roles. All the votes are also stored on a database where we can see the history of the review/voting process for different articles. This means that if the article needed to be revised and was once again sent through the review process, we can see the previous and aso the current reviewers votes. 
+We only store the essential information about the review process and the articles on the blockchain. On the blockchain we store the submitted articles (only their ids (we use the sha256 hash function to encrypt the id) and the data needed in the review process), the current votes/reviews of the articles and user roles. All the votes are also stored on a database where we can see the history of the review/voting process for different articles. This means that if the article needed to be revised and was once again sent through the review process, we can see the previous and also the current votes. 
 
 ---
 ### User roles
@@ -63,23 +63,23 @@ Article review will be mainly linked with the author, reviewer and editor roles.
 ---
 
 ## Smart contract methods
-- `submitArticleForReview(string memory articleIpfsHash)`: This method submits the article for the start of the review process. It adds the aricle to the list of submitted articles, sets its status to `waitingForReviewers` and finally emits the event `ArticleSubmitted`.  
-	- Requirenments (checked by the method): 
+- `submitArticleForReview(string memory articleIpfsHash)`: This method submits the article for the start of the review process. It adds the article to the list of submitted articles, sets its status to `waitingForReviewers` and finally emits the event `ArticleSubmitted`.  
+	- Requirements (checked by the method): 
 		- only a user with the role of an **author** can call this method (the method checks if `msg.sender` has the author role). 
 -	`assignReviewers(string memory articleIpfsHash, address[] assigned_reviewers)`: The method retrieves the submitted article (sha256 encription of the `articleIpfsHash`) and assigns users from `assigned_reviewers` to be reviewers of this article. Because we are not connected to the Identity Management it also updates the roles of these users to reviewers. The article status is updated to `voting` and the event `VotingStarted` is emitted.
-	- Requirenments (checked by the method):
+	- Requirements (checked by the method):
 		- only a user with the role of an **editor** can call this method
 		-  the article must be in status `waitingForReviewers`
 		- there must be at least 3 reviewers per article
-- `vote(string memory articleIpfsHash, int8 _grade)`: This method casts a vote for the article (the reviewer can grade the article from a scale 1-5, 1 being the lowest score and 5 being the highest score).
-  	- Requirenments (checked by the method):
+- `vote(string memory articleIpfsHash, int8 _grade)`: This method casts a vote for the article (the reviewer can grade the article from a scale 1-5, 1 being the lowest score and 5 being the highest score). Event `VoteCasted` is emitted.
+  	- Requirements (checked by the method):
 		- only a user with the role of a **reviewer** can call this method
 		- the grade must be between 1 and 5
 		- the user must be assigned to review the article
 		-  the article must be in status `voting` or `revise`
 		- the user must not have already voted
 		- the voting period must not have expired (less than 45 days since the article was submitted)
-- `makeDecision(bytes32 articleId)`: This function is called when all the reviewers casted their vote. Based on the votes a decision is made to **accept**, **reject** or **revise** the article. Depending on the decision different events are emmited:
+- `makeDecision(bytes32 articleId)`: This function is called when all the reviewers casted their vote. Based on the votes a decision is made to **accept**, **reject** or **revise** the article. Depending on the decision different events are emitted:
   	- the decision is **accept**:
 		-  the article status is updated to `accept`
 		- event `ArticleAccepted` is emitted
@@ -109,7 +109,7 @@ pip install -r requirements.txt
 
 ### Running the tests
 > NOTE:  This is only needed if you wish to run the provided brownie tests.
-1. Create a database in MySQL, by running the following script (you will hae to install MySQL if it is not: [download](https://dev.mysql.com/downloads/mysql/)):
+1. Create a database in MySQL, by running the following script (you will have to install MySQL if it is not: [download](https://dev.mysql.com/downloads/mysql/)):
 ```
 python scripts/database_setup.py
 ```
