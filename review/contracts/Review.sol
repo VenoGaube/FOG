@@ -137,7 +137,7 @@ contract Review {
         );
 
         require(
-            int8(assigned_reviewers.length) == REQUIRED_REVIEWERS,
+            int8(assigned_reviewers.length) >= REQUIRED_REVIEWERS,
             "There must be at least 3 reviewers per article."
         );
 
